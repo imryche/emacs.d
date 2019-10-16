@@ -220,6 +220,7 @@
    ;; Jump
    "jl" 'avy-goto-line
    "jf" 'avy-goto-char-timer
+   "jr" 'avy-resume
    ;; Git
    "gs" 'magit-status
    "gb" 'magit-blame
