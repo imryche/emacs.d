@@ -217,6 +217,7 @@
    "jl" 'avy-goto-line
    ;; Git
    "gs" 'magit-status
+   "gb" 'magit-blame
    ;; Window
    "wl" 'windmove-right
    "wh" 'windmove-left
