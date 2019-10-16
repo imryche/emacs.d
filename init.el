@@ -158,6 +158,9 @@
   :config
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
 
+;; Yaml
+(use-package yaml-mode :ensure t)
+
 ;; Custom functions
 (defun switch-to-previous-buffer ()
       (interactive)
@@ -236,7 +239,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
+    (yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
