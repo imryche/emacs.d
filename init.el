@@ -7,6 +7,8 @@
 (setq default-fill-column 80)
 (setq initial-scratch-message "")
 (setq frame-resize-pixelwise t)
+(setq make-backup-files nil)
+(setq auto-save-default nil)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
