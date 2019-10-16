@@ -40,6 +40,8 @@
   :config
   (load-theme 'sanityinc-tomorrow-eighties t))
 
+(global-hl-line-mode +1)
+
 ;; Evil
 (use-package evil :ensure t
   :config
