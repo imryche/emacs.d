@@ -201,7 +201,8 @@
    "fs" 'save-buffer
    "ff" 'counsel-find-file
    ;; Buffers
-   "bd" 'kill-buffer
+   "bd" 'kill-current-buffer
+   "bk" 'kill-buffer
    "bb" 'counsel-switch-buffer
    ;; Jump
    "jl" 'avy-goto-line
