@@ -188,8 +188,6 @@
    :prefix "SPC"
    "." 'edit-emacs-config
    "/" 'counsel-ag
-   "*" 'counsel-ag-thing-at-point
-   "," 'swiper-thing-at-point
    "TAB" 'mode-line-other-buffer
    "SPC" 'counsel-switch-buffer
    ;; Apps
@@ -204,6 +202,9 @@
    "bd" 'kill-current-buffer
    "bk" 'kill-buffer
    "bb" 'counsel-switch-buffer
+   ;; Search
+   "ss" 'swiper-thing-at-point
+   "sp" 'counsel-ag-thing-at-point
    ;; Jump
    "jl" 'avy-goto-line
    ;; Git
