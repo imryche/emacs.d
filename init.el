@@ -137,13 +137,8 @@
 (use-package elpy
   :ensure t
   :init
-  (defun my-python-mode-hook ()
-    (general-define-key
-     :states '(normal visual emacs)
-     :prefix ","
-     "g" 'elpy-goto-definition))
-  (add-hook 'python-mode-hook 'my-python-mode-hook)
   (elpy-enable)
+  (add-hook 'python-mode-hook 'oneor0-python-mode-hook)
   (delete `elpy-module-highlight-indentation elpy-modules))
 
 ;; Enable Flycheck
@@ -164,10 +159,6 @@
 (use-package yaml-mode :ensure t)
 
 ;; Custom functions
-(defun switch-to-previous-buffer ()
-      (interactive)
-      (switch-to-buffer (other-buffer (current-buffer) 1)))
-
 (defun edit-emacs-config ()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
@@ -186,58 +177,74 @@
   (interactive)
   (ivy-with-thing-at-point 'swiper))
 
+(defun oneor0-python-mode-hook ()
+  (set-local-leader-keys
+    :keymaps 'python-mode-map
+    :states '(normal visual emacs)
+    "g" 'elpy-goto-definition
+    "G" 'elpy-goto-definition-other-window
+    "d" 'elpy-doc
+    "a" 'elpy-goto-assignment
+    "r" 'elpy-format-code))
+
 ;; Custom keybinding
-(use-package general
-  :ensure t
-  :config
-  (general-define-key
-   :states '(normal visual emacs)
-   "/" 'swiper)
-  (general-define-key
-   :states '(normal visual emacs)
-   :prefix "SPC"
-   "." 'edit-emacs-config
-   "/" 'counsel-ag
-   "TAB" 'mode-line-other-buffer
-   "SPC" 'counsel-switch-buffer
-   ;; Apps
-   "ar" 'ranger
-   "ad" 'deer
-   ;; Quit
-   "qq" 'save-buffers-kill-emacs
-   ;; Files
-   "fs" 'save-buffer
-   "ff" 'counsel-find-file
-   ;; Buffers
-   "bd" 'kill-current-buffer
-   "bk" 'kill-buffer
-   "bb" 'counsel-switch-buffer
-   ;; Search
-   "ss" 'swiper-thing-at-point
-   "sp" 'counsel-ag-thing-at-point
-   ;; Jump
-   "jl" 'avy-goto-line
-   "jf" 'avy-goto-char-timer
-   "jr" 'avy-resume
-   ;; Git
-   "gs" 'magit-status
-   "gb" 'magit-blame
-   ;; Window
-   "wl" 'windmove-right
-   "wh" 'windmove-left
-   "wk" 'windmove-up
-   "wj" 'windmove-down
-   "w/" 'split-window-right
-   "w-" 'split-window-below
-   "wd" 'delete-window
-   ;; Projects
-   "pp" 'counsel-projectile-switch-project
-   "pf" 'counsel-projectile
-   "pb" 'counsel-projectile-switch-to-buffer
-   ;; Help
-   "hv" 'counsel-describe-variable
-   "hf" 'counsel-describe-function
-))
+(use-package general :ensure t)
+
+(general-create-definer set-leader-keys
+  :prefix "SPC")
+
+(general-create-definer set-local-leader-keys
+  :prefix ",")
+
+(general-define-key
+ :states '(normal visual emacs)
+ "/" 'swiper)
+
+(set-leader-keys
+ :states '(normal visual emacs)
+ "." 'edit-emacs-config
+ "/" 'counsel-ag
+ "TAB" 'mode-line-other-buffer
+ "SPC" 'counsel-switch-buffer
+ ;; Apps
+ "ar" 'ranger
+ "ad" 'deer
+ ;; Quit
+ "qq" 'save-buffers-kill-emacs
+ ;; Files
+ "fs" 'save-buffer
+ "ff" 'counsel-find-file
+ ;; Buffers
+ "bd" 'kill-current-buffer
+ "bk" 'kill-buffer
+ "bb" 'counsel-switch-buffer
+ ;; Search
+ "ss" 'swiper-thing-at-point
+ "sp" 'counsel-ag-thing-at-point
+ ;; Jump
+ "jl" 'avy-goto-line
+ "jf" 'avy-goto-char-timer
+ "jr" 'avy-resume
+ ;; Git
+ "gs" 'magit-status
+ "gb" 'magit-blame
+ ;; Window
+ "wl" 'windmove-right
+ "wh" 'windmove-left
+ "wk" 'windmove-up
+ "wj" 'windmove-down
+ "w/" 'split-window-right
+ "w-" 'split-window-below
+ "wd" 'delete-window
+ ;; Projects
+ "pp" 'counsel-projectile-switch-project
+ "pf" 'counsel-projectile
+ "pb" 'counsel-projectile-switch-to-buffer
+ ;; Help
+ "hv" 'counsel-describe-variable
+ "hf" 'counsel-describe-function
+)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
