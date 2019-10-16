@@ -95,7 +95,10 @@
   (which-key-mode)
   )
 
-(use-package avy :ensure t
+(use-package avy
+  :ensure t
+  :init
+  (setq avy-background 1)
   :commands (avy-goto-word-1))
 
 ;; Ranger
