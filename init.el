@@ -15,6 +15,9 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 
+;; yes no -> y n
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 ;; Package Management
 (require 'package)
 (setq package-enable-at-startup nil)
