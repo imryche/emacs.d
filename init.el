@@ -219,6 +219,7 @@
    "sp" 'counsel-ag-thing-at-point
    ;; Jump
    "jl" 'avy-goto-line
+   "jf" 'avy-goto-char-timer
    ;; Git
    "gs" 'magit-status
    "gb" 'magit-blame
