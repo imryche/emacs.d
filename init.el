@@ -230,6 +230,7 @@
    "w/" 'split-window-right
    "w-" 'split-window-below
    "wd" 'delete-window
+   ;; Projects
    "pp" 'counsel-projectile-switch-project
    "pf" 'counsel-projectile
    "pb" 'counsel-projectile-switch-to-buffer
