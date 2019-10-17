@@ -63,6 +63,11 @@
 
 (use-package evil-nerd-commenter :ensure t)
 
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
 ;; Path management
 (use-package exec-path-from-shell
   :ensure t
