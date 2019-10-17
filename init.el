@@ -163,6 +163,12 @@
 ;; Yaml
 (use-package yaml-mode :ensure t)
 
+;; Racket
+(use-package racket-mode
+  :ensure t
+  :init
+  (add-hook 'racket-mode-hook 'oneor0-racket-mode-hook))
+
 ;; Custom functions
 (defun edit-emacs-config ()
   (interactive)
@@ -191,6 +197,13 @@
     "d" 'elpy-doc
     "a" 'elpy-goto-assignment
     "r" 'elpy-format-code))
+
+(defun oneor0-racket-mode-hook ()
+  (set-local-leader-keys
+    :keymaps 'racket-mode-map
+    :states '(normal visual emacs)
+    "'" 'racket-repl
+    "sr" 'racket-send-region))
 
 (defun insert-line-above ()
   "Insert an empty line above the current line."
@@ -281,7 +294,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-unimpaired evil-surround yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
+    (racket-mode evil-unimpaired evil-surround yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
