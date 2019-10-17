@@ -203,6 +203,7 @@
     :keymaps 'racket-mode-map
     :states '(normal visual emacs)
     "'" 'racket-repl
+    "sb" 'racket-run
     "sr" 'racket-send-region))
 
 (defun insert-line-above ()
