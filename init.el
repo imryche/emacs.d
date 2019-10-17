@@ -192,6 +192,20 @@
     "a" 'elpy-goto-assignment
     "r" 'elpy-format-code))
 
+(defun insert-line-above ()
+  "Insert an empty line above the current line."
+  (interactive)
+  (save-excursion
+    (end-of-line 0)
+    (open-line 1)))
+
+(defun insert-line-below ()
+  "Insert an empty line below the current line."
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (open-line 1)))
+
 ;; Custom keybinding
 (use-package general :ensure t)
 
@@ -204,6 +218,16 @@
 (general-define-key
  :states '(normal visual emacs)
  "/" 'swiper)
+
+(general-define-key
+ :states '(normal visual emacs)
+ :prefix "["
+ "SPC" 'insert-line-above)
+
+(general-define-key
+ :states '(normal visual emacs)
+ :prefix "]"
+ "SPC" 'insert-line-below)
 
 (set-leader-keys
  :states '(normal visual emacs)
@@ -257,7 +281,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
+    (evil-unimpaired evil-surround yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
