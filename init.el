@@ -33,6 +33,8 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
 (electric-pair-mode)
 
 (setq evil-want-keybinding nil)
@@ -168,6 +170,9 @@
   :ensure t
   :init
   (add-hook 'racket-mode-hook 'oneor0-racket-mode-hook))
+
+;; iTerm
+(require 'iterm)
 
 ;; Custom functions
 (defun edit-emacs-config ()
