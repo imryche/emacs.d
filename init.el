@@ -145,10 +145,8 @@
   :ensure t
   :init
   (elpy-enable)
-  (add-hook 'python-mode-hook 'oneor0-python-mode-hook)
+  (add-hook 'python-mode-hook 'oneor0/python-mode-hook)
   (delete `elpy-module-highlight-indentation elpy-modules))
-
-;; Enable Flycheck
 
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -162,6 +160,8 @@
   :config
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
 
+(use-package py-isort :ensure t)
+
 ;; Yaml
 (use-package yaml-mode :ensure t)
 
@@ -169,7 +169,7 @@
 (use-package racket-mode
   :ensure t
   :init
-  (add-hook 'racket-mode-hook 'oneor0-racket-mode-hook))
+  (add-hook 'racket-mode-hook 'oneor0/racket-mode-hook))
 
 ;; iTerm
 (require 'iterm)
@@ -193,7 +193,7 @@
   (interactive)
   (ivy-with-thing-at-point 'swiper))
 
-(defun oneor0-python-mode-hook ()
+(defun oneor0/python-mode-hook ()
   (set-local-leader-keys
     :keymaps 'python-mode-map
     :states '(normal visual emacs)
@@ -203,7 +203,7 @@
     "a" 'elpy-goto-assignment
     "r" 'elpy-format-code))
 
-(defun oneor0-racket-mode-hook ()
+(defun oneor0/racket-mode-hook ()
   (set-local-leader-keys
     :keymaps 'racket-mode-map
     :states '(normal visual emacs)
