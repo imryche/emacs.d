@@ -152,7 +152,6 @@
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-
 (use-package auto-virtualenv
   :ensure t
   :init
@@ -201,7 +200,21 @@
     "G" 'elpy-goto-definition-other-window
     "d" 'elpy-doc
     "a" 'elpy-goto-assignment
-    "r" 'elpy-format-code))
+    "r" 'elpy-format-code
+    "ss" 'py-isort-buffer
+    "sr" 'oneor0/py-autoflake-buffer
+    "tt" 'iterm-pytest
+    "tf" 'iterm-pytest-file))
+
+(defun oneor0/py-autoflake-buffer()
+  "autoflake --remove-all-unused-imports -i unused_imports.py"
+  (interactive)
+  (if (executable-find "autoflake")
+      (progn
+        (shell-command (format "autoflake --remove-all-unused-imports -i %s"
+                               (shell-quote-argument (buffer-file-name))))
+        (revert-buffer t t t))
+    (message "Error: Cannot find autoflake executable.")))
 
 (defun oneor0/racket-mode-hook ()
   (set-local-leader-keys
@@ -300,7 +313,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (racket-mode evil-unimpaired evil-surround yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
+    (py-autoflake py-isort racket-mode evil-unimpaired evil-surround yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
