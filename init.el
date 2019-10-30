@@ -1,14 +1,14 @@
-(setq delete-old-versions -1)
-(setq inhibit-startup-screen t)
-(setq ring-bell-function 'ignore)
-(setq coding-system-for-read 'utf-8)
-(setq coding-system-for-write 'utf-8)
-(setq sentence-end-double-space nil)
-(setq default-fill-column 80)
-(setq initial-scratch-message "")
-(setq frame-resize-pixelwise t)
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+(setq delete-old-versions -1
+      inhibit-startup-screen t
+      ring-bell-function 'ignore
+      coding-system-for-read 'utf-8
+      coding-system-for-write 'utf-8
+      sentence-end-double-space nil
+      default-fill-column 80
+      initial-scratch-message ""
+      frame-resize-pixelwise t
+      make-backup-files nil
+      auto-save-default nil)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
