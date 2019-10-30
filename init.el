@@ -40,7 +40,7 @@
 (setq evil-want-keybinding nil)
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "SF Mono-12" ))
+(add-to-list 'default-frame-alist '(font . "Monaco-12" ))
 
 ;; Theme
 (use-package color-theme-sanityinc-tomorrow
