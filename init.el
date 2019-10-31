@@ -17,6 +17,8 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (show-paren-mode 1)
+(global-hl-line-mode +1)
+(electric-pair-mode)
 
 ;; yes no -> y n
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -35,7 +37,11 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-(electric-pair-mode)
+(general-create-definer set-leader-keys
+  :prefix "SPC")
+
+(general-create-definer set-local-leader-keys
+  :prefix ",")
 
 (setq evil-want-keybinding nil)
 
@@ -47,8 +53,6 @@
   :ensure t
   :config
   (load-theme 'sanityinc-tomorrow-eighties t))
-
-(global-hl-line-mode +1)
 
 ;; Evil
 (use-package evil :ensure t
@@ -107,8 +111,7 @@
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
   :config
-  (which-key-mode)
-  )
+  (which-key-mode))
 
 (use-package avy
   :ensure t
@@ -121,9 +124,7 @@
   (setq ranger-show-hidden t))
 
 ;; Git
-(use-package magit
-  :ensure t
-  )
+(use-package magit :ensure t)
 
 (use-package evil-magit :ensure t)
 
@@ -248,12 +249,6 @@
 
 ;; Custom keybinding
 (use-package general :ensure t)
-
-(general-create-definer set-leader-keys
-  :prefix "SPC")
-
-(general-create-definer set-local-leader-keys
-  :prefix ",")
 
 (general-define-key
  :states '(normal visual emacs)
