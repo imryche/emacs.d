@@ -282,6 +282,7 @@
  ;; Search
  "ss" 'swiper-thing-at-point
  "sp" 'counsel-ag-thing-at-point
+ "sr" 'ivy-resume
  ;; Jump
  "jl" 'avy-goto-line
  "jf" 'avy-goto-char-timer
