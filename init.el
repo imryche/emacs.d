@@ -1,14 +1,14 @@
-(setq delete-old-versions -1)
-(setq inhibit-startup-screen t)
-(setq ring-bell-function 'ignore)
-(setq coding-system-for-read 'utf-8)
-(setq coding-system-for-write 'utf-8)
-(setq sentence-end-double-space nil)
-(setq default-fill-column 80)
-(setq initial-scratch-message "")
-(setq frame-resize-pixelwise t)
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+(setq delete-old-versions -1
+      inhibit-startup-screen t
+      ring-bell-function 'ignore
+      coding-system-for-read 'utf-8
+      coding-system-for-write 'utf-8
+      sentence-end-double-space nil
+      default-fill-column 80
+      initial-scratch-message ""
+      frame-resize-pixelwise t
+      make-backup-files nil
+      auto-save-default nil)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -17,6 +17,8 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (show-paren-mode 1)
+(global-hl-line-mode +1)
+(electric-pair-mode)
 
 ;; yes no -> y n
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -35,20 +37,22 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-(electric-pair-mode)
+(general-create-definer set-leader-keys
+  :prefix "SPC")
+
+(general-create-definer set-local-leader-keys
+  :prefix ",")
 
 (setq evil-want-keybinding nil)
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "SF Mono-12" ))
+(add-to-list 'default-frame-alist '(font . "Monaco-12" ))
 
 ;; Theme
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :config
   (load-theme 'sanityinc-tomorrow-eighties t))
-
-(global-hl-line-mode +1)
 
 ;; Evil
 (use-package evil :ensure t
@@ -76,6 +80,14 @@
   :config
   (exec-path-from-shell-initialize))
 
+;; Switch windows
+(use-package ace-window
+  :ensure t
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "o" 'ace-window))
+
 ;; Ivy
 (use-package ivy :ensure t
   :diminish (ivy-mode . "") ; does not display ivy in the modeline
@@ -99,8 +111,7 @@
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
   :config
-  (which-key-mode)
-  )
+  (which-key-mode))
 
 (use-package avy
   :ensure t
@@ -113,9 +124,7 @@
   (setq ranger-show-hidden t))
 
 ;; Git
-(use-package magit
-  :ensure t
-  )
+(use-package magit :ensure t)
 
 (use-package evil-magit :ensure t)
 
@@ -242,12 +251,6 @@
 ;; Custom keybinding
 (use-package general :ensure t)
 
-(general-create-definer set-leader-keys
-  :prefix "SPC")
-
-(general-create-definer set-local-leader-keys
-  :prefix ",")
-
 (general-define-key
  :states '(normal visual emacs)
  "/" 'swiper)
@@ -283,6 +286,7 @@
  ;; Search
  "ss" 'swiper-thing-at-point
  "sp" 'counsel-ag-thing-at-point
+ "sr" 'ivy-resume
  ;; Jump
  "jl" 'avy-goto-line
  "jf" 'avy-goto-char-timer
