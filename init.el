@@ -76,6 +76,14 @@
   :config
   (exec-path-from-shell-initialize))
 
+;; Switch windows
+(use-package ace-window
+  :ensure t
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "o" 'ace-window))
+
 ;; Ivy
 (use-package ivy :ensure t
   :diminish (ivy-mode . "") ; does not display ivy in the modeline
