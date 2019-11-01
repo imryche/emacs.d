@@ -61,6 +61,13 @@
   :config
   (load-theme 'sanityinc-tomorrow-eighties t))
 
+;; Hide all minor modes
+(use-package minions
+  :config
+  (setq minions-mode-line-lighter ""
+        minions-mode-line-delimiters '("" . ""))
+  (minions-mode 1))
+
 ;; Evil
 (use-package evil
   :init
