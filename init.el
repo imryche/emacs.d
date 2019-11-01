@@ -219,6 +219,7 @@
     "d" 'elpy-doc
     "a" 'elpy-goto-assignment
     "r" 'elpy-format-code
+    "e" 'elpy-shell-send-buffer
     "ss" 'py-isort-buffer
     "sr" 'oneor0/py-autoflake-buffer
     "tt" 'iterm-pytest
