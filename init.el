@@ -141,6 +141,15 @@
   :config
   (counsel-projectile-mode))
 
+;; Org
+(use-package org
+  :ensure t)
+
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 ;; Autocompletion
 (use-package company
   :ensure t
@@ -317,7 +326,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (py-autoflake py-isort racket-mode evil-unimpaired evil-surround yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
+    (org-bullets flycheck org-mode evil-magit magit ace-window evil-escape py-autoflake py-isort racket-mode evil-unimpaired evil-surround yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
