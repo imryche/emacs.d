@@ -40,6 +40,14 @@
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
+
+;; Always compile packages and use the newest version available
+(use-package auto-compile
+  :config (auto-compile-on-load-mode))
+
+(setq load-prefer-newer t)
+
+;; General
 (use-package general
   :config
   (general-create-definer set-leader-keys :prefix "SPC")
