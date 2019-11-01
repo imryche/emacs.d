@@ -20,6 +20,10 @@
 (global-hl-line-mode +1)
 (electric-pair-mode)
 
+;; Store customizations in the separate file
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror)
+
 ;; yes no -> y n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -347,18 +351,3 @@
  "hv" 'counsel-describe-variable
  "hf" 'counsel-describe-function
 )
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (org-bullets flycheck org-mode evil-magit magit ace-window evil-escape py-autoflake py-isort racket-mode evil-unimpaired evil-surround yaml-mode evil-nerd-commenter which-key use-package ranger general exec-path-from-shell evil-collection elpy counsel-projectile color-theme-sanityinc-tomorrow avy auto-virtualenv))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
