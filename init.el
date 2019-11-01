@@ -75,6 +75,17 @@
   :config
   (global-evil-surround-mode 1))
 
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
 ;; Path management
 (use-package exec-path-from-shell
   :config
@@ -140,7 +151,18 @@
   (counsel-projectile-mode))
 
 ;; Org
-(use-package org)
+(use-package org
+  :ensure org-plus-contrib
+  :init
+  (setq org-log-done 'time)
+  (setq org-directory "~/Dropbox/org")
+  :config
+  (defun org-file-path (filename)
+    "Return the absolute address of an org file, given its relative name."
+    (concat (file-name-as-directory org-directory) filename))
+  (defun edit-work-tasks ()
+    (interactive)
+    (find-file (org-file-path "work.org"))))
 
 (use-package org-bullets
   :config
@@ -278,6 +300,7 @@
  ;; Files
  "fs" 'save-buffer
  "ff" 'counsel-find-file
+ "fow" 'edit-work-tasks
  ;; Buffers
  "bd" 'kill-current-buffer
  "bk" 'kill-buffer
