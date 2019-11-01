@@ -311,6 +311,7 @@
  "/" 'counsel-ag
  "TAB" 'mode-line-other-buffer
  "SPC" 'counsel-switch-buffer
+ ";" 'evilnc-comment-or-uncomment-lines
  ;; Apps
  "ar" 'ranger
  "ad" 'deer
