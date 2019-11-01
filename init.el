@@ -37,7 +37,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; General
+(require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
 (use-package general
