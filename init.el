@@ -37,59 +37,58 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-(general-create-definer set-leader-keys
-  :prefix "SPC")
+;; General
+(setq use-package-always-ensure t)
 
-(general-create-definer set-local-leader-keys
-  :prefix ",")
-
-(setq evil-want-keybinding nil)
+(use-package general
+  :config
+  (general-create-definer set-leader-keys :prefix "SPC")
+  (general-create-definer set-local-leader-keys :prefix ","))
 
 ;; Font
 (add-to-list 'default-frame-alist '(font . "Monaco-12" ))
 
 ;; Theme
 (use-package color-theme-sanityinc-tomorrow
-  :ensure t
   :config
   (load-theme 'sanityinc-tomorrow-eighties t))
 
 ;; Evil
-(use-package evil :ensure t
+(use-package evil
+  :init
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1))
 
-(use-package evil-collection :ensure t
+(use-package evil-collection
+  :after evil
   :config
   (evil-collection-init))
 
-(use-package evil-escape :ensure t
+(use-package evil-escape
   :config
   (evil-escape-mode))
 
-(use-package evil-nerd-commenter :ensure t)
+(use-package evil-nerd-commenter)
 
 (use-package evil-surround
-  :ensure t
   :config
   (global-evil-surround-mode 1))
 
 ;; Path management
 (use-package exec-path-from-shell
-  :ensure t
   :config
   (exec-path-from-shell-initialize))
 
 ;; Switch windows
 (use-package ace-window
-  :ensure t
   :config
   (set-leader-keys
     :states '(normal visual emacs)
     "o" 'ace-window))
 
 ;; Ivy
-(use-package ivy :ensure t
+(use-package ivy
   :diminish (ivy-mode . "") ; does not display ivy in the modeline
   :init (ivy-mode 1)        ; enable ivy globally at startup
   :bind (:map ivy-mode-map
@@ -103,10 +102,9 @@
   (setq ivy-count-format "(%d/%d) ") ; count format, from the ivy help page
   )
 
-(use-package counsel :ensure t)
+(use-package counsel)
 
 (use-package which-key
-  :ensure t
   :init
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
@@ -114,53 +112,45 @@
   (which-key-mode))
 
 (use-package avy
-  :ensure t
   :commands (avy-goto-word-1))
 
 ;; Ranger
 (use-package ranger 
-  :ensure t
   :init
   (setq ranger-show-hidden t))
 
 ;; Git
-(use-package magit :ensure t)
+(use-package magit)
 
-(use-package evil-magit :ensure t)
+(use-package evil-magit)
 
 ;; Project management
 (use-package projectile
-  :ensure t
   :init
   (setq projectile-completion-system 'ivy)
   :config
   (projectile-mode))
 
 (use-package counsel-projectile 
-  :ensure t
   :config
   (counsel-projectile-mode))
 
 ;; Org
-(use-package org
-  :ensure t)
+(use-package org)
 
 (use-package org-bullets
-  :ensure t
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; Autocompletion
 (use-package company
-  :ensure t
   :config
   (global-company-mode t))
 
-(use-package flycheck :ensure t)
+(use-package flycheck)
 
 ;; Python
 (use-package elpy
-  :ensure t
   :init
   (elpy-enable)
   (add-hook 'python-mode-hook 'oneor0/python-mode-hook)
@@ -171,20 +161,18 @@
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 (use-package auto-virtualenv
-  :ensure t
   :init
   (require 'auto-virtualenv)
   :config
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
 
-(use-package py-isort :ensure t)
+(use-package py-isort)
 
 ;; Yaml
-(use-package yaml-mode :ensure t)
+(use-package yaml-mode)
 
 ;; Racket
 (use-package racket-mode
-  :ensure t
   :init
   (add-hook 'racket-mode-hook 'oneor0/racket-mode-hook))
 
@@ -257,9 +245,7 @@
     (end-of-line)
     (open-line 1)))
 
-;; Custom keybinding
-(use-package general :ensure t)
-
+;; Keybindings
 (general-define-key
  :states '(normal visual emacs)
  "/" 'swiper)
