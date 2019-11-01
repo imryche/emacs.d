@@ -120,9 +120,13 @@
   (setq ranger-show-hidden t))
 
 ;; Git
-(use-package magit)
+(use-package magit
+  :config
+  (use-package evil-magit)
+  (use-package with-editor)
+  (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
-(use-package evil-magit)
+(use-package git-timemachine)
 
 ;; Project management
 (use-package projectile
