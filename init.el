@@ -319,6 +319,7 @@
  "qq" 'save-buffers-kill-emacs
  ;; Files
  "fs" 'save-buffer
+ "fS" 'save-some-buffers
  "ff" 'counsel-find-file
  "fow" 'edit-work-tasks
  ;; Buffers
