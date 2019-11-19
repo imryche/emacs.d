@@ -132,7 +132,10 @@
   (setq ivy-count-format "(%d/%d) ") ; count format, from the ivy help page
   )
 
-(use-package counsel)
+(use-package counsel
+  :config
+  (use-package flx)
+  (use-package smex))
 
 (use-package which-key
   :init
