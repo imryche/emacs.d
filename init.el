@@ -279,6 +279,18 @@
     "sb" 'racket-run
     "sr" 'racket-send-region))
 
+(defun oneor0/split-right-switch ()
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+
+(defun oneor0/split-below-switch ()
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+
 (defun insert-line-above ()
   "Insert an empty line above the current line."
   (interactive)
@@ -312,6 +324,7 @@
  :states '(normal visual emacs)
  "." 'edit-emacs-config
  "/" 'counsel-ag
+ "x" 'counsel-M-x
  "TAB" 'mode-line-other-buffer
  "SPC" 'counsel-switch-buffer
  ";" 'evilnc-comment-or-uncomment-lines
@@ -345,8 +358,8 @@
  "wh" 'windmove-left
  "wk" 'windmove-up
  "wj" 'windmove-down
- "w/" 'split-window-right
- "w-" 'split-window-below
+ "w/" 'oneor0/split-right-switch
+ "w-" 'oneor0/split-below-switch
  "wd" 'delete-window
  ;; Projects
  "pp" 'counsel-projectile-switch-project
