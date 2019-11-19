@@ -251,7 +251,7 @@
     "G" 'elpy-goto-definition-other-window
     "d" 'elpy-doc
     "a" 'elpy-goto-assignment
-    "r" 'elpy-format-code
+    "r" 'elpy-black-fix-code
     "e" 'elpy-shell-send-buffer
     "ss" 'py-isort-buffer
     "sr" 'oneor0/py-autoflake-buffer
