@@ -73,3 +73,6 @@ flycheck_*.el
 
 # custom
 custom.el
+
+# smex
+smex-items
