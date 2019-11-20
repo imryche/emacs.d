@@ -132,7 +132,10 @@
   (setq ivy-count-format "(%d/%d) ") ; count format, from the ivy help page
   )
 
-(use-package counsel)
+(use-package counsel
+  :config
+  (use-package flx)
+  (use-package smex))
 
 (use-package which-key
   :init
@@ -255,7 +258,7 @@
     "G" 'elpy-goto-definition-other-window
     "d" 'elpy-doc
     "a" 'elpy-goto-assignment
-    "r" 'elpy-format-code
+    "r" 'elpy-black-fix-code
     "e" 'elpy-shell-send-buffer
     "ss" 'py-isort-buffer
     "sr" 'oneor0/py-autoflake-buffer
@@ -279,6 +282,18 @@
     "'" 'racket-repl
     "sb" 'racket-run
     "sr" 'racket-send-region))
+
+(defun oneor0/split-right-switch ()
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+
+(defun oneor0/split-below-switch ()
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
 
 (defun insert-line-above ()
   "Insert an empty line above the current line."
@@ -313,6 +328,7 @@
  :states '(normal visual emacs)
  "." 'edit-emacs-config
  "/" 'counsel-ag
+ "x" 'counsel-M-x
  "TAB" 'mode-line-other-buffer
  "SPC" 'counsel-switch-buffer
  ";" 'evilnc-comment-or-uncomment-lines
@@ -323,6 +339,7 @@
  "qq" 'save-buffers-kill-emacs
  ;; Files
  "fs" 'save-buffer
+ "fS" 'save-some-buffers
  "ff" 'counsel-find-file
  "fow" 'edit-work-tasks
  "fop" 'edit-projects-tasks
@@ -346,8 +363,8 @@
  "wh" 'windmove-left
  "wk" 'windmove-up
  "wj" 'windmove-down
- "w/" 'split-window-right
- "w-" 'split-window-below
+ "w/" 'oneor0/split-right-switch
+ "w-" 'oneor0/split-below-switch
  "wd" 'delete-window
  ;; Projects
  "pp" 'counsel-projectile-switch-project
