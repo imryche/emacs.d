@@ -181,7 +181,10 @@
     (concat (file-name-as-directory org-directory) filename))
   (defun edit-work-tasks ()
     (interactive)
-    (find-file (org-file-path "work.org"))))
+    (find-file (org-file-path "work.org")))
+  (defun edit-projects-tasks ()
+    (interactive)
+    (find-file (org-file-path "projects.org"))))
 
 (use-package org-bullets
   :config
@@ -321,6 +324,7 @@
  "fs" 'save-buffer
  "ff" 'counsel-find-file
  "fow" 'edit-work-tasks
+ "fop" 'edit-projects-tasks
  ;; Buffers
  "bd" 'kill-current-buffer
  "bk" 'kill-buffer
