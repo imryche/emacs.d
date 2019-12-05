@@ -203,7 +203,6 @@
 ;; Python
 (use-package elpy
   :init
-  (setq elpy-rpc-python-command "python3")
   (elpy-enable)
   (add-hook 'python-mode-hook 'oneor0/python-mode-hook)
   (delete `elpy-module-highlight-indentation elpy-modules))
