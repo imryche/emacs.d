@@ -204,6 +204,8 @@
 (use-package elpy
   :init
   (elpy-enable)
+  (setq elpy-rpc-python-command "python3"
+	elpy-rpc-virtualenv-path 'current)
   (add-hook 'python-mode-hook 'oneor0/python-mode-hook)
   (delete `elpy-module-highlight-indentation elpy-modules))
 
