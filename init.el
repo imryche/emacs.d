@@ -355,6 +355,7 @@
  ;; Jump
  "jl" 'avy-goto-line
  "jf" 'avy-goto-char-timer
+ "jw" 'avy-goto-word-1
  "jr" 'avy-resume
  ;; Git
  "gs" 'magit-status
