@@ -8,6 +8,7 @@
       initial-scratch-message ""
       frame-resize-pixelwise t
       make-backup-files nil
+      create-lockfiles nil
       auto-save-default nil)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
