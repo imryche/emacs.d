@@ -103,6 +103,7 @@
   (add-hook 'evil-org-mode-hook
             (lambda ()
               (evil-org-set-key-theme)))
+  (add-hook 'evil-org-mode-hook 'oneor0/org-mode-hook)
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
@@ -266,6 +267,12 @@
     "sr" 'oneor0/py-autoflake-buffer
     "tt" 'iterm-pytest
     "tf" 'iterm-pytest-file))
+
+(defun oneor0/org-mode-hook ()
+  (set-local-leader-keys
+    :keymaps 'org-mode-map
+    :states '(normal visual emacs)
+    "t" 'counsel-org-tag))
 
 (defun oneor0/py-autoflake-buffer()
   "autoflake --remove-all-unused-imports -i unused_imports.py"
