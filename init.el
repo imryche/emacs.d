@@ -112,12 +112,21 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; Switch windows
+;; Switch/Move windows
 (use-package ace-window
   :config
   (set-leader-keys
     :states '(normal visual emacs)
     "o" 'ace-window))
+
+(use-package buffer-move
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "wmh" 'buf-move-left
+    "wmj" 'buf-move-down
+    "wmk" 'buf-move-up
+    "wml" 'buf-move-right))
 
 ;; Ivy
 (use-package ivy
