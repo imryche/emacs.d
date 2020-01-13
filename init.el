@@ -154,6 +154,9 @@
   :init
   (setq ranger-show-hidden t))
 
+;; iBuffer
+(use-package ibuffer)
+
 ;; Git
 (use-package magit
   :config
@@ -339,7 +342,7 @@
  "/" 'counsel-ag
  "x" 'counsel-M-x
  "TAB" 'mode-line-other-buffer
- "SPC" 'counsel-switch-buffer
+ "SPC" 'counsel-ibuffer
  ";" 'evilnc-comment-or-uncomment-lines
  ;; Apps
  "ar" 'ranger
@@ -354,8 +357,7 @@
  "fop" 'edit-projects-tasks
  ;; Buffers
  "bd" 'kill-current-buffer
- "bk" 'kill-buffer
- "bb" 'counsel-switch-buffer
+ "bb" 'ibuffer
  ;; Search
  "ss" 'swiper-thing-at-point
  "sp" 'counsel-ag-thing-at-point
