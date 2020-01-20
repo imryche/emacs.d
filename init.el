@@ -190,6 +190,11 @@
     (interactive)
     (find-file (org-file-path "projects.org"))))
 
+;; Diagrams
+(use-package wsd-mode
+  :config
+  (add-hook 'wsd-mode-hook 'oneor0/wsd-mode-hook))
+
 (use-package org-bullets
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
@@ -266,6 +271,16 @@
     "sr" 'oneor0/py-autoflake-buffer
     "tt" 'iterm-pytest
     "tf" 'iterm-pytest-file))
+
+(defun oneor0/wsd-mode-hook ()
+  (set-local-leader-keys
+    :states '(normal visual emacs)
+    "r" 'oneor0/wsd-save-and-view))
+
+(defun oneor0/wsd-save-and-view ()
+  (interactive)
+  (save-buffer)
+  (wsd-show-diagram-inline))
 
 (defun oneor0/py-autoflake-buffer()
   "autoflake --remove-all-unused-imports -i unused_imports.py"
