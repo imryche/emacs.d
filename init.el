@@ -103,6 +103,7 @@
   (add-hook 'evil-org-mode-hook
             (lambda ()
               (evil-org-set-key-theme)))
+  (add-hook 'evil-org-mode-hook 'oneor0/org-mode-hook)
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
@@ -111,12 +112,21 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; Switch windows
+;; Switch/Move windows
 (use-package ace-window
   :config
   (set-leader-keys
     :states '(normal visual emacs)
     "o" 'ace-window))
+
+(use-package buffer-move
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "wmh" 'buf-move-left
+    "wmj" 'buf-move-down
+    "wmk" 'buf-move-up
+    "wml" 'buf-move-right))
 
 ;; Ivy
 (use-package ivy
@@ -152,6 +162,9 @@
 (use-package ranger 
   :init
   (setq ranger-show-hidden t))
+
+;; iBuffer
+(use-package ibuffer)
 
 ;; Git
 (use-package magit
@@ -272,6 +285,12 @@
     "tt" 'iterm-pytest
     "tf" 'iterm-pytest-file))
 
+(defun oneor0/org-mode-hook ()
+  (set-local-leader-keys
+    :keymaps 'org-mode-map
+    :states '(normal visual emacs)
+    "t" 'counsel-org-tag))
+
 (defun oneor0/wsd-mode-hook ()
   (set-local-leader-keys
     :states '(normal visual emacs)
@@ -347,7 +366,7 @@
  "/" 'counsel-ag
  "x" 'counsel-M-x
  "TAB" 'mode-line-other-buffer
- "SPC" 'counsel-switch-buffer
+ "SPC" 'counsel-ibuffer
  ";" 'evilnc-comment-or-uncomment-lines
  ;; Apps
  "ar" 'ranger
@@ -362,8 +381,7 @@
  "fop" 'edit-projects-tasks
  ;; Buffers
  "bd" 'kill-current-buffer
- "bk" 'kill-buffer
- "bb" 'counsel-switch-buffer
+ "bb" 'ibuffer
  ;; Search
  "ss" 'swiper-thing-at-point
  "sp" 'counsel-ag-thing-at-point
