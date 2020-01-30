@@ -378,7 +378,7 @@
  "qq" 'save-buffers-kill-emacs
  ;; Files
  "fs" 'save-buffer
- "fS" 'save-some-buffers
+ "fS" (lambda () (interactive)(save-some-buffers t))
  "ff" 'counsel-find-file
  "fow" 'edit-work-tasks
  "fop" 'edit-projects-tasks
