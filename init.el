@@ -202,7 +202,7 @@
     (concat (file-name-as-directory org-directory) filename))
   (defun edit-work-tasks ()
     (interactive)
-    (find-file (org-file-path "work.org")))
+    (find-file (org-file-path "work.org"))))
 
 ;; Diagrams
 (use-package wsd-mode
