@@ -9,7 +9,8 @@
       frame-resize-pixelwise t
       make-backup-files nil
       create-lockfiles nil
-      auto-save-default nil)
+      auto-save-default nil
+      ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -109,6 +110,8 @@
 
 ;; Path management
 (use-package exec-path-from-shell
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
   :config
   (exec-path-from-shell-initialize))
 
@@ -373,7 +376,7 @@
  "qq" 'save-buffers-kill-emacs
  ;; Files
  "fs" 'save-buffer
- "fS" 'save-some-buffers
+ "fS" (lambda () (interactive)(save-some-buffers t))
  "ff" 'counsel-find-file
  "fow" 'edit-work-tasks
  ;; Buffers
