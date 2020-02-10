@@ -192,6 +192,7 @@
   :init
   (setq org-log-done 'time)
   (setq org-directory "~/Dropbox/org")
+  (setq org-agenda-files (list "~/Dropbox/org/projects/"))
   :config
   (defun org-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
@@ -199,9 +200,6 @@
   (defun edit-work-tasks ()
     (interactive)
     (find-file (org-file-path "work.org")))
-  (defun edit-projects-tasks ()
-    (interactive)
-    (find-file (org-file-path "projects.org"))))
 
 ;; Diagrams
 (use-package wsd-mode
@@ -368,9 +366,9 @@
  "TAB" 'mode-line-other-buffer
  "SPC" 'counsel-ibuffer
  ";" 'evilnc-comment-or-uncomment-lines
- ;; Apps
- "ar" 'ranger
- "ad" 'deer
+ ;; File manager
+ "dr" 'ranger
+ "dd" 'deer
  ;; Quit
  "qq" 'save-buffers-kill-emacs
  ;; Files
@@ -378,7 +376,6 @@
  "fS" 'save-some-buffers
  "ff" 'counsel-find-file
  "fow" 'edit-work-tasks
- "fop" 'edit-projects-tasks
  ;; Buffers
  "bd" 'kill-current-buffer
  "bb" 'ibuffer
@@ -409,4 +406,8 @@
  ;; Help
  "hv" 'counsel-describe-variable
  "hf" 'counsel-describe-function
+ ;; Org
+ "at" 'org-todo-list
+ "aa" 'org-agenda
+ "al" 'org-store-link
 )
