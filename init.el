@@ -251,6 +251,11 @@
   :init
   (add-hook 'racket-mode-hook 'oneor0/racket-mode-hook))
 
+;; CoffeeScript
+(use-package coffee-mode
+  :init
+  (setq coffee-tab-width 2))
+
 ;; iTerm
 (require 'iterm)
 
