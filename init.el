@@ -398,7 +398,7 @@
  "fs" 'save-buffer
  "fS" (lambda () (interactive)(save-some-buffers t))
  "ff" 'counsel-find-file
- "f," 'edit-emacs-config
+ "f." 'edit-emacs-config
  "fow" 'edit-work-tasks
  ;; Buffers
  "bd" 'kill-current-buffer
