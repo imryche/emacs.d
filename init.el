@@ -225,6 +225,13 @@
 
 (use-package flycheck)
 
+(use-package dumb-jump
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "." 'dumb-jump-go)
+  (setq dumb-jump-selector 'ivy)) 
+
 ;; Python
 (use-package elpy
   :init
@@ -373,7 +380,6 @@
 
 (set-leader-keys
  :states '(normal visual emacs)
- "." 'edit-emacs-config
  "/" 'counsel-ag
  "x" 'counsel-M-x
  "TAB" 'mode-line-other-buffer
@@ -388,6 +394,7 @@
  "fs" 'save-buffer
  "fS" (lambda () (interactive)(save-some-buffers t))
  "ff" 'counsel-find-file
+ "f," 'edit-emacs-config
  "fow" 'edit-work-tasks
  ;; Buffers
  "bd" 'kill-current-buffer
