@@ -122,6 +122,10 @@
     :states '(normal visual emacs)
     "o" 'ace-window))
 
+(use-package beacon
+  :config
+  (beacon-mode 1))
+
 (use-package buffer-move
   :config
   (set-leader-keys
