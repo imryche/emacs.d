@@ -65,7 +65,7 @@
 ;; Theme
 (use-package color-theme-sanityinc-tomorrow
   :config
-  (load-theme 'sanityinc-tomorrow-eighties t))
+  (load-theme 'sanityinc-tomorrow-night t))
 
 ;; Hide all minor modes
 (use-package minions
