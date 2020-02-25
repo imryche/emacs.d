@@ -60,7 +60,7 @@
   (general-create-definer set-local-leader-keys :prefix ","))
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "Monaco-12" ))
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-12" ))
 
 ;; Theme
 (use-package color-theme-sanityinc-tomorrow
