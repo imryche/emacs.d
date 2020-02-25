@@ -213,14 +213,14 @@
     (interactive)
     (find-file (org-file-path "work.org"))))
 
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 ;; Diagrams
 (use-package wsd-mode
   :config
   (add-hook 'wsd-mode-hook 'oneor0/wsd-mode-hook))
-
-(use-package org-bullets
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; Autocompletion
 (use-package company
