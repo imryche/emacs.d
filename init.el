@@ -71,7 +71,7 @@
 (use-package minions
   :config
   (setq minions-mode-line-lighter ""
-        minions-mode-line-delimiters '("" . ""))
+	minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
 
 ;; Evil
@@ -102,8 +102,8 @@
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme)))
+	    (lambda ()
+	      (evil-org-set-key-theme)))
   (add-hook 'evil-org-mode-hook 'oneor0/org-mode-hook)
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -299,8 +299,8 @@
 
 (defun ivy-with-thing-at-point (cmd)
   (let ((ivy-initial-inputs-alist
-         (list
-          (cons cmd (thing-at-point 'symbol)))))
+	 (list
+	  (cons cmd (thing-at-point 'symbol)))))
     (funcall cmd)))
 
 (defun counsel-ag-thing-at-point ()
@@ -332,9 +332,9 @@
   (interactive)
   (if (executable-find "autoflake")
       (progn
-        (shell-command (format "autoflake --remove-all-unused-imports -i %s"
-                               (shell-quote-argument (buffer-file-name))))
-        (revert-buffer t t t))
+	(shell-command (format "autoflake --remove-all-unused-imports -i %s"
+			       (shell-quote-argument (buffer-file-name))))
+	(revert-buffer t t t))
     (message "Error: Cannot find autoflake executable.")))
 
 (defun oneor0/racket-mode-hook ()
@@ -387,55 +387,55 @@
  "SPC" 'insert-line-below)
 
 (set-leader-keys
- :states '(normal visual emacs)
- "/" 'counsel-ag
- "x" 'counsel-M-x
- "TAB" 'mode-line-other-buffer
- "SPC" 'counsel-ibuffer
- ";" 'evilnc-comment-or-uncomment-lines
- ;; File manager
- "dr" 'ranger
- "dd" 'deer
- ;; Quit
- "qq" 'save-buffers-kill-emacs
- ;; Files
- "fs" 'save-buffer
- "fS" (lambda () (interactive)(save-some-buffers t))
- "ff" 'counsel-find-file
- "f." 'edit-emacs-config
- "fow" 'edit-work-tasks
- ;; Buffers
- "bd" 'kill-current-buffer
- "bb" 'ibuffer
- ;; Search
- "ss" 'swiper-thing-at-point
- "sp" 'counsel-ag-thing-at-point
- "sr" 'ivy-resume
- ;; Jump
- "jl" 'avy-goto-line
- "jf" 'avy-goto-char-timer
- "jw" 'avy-goto-word-1
- "jr" 'avy-resume
- ;; Git
- "gs" 'magit-status
- "gb" 'magit-blame
- ;; Window
- "wl" 'windmove-right
- "wh" 'windmove-left
- "wk" 'windmove-up
- "wj" 'windmove-down
- "w/" 'oneor0/split-right-switch
- "w-" 'oneor0/split-below-switch
- "wd" 'delete-window
- ;; Projects
- "pp" 'counsel-projectile-switch-project
- "pf" 'counsel-projectile
- "pb" 'counsel-projectile-switch-to-buffer
- ;; Help
- "hv" 'counsel-describe-variable
- "hf" 'counsel-describe-function
- ;; Org
- "at" 'org-todo-list
- "aa" 'org-agenda
- "al" 'org-store-link
-)
+  :states '(normal visual emacs)
+  "/" 'counsel-ag
+  "x" 'counsel-M-x
+  "TAB" 'mode-line-other-buffer
+  "SPC" 'counsel-ibuffer
+  ";" 'evilnc-comment-or-uncomment-lines
+  ;; File manager
+  "dr" 'ranger
+  "dd" 'deer
+  ;; Quit
+  "qq" 'save-buffers-kill-emacs
+  ;; Files
+  "fs" 'save-buffer
+  "fS" (lambda () (interactive)(save-some-buffers t))
+  "ff" 'counsel-find-file
+  "f." 'edit-emacs-config
+  "fow" 'edit-work-tasks
+  ;; Buffers
+  "bd" 'kill-current-buffer
+  "bb" 'ibuffer
+  ;; Search
+  "ss" 'swiper-thing-at-point
+  "sp" 'counsel-ag-thing-at-point
+  "sr" 'ivy-resume
+  ;; Jump
+  "jl" 'avy-goto-line
+  "jf" 'avy-goto-char-timer
+  "jw" 'avy-goto-word-1
+  "jr" 'avy-resume
+  ;; Git
+  "gs" 'magit-status
+  "gb" 'magit-blame
+  ;; Window
+  "wl" 'windmove-right
+  "wh" 'windmove-left
+  "wk" 'windmove-up
+  "wj" 'windmove-down
+  "w/" 'oneor0/split-right-switch
+  "w-" 'oneor0/split-below-switch
+  "wd" 'delete-window
+  ;; Projects
+  "pp" 'counsel-projectile-switch-project
+  "pf" 'counsel-projectile
+  "pb" 'counsel-projectile-switch-to-buffer
+  ;; Help
+  "hv" 'counsel-describe-variable
+  "hf" 'counsel-describe-function
+  ;; Org
+  "at" 'org-todo-list
+  "aa" 'org-agenda
+  "al" 'org-store-link
+  )
