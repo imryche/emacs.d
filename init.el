@@ -236,6 +236,9 @@
     "." 'dumb-jump-go)
   (setq dumb-jump-selector 'ivy)) 
 
+;; Lisp
+(use-package lispy)
+
 ;; Python
 (use-package elpy
   :init
