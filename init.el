@@ -245,6 +245,22 @@
   (elpy-enable)
   (setq elpy-rpc-python-command "python3"
 	elpy-rpc-virtualenv-path 'current)
+
+  (defun oneor0/python-mode-hook ()
+    (set-local-leader-keys
+      :keymaps 'python-mode-map
+      :states '(normal visual emacs)
+      "g" 'elpy-goto-definition
+      "G" 'elpy-goto-definition-other-window
+      "d" 'elpy-doc
+      "a" 'elpy-goto-assignment
+      "r" 'elpy-black-fix-code
+      "e" 'elpy-shell-send-buffer
+      "ss" 'py-isort-buffer
+      "sr" 'oneor0/py-autoflake-buffer
+      "tt" 'iterm-pytest
+      "tf" 'iterm-pytest-file))
+
   (add-hook 'python-mode-hook 'oneor0/python-mode-hook)
   (delete `elpy-module-highlight-indentation elpy-modules))
 
@@ -294,21 +310,6 @@
 (defun swiper-thing-at-point ()
   (interactive)
   (ivy-with-thing-at-point 'swiper))
-
-(defun oneor0/python-mode-hook ()
-  (set-local-leader-keys
-    :keymaps 'python-mode-map
-    :states '(normal visual emacs)
-    "g" 'elpy-goto-definition
-    "G" 'elpy-goto-definition-other-window
-    "d" 'elpy-doc
-    "a" 'elpy-goto-assignment
-    "r" 'elpy-black-fix-code
-    "e" 'elpy-shell-send-buffer
-    "ss" 'py-isort-buffer
-    "sr" 'oneor0/py-autoflake-buffer
-    "tt" 'iterm-pytest
-    "tf" 'iterm-pytest-file))
 
 (defun oneor0/org-mode-hook ()
   (set-local-leader-keys
