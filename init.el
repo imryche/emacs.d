@@ -99,6 +99,12 @@
 (use-package evil-org
   :ensure t
   :after org
+  :init
+  (defun oneor0/org-mode-hook ()
+    (set-local-leader-keys
+      :keymaps 'org-mode-map
+      :states '(normal visual emacs)
+      "t" 'counsel-org-tag))
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
@@ -219,6 +225,15 @@
 
 ;; Diagrams
 (use-package wsd-mode
+  :init
+  (defun oneor0/wsd-save-and-view ()
+    (interactive)
+    (save-buffer)
+    (wsd-show-diagram-inline))
+  (defun oneor0/wsd-mode-hook ()
+    (set-local-leader-keys
+      :states '(normal visual emacs)
+      "r" 'oneor0/wsd-save-and-view))
   :config
   (add-hook 'wsd-mode-hook 'oneor0/wsd-mode-hook))
 
@@ -245,7 +260,15 @@
   (elpy-enable)
   (setq elpy-rpc-python-command "python3"
 	elpy-rpc-virtualenv-path 'current)
-
+  (defun oneor0/autoflake-buffer()
+    "autoflake --remove-all-unused-imports -i unused_imports.py"
+    (interactive)
+    (if (executable-find "autoflake")
+	(progn
+	  (shell-command (format "autoflake --remove-all-unused-imports -i %s"
+				 (shell-quote-argument (buffer-file-name))))
+	  (revert-buffer t t t))
+      (message "Error: Cannot find autoflake executable.")))
   (defun oneor0/python-mode-hook ()
     (set-local-leader-keys
       :keymaps 'python-mode-map
@@ -257,7 +280,7 @@
       "r" 'elpy-black-fix-code
       "e" 'elpy-shell-send-buffer
       "ss" 'py-isort-buffer
-      "sr" 'oneor0/py-autoflake-buffer
+      "sr" 'oneor0/autoflake-buffer
       "tt" 'iterm-pytest
       "tf" 'iterm-pytest-file))
 
@@ -282,6 +305,14 @@
 ;; Racket
 (use-package racket-mode
   :init
+  (defun oneor0/racket-mode-hook ()
+    (set-local-leader-keys
+      :keymaps 'racket-mode-map
+      :states '(normal visual emacs)
+      "'" 'racket-repl
+      "sb" 'racket-run
+      "sr" 'racket-send-region))
+  :config
   (add-hook 'racket-mode-hook 'oneor0/racket-mode-hook))
 
 ;; CoffeeScript
@@ -310,40 +341,6 @@
 (defun swiper-thing-at-point ()
   (interactive)
   (ivy-with-thing-at-point 'swiper))
-
-(defun oneor0/org-mode-hook ()
-  (set-local-leader-keys
-    :keymaps 'org-mode-map
-    :states '(normal visual emacs)
-    "t" 'counsel-org-tag))
-
-(defun oneor0/wsd-mode-hook ()
-  (set-local-leader-keys
-    :states '(normal visual emacs)
-    "r" 'oneor0/wsd-save-and-view))
-
-(defun oneor0/wsd-save-and-view ()
-  (interactive)
-  (save-buffer)
-  (wsd-show-diagram-inline))
-
-(defun oneor0/py-autoflake-buffer()
-  "autoflake --remove-all-unused-imports -i unused_imports.py"
-  (interactive)
-  (if (executable-find "autoflake")
-      (progn
-	(shell-command (format "autoflake --remove-all-unused-imports -i %s"
-			       (shell-quote-argument (buffer-file-name))))
-	(revert-buffer t t t))
-    (message "Error: Cannot find autoflake executable.")))
-
-(defun oneor0/racket-mode-hook ()
-  (set-local-leader-keys
-    :keymaps 'racket-mode-map
-    :states '(normal visual emacs)
-    "'" 'racket-repl
-    "sb" 'racket-run
-    "sr" 'racket-send-region))
 
 (defun oneor0/split-right-switch ()
   (interactive)
