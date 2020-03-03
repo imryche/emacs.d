@@ -250,7 +250,8 @@
   :config
   (set-leader-keys
     :states '(normal visual emacs)
-    "." 'dumb-jump-go)
+    "." 'dumb-jump-go
+    ">" 'dumb-jump-go-other-window)
   (setq dumb-jump-selector 'ivy)) 
 
 ;; Lisp
