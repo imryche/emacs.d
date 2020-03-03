@@ -254,6 +254,11 @@
     ">" 'dumb-jump-go-other-window)
   (setq dumb-jump-selector 'ivy)) 
 
+;; Autosave
+(use-package super-save
+  :config
+  (super-save-mode +1))
+
 ;; Lisp
 (use-package lispy)
 
