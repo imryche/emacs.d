@@ -427,6 +427,7 @@
   "w/" 'oneor0/split-right-switch
   "w-" 'oneor0/split-below-switch
   "wd" 'delete-window
+  "ww" 'ace-delete-other-windows
   ;; Projects
   "pp" 'counsel-projectile-switch-project
   "pf" 'counsel-projectile
