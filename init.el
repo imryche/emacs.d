@@ -379,7 +379,8 @@
 ;; Keybindings
 (general-define-key
  :states '(normal visual emacs)
- "/" 'swiper)
+ "/" 'swiper
+ "?" 'swiper-thing-at-point)
 
 (general-define-key
  :states '(normal visual emacs)
@@ -394,6 +395,7 @@
 (set-leader-keys
   :states '(normal visual emacs)
   "/" 'counsel-ag
+  "?" 'counsel-ag-thing-at-point
   "x" 'counsel-M-x
   "TAB" 'mode-line-other-buffer
   "SPC" 'counsel-ibuffer
@@ -413,8 +415,6 @@
   "bd" 'kill-current-buffer
   "bb" 'ibuffer
   ;; Search
-  "ss" 'swiper-thing-at-point
-  "sp" 'counsel-ag-thing-at-point
   "sr" 'ivy-resume
   ;; Jump
   "jl" 'avy-goto-line
