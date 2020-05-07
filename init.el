@@ -10,9 +10,7 @@
       make-backup-files nil
       create-lockfiles nil
       auto-save-default nil
-      ediff-window-setup-function 'ediff-setup-windows-plain
-      split-width-threshold 0
-      split-height-threshold nil)
+      ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
