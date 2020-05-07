@@ -351,6 +351,10 @@
   (interactive)
   (ivy-with-thing-at-point 'swiper))
 
+(defun oneor0/project-tasks ()
+  (interactive)
+  (find-file (concat (projectile-project-root) "tasks.org")))
+
 (defun oneor0/split-right-switch ()
   (interactive)
   (split-window-right)
@@ -438,6 +442,7 @@
   "pp" 'counsel-projectile-switch-project
   "pf" 'counsel-projectile
   "pb" 'counsel-projectile-switch-to-buffer
+  "pt" 'oneor0/project-tasks
   ;; Help
   "hv" 'counsel-describe-variable
   "hf" 'counsel-describe-function
