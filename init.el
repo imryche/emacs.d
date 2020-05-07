@@ -310,6 +310,9 @@
 ;; Yaml
 (use-package yaml-mode)
 
+;; Haml
+(use-package haml-mode)
+
 ;; Racket
 (use-package racket-mode
   :init
