@@ -10,9 +10,7 @@
       make-backup-files nil
       create-lockfiles nil
       auto-save-default nil
-      ediff-window-setup-function 'ediff-setup-windows-plain
-      split-width-threshold 0
-      split-height-threshold nil)
+      ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -317,6 +315,9 @@
 ;; Yaml
 (use-package yaml-mode)
 
+;; Haml
+(use-package haml-mode)
+
 ;; Racket
 (use-package racket-mode
   :init
@@ -357,6 +358,10 @@
   (interactive)
   (ivy-with-thing-at-point 'swiper))
 
+(defun oneor0/project-tasks ()
+  (interactive)
+  (find-file (concat (projectile-project-root) "tasks.org")))
+
 (defun oneor0/split-right-switch ()
   (interactive)
   (split-window-right)
@@ -386,7 +391,8 @@
 ;; Keybindings
 (general-define-key
  :states '(normal visual emacs)
- "/" 'swiper)
+ "/" 'swiper
+ "?" 'swiper-thing-at-point)
 
 (general-define-key
  :states '(normal visual emacs)
@@ -401,6 +407,7 @@
 (set-leader-keys
   :states '(normal visual emacs)
   "/" 'counsel-ag
+  "?" 'counsel-ag-thing-at-point
   "x" 'counsel-M-x
   "TAB" 'mode-line-other-buffer
   "SPC" 'counsel-ibuffer
@@ -420,8 +427,6 @@
   "bd" 'kill-current-buffer
   "bb" 'ibuffer
   ;; Search
-  "ss" 'swiper-thing-at-point
-  "sp" 'counsel-ag-thing-at-point
   "sr" 'ivy-resume
   ;; Jump
   "jl" 'avy-goto-line
@@ -444,6 +449,7 @@
   "pp" 'counsel-projectile-switch-project
   "pf" 'counsel-projectile
   "pb" 'counsel-projectile-switch-to-buffer
+  "pt" 'oneor0/project-tasks
   ;; Help
   "hv" 'counsel-describe-variable
   "hf" 'counsel-describe-function
