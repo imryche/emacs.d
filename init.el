@@ -257,6 +257,9 @@
   :config
   (super-save-mode +1))
 
+;; Docker
+(use-package docker)
+
 ;; Lisp
 (use-package lispy)
 
@@ -304,6 +307,10 @@
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
 
 (use-package py-isort)
+
+;; Web
+(use-package web-mode)
+(use-package emmet-mode)
 
 ;; Yaml
 (use-package yaml-mode)
