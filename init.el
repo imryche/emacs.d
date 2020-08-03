@@ -332,6 +332,8 @@
 ;; iTerm
 (require 'iterm)
 
+(use-package vterm)
+
 ;; Custom functions
 (defun edit-emacs-config ()
   (interactive)
