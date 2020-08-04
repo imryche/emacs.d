@@ -26,6 +26,12 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
+;; Start server
+(require 'server)
+(if (and (fboundp 'server-running-p)
+         (not (server-running-p)))
+    (server-start))
+
 ;; yes no -> y n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -223,6 +229,33 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+(use-package org-roam
+  :init
+  (setq org-roam-directory "~/Dropbox/org-roam")
+  (setq org-roam-graph-viewer "/usr/bin/open")
+  (defun oneor0/org-roam-mode-hook ()
+    (interactive)
+    (org-roam)
+    (set-local-leader-keys
+      :keymaps 'org-mode-map
+      :states '(normal visual emacs)
+      "rl" 'org-roam
+      "rf" 'org-roam-find-file
+      "rg" 'org-roam-graph-show
+      "ri" 'org-roam-insert
+      "rI" 'org-roam-insert-immediate))
+  :config
+  (add-hook 'org-mode-hook 'oneor0/org-roam-mode-hook)
+  (require 'org-roam-protocol))
+
+(use-package deft
+  :after org
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/Dropbox/org-roam"))
+
 ;; Diagrams
 (use-package wsd-mode
   :init
@@ -256,9 +289,6 @@
 (use-package super-save
   :config
   (super-save-mode +1))
-
-;; Docker
-(use-package docker)
 
 ;; Lisp
 (use-package lispy)
@@ -421,6 +451,7 @@
   "qq" 'save-buffers-kill-emacs
   ;; Files
   "fs" 'save-buffer
+  "fd" 'deft
   "fS" (lambda () (interactive)(save-some-buffers t))
   "ff" 'counsel-find-file
   "f." 'edit-emacs-config
