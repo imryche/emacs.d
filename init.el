@@ -219,6 +219,7 @@
   (setq org-log-done 'time)
   (setq org-directory "~/Dropbox/org")
   (setq org-agenda-files (list "~/Dropbox/org/projects/"))
+  (setq org-link-frame-setup '((file . find-file)))
   :config
   (defun org-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
