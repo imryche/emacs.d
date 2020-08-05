@@ -19,8 +19,10 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (show-paren-mode 1)
-(global-hl-line-mode +1)
 (electric-pair-mode)
+
+;; Highlight current line in prog mode
+(add-hook 'prog-mode-hook 'hl-line-mode)
 
 ;; Store customizations in the separate file
 (setq custom-file "~/.emacs.d/custom.el")
