@@ -12,6 +12,8 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
+(setq-default indent-tabs-mode nil)
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (scroll-bar-mode -1)
