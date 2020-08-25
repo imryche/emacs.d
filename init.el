@@ -238,8 +238,6 @@
   (setq org-roam-directory "~/Dropbox/org-roam")
   (setq org-roam-graph-viewer "/usr/bin/open")
   (defun oneor0/org-roam-mode-hook ()
-    (interactive)
-    (org-roam)
     (set-local-leader-keys
       :keymaps 'org-mode-map
       :states '(normal visual emacs)
