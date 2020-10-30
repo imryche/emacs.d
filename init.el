@@ -189,6 +189,10 @@
 ;; iBuffer
 (use-package ibuffer)
 
+(use-package ibuffer-vc
+  :config
+  (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
+
 ;; Git
 (use-package magit
   :config
@@ -340,7 +344,9 @@
   :config
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
 
-(use-package py-isort)
+(use-package py-isort
+  :init
+  (setq py-isort-options '("-m=3")))
 
 ;; Web
 (use-package web-mode)
@@ -348,6 +354,9 @@
 
 ;; Yaml
 (use-package yaml-mode)
+
+;; Docker
+(use-package dockerfile-mode)
 
 ;; Haml
 (use-package haml-mode)
