@@ -243,17 +243,10 @@
   :init
   (setq org-roam-directory "~/Dropbox/org-roam")
   (setq org-roam-graph-viewer "/usr/bin/open")
-  (defun oneor0/org-roam-mode-hook ()
-    (set-local-leader-keys
-      :keymaps 'org-mode-map
-      :states '(normal visual emacs)
-      "rl" 'org-roam
-      "rf" 'org-roam-find-file
-      "rg" 'org-roam-graph-show
-      "ri" 'org-roam-insert
-      "rI" 'org-roam-insert-immediate))
+  :bind (:map org-mode-map
+              (("C-c r i" . org-roam-insert))
+              (("C-c r I" . org-roam-insert-immediate)))
   :config
-  (add-hook 'org-mode-hook 'oneor0/org-roam-mode-hook)
   (require 'org-roam-protocol))
 
 (use-package deft
@@ -503,4 +496,8 @@
   "at" 'org-todo-list
   "aa" 'org-agenda
   "al" 'org-store-link
+  ;; Roam
+  "rr" 'org-roam
+  "rf" 'org-roam-find-file
+  "rg" 'org-roam-graph
   )
