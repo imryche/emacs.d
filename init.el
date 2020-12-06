@@ -69,8 +69,15 @@
   (general-create-definer set-leader-keys :prefix "SPC")
   (general-create-definer set-local-leader-keys :prefix ","))
 
+(use-package esup
+  :init
+  (setq esup-depth 0)
+  :ensure t
+  :pin melpa
+  :commands (esup))
+
 ;; Font
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-12" ))
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
 
 ;; Theme
 (use-package color-theme-sanityinc-tomorrow
@@ -296,6 +303,7 @@
 
 ;; Python
 (use-package elpy
+  :defer t
   :init
   (elpy-enable)
   (setq elpy-rpc-python-command "python3"
@@ -351,9 +359,6 @@
 ;; Docker
 (use-package dockerfile-mode)
 
-;; Haml
-(use-package haml-mode)
-
 ;; Racket
 (use-package racket-mode
   :init
@@ -374,8 +379,6 @@
 
 ;; iTerm
 (require 'iterm)
-
-(use-package vterm)
 
 ;; Custom functions
 (defun edit-emacs-config ()
