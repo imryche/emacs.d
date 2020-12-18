@@ -12,6 +12,7 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
+(setq byte-compile-warnings '(cl-functions))
 (setq-default indent-tabs-mode nil)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -189,7 +190,7 @@
   :commands (avy-goto-word-1))
 
 ;; Ranger
-(use-package ranger 
+(use-package ranger
   :init
   (setq ranger-show-hidden t))
 
@@ -220,7 +221,7 @@
   :config
   (projectile-mode))
 
-(use-package counsel-projectile 
+(use-package counsel-projectile
   :config
   (counsel-projectile-mode))
 
@@ -272,7 +273,7 @@
     :states '(normal visual emacs)
     "." 'dumb-jump-go
     ">" 'dumb-jump-go-other-window)
-  (setq dumb-jump-selector 'ivy)) 
+  (setq dumb-jump-selector 'ivy))
 
 ;; Autosave
 (use-package super-save
@@ -455,5 +456,4 @@
   ;; Roam
   "rr" 'org-roam
   "rf" 'org-roam-find-file
-  "rg" 'org-roam-graph
-  )
+  "rg" 'org-roam-graph)
