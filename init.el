@@ -264,20 +264,6 @@
   (deft-default-extension "org")
   (deft-directory "~/Dropbox/org-roam"))
 
-;; Diagrams
-(use-package wsd-mode
-  :init
-  (defun oneor0/wsd-save-and-view ()
-    (interactive)
-    (save-buffer)
-    (wsd-show-diagram-inline))
-  (defun oneor0/wsd-mode-hook ()
-    (set-local-leader-keys
-      :states '(normal visual emacs)
-      "r" 'oneor0/wsd-save-and-view))
-  :config
-  (add-hook 'wsd-mode-hook 'oneor0/wsd-mode-hook))
-
 ;; Autocompletion
 (use-package company
   :config
@@ -343,11 +329,6 @@
       "sr" 'racket-send-region))
   :config
   (add-hook 'racket-mode-hook 'oneor0/racket-mode-hook))
-
-;; CoffeeScript
-(use-package coffee-mode
-  :init
-  (setq coffee-tab-width 2))
 
 ;; iTerm
 (require 'iterm)
