@@ -19,6 +19,7 @@
 auto-save-list
 tramp
 .\#*
+bookmarks
 
 # Org-mode
 .org-id-locations
@@ -76,3 +77,6 @@ custom.el
 
 # smex
 smex-items
+
+# anaconda-mode
+anaconda-mode/

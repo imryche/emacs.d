@@ -302,48 +302,20 @@
 (use-package lispy)
 
 ;; Python
-(use-package elpy
-  :defer t
-  :init
-  (elpy-enable)
-  (setq elpy-rpc-python-command "python3"
-	elpy-rpc-virtualenv-path 'current)
-  (defun oneor0/autoflake-buffer()
-    "autoflake --remove-all-unused-imports -i unused_imports.py"
-    (interactive)
-    (if (executable-find "autoflake")
-	(progn
-	  (shell-command (format "autoflake --remove-all-unused-imports -i %s"
-				 (shell-quote-argument (buffer-file-name))))
-	  (revert-buffer t t t))
-      (message "Error: Cannot find autoflake executable.")))
-  (defun oneor0/python-mode-hook ()
-    (set-local-leader-keys
-      :keymaps 'python-mode-map
-      :states '(normal visual emacs)
-      "g" 'elpy-goto-definition
-      "G" 'elpy-goto-definition-other-window
-      "d" 'elpy-doc
-      "a" 'elpy-goto-assignment
-      "r" 'elpy-black-fix-code
-      "e" 'elpy-shell-send-buffer
-      "ss" 'py-isort-buffer
-      "sr" 'oneor0/autoflake-buffer
-      "tt" 'iterm-pytest
-      "tf" 'iterm-pytest-file))
-
-  (add-hook 'python-mode-hook 'oneor0/python-mode-hook)
-  (delete `elpy-module-highlight-indentation elpy-modules))
-
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-(use-package auto-virtualenv
-  :init
-  (require 'auto-virtualenv)
+(use-package anaconda-mode
   :config
-  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+
+(use-package company-anaconda
+  :config
+  (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
+
+(use-package auto-virtualenvwrapper
+  :init
+  (require 'auto-virtualenvwrapper)
+  :config
+  (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate))
 
 (use-package py-isort
   :init
