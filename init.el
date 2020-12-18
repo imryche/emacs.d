@@ -202,9 +202,8 @@
 
 ;; Git
 (use-package magit
+  :defer t
   :config
-  (use-package evil-magit)
-  (use-package with-editor)
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
 (use-package git-timemachine)
@@ -227,6 +226,7 @@
 
 ;; Org
 (use-package org
+  :defer t
   :ensure org-plus-contrib
   :init
   (setq org-log-done 'time)
@@ -243,6 +243,7 @@
     (find-file (org-file-path "work.org"))))
 
 (use-package org-bullets
+  :defer t
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
@@ -256,20 +257,14 @@
   :config
   (require 'org-roam-protocol))
 
-(use-package deft
-  :after org
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory "~/Dropbox/org-roam"))
-
 ;; Autocompletion
 (use-package company
   :config
   (global-company-mode t))
 
-(use-package flycheck)
+(use-package flycheck
+  :init
+  (global-flycheck-mode))
 
 (use-package dumb-jump
   :config
@@ -285,19 +280,23 @@
   (super-save-mode +1))
 
 ;; Lisp
-(use-package lispy)
+(use-package lispy
+  :defer t)
 
 ;; Python
 (use-package anaconda-mode
+  :defer t
   :config
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
 (use-package company-anaconda
+  :defer t
   :config
   (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
 
 (use-package auto-virtualenvwrapper
+  :defer t
   :init
   (require 'auto-virtualenvwrapper)
   :config
@@ -319,6 +318,7 @@
 
 ;; Racket
 (use-package racket-mode
+  :defer t
   :init
   (defun oneor0/racket-mode-hook ()
     (set-local-leader-keys
