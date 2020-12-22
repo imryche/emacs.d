@@ -292,12 +292,10 @@
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
 (use-package company-anaconda
-  :defer t
   :config
   (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
 
 (use-package auto-virtualenvwrapper
-  :defer t
   :init
   (require 'auto-virtualenvwrapper)
   :config
