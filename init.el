@@ -96,8 +96,12 @@
 (use-package evil
   :init
   (setq evil-want-keybinding nil)
+  (global-undo-tree-mode)
+  (evil-set-undo-system 'undo-tree)
   :config
   (evil-mode 1))
+
+(use-package undo-tree)
 
 (use-package evil-collection
   :after evil
