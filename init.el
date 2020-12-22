@@ -258,6 +258,14 @@
   :config
   (require 'org-roam-protocol))
 
+;; Markdown
+(use-package markdown-mode
+  :defer t
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
 ;; Autocompletion
 (use-package company
   :config
