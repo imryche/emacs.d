@@ -288,6 +288,22 @@
 (use-package anaconda-mode
   :defer t
   :config
+  (defun oneor0/python-mode-hook ()
+    (set-local-leader-keys
+      :keymaps 'python-mode-map
+      :states '(normal visual emacs)
+      "g" 'anaconda-mode-find-definitions
+      "G" 'anaconda-mode-find-definitions-other-window
+      "a" 'anaconda-mode-find-assignments
+      "A" 'anaconda-mode-find-assignments-other-window
+      "r" 'anaconda-mode-find-references
+      "R" 'anaconda-mode-find-references-other-window
+      "?" 'anaconda-mode-show-doc
+      "ss" 'py-isort-buffer
+      "sr" 'oneor0/autoflake-buffer
+      "tt" 'iterm-pytest
+      "tf" 'iterm-pytest-file))
+  (add-hook 'python-mode-hook 'oneor0/python-mode-hook)
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
