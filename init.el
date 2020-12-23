@@ -12,6 +12,8 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
+(global-hl-line-mode)
+
 (setq byte-compile-warnings '(cl-functions))
 (setq-default indent-tabs-mode nil)
 
@@ -150,9 +152,9 @@
     :states '(normal visual emacs)
     "o" 'ace-window))
 
-(use-package beacon
-  :config
-  (beacon-mode 1))
+;; (use-package beacon
+;;   :config
+;;   (beacon-mode 1))
 
 (use-package buffer-move
   :config
