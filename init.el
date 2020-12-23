@@ -303,6 +303,7 @@
       "r" 'anaconda-mode-find-references
       "R" 'anaconda-mode-find-references-other-window
       "?" 'anaconda-mode-show-doc
+      "b" 'blacken-buffer
       "ss" 'py-isort-buffer
       "sr" 'oneor0/autoflake-buffer
       "tt" 'iterm-pytest
@@ -324,6 +325,8 @@
 (use-package py-isort
   :init
   (setq py-isort-options '("-m=3")))
+
+(use-package blacken)
 
 ;; Web
 (use-package web-mode)
