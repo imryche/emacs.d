@@ -12,9 +12,6 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
 (global-hl-line-mode)
 
 (setq byte-compile-warnings '(cl-functions))
@@ -289,49 +286,35 @@
 (use-package lispy
   :defer t)
 
-(use-package lsp-python-ms
-  :ensure t
-  :init (setq lsp-python-ms-auto-install-server t)
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-python-ms)
-                          (lsp))))  ; or lsp-deferred
-
-(use-package lsp-mode
+;; Python
+(use-package anaconda-mode
+  :defer t
   :config
-  (setq lsp-idle-delay 0.5
-        lsp-enable-symbol-highlighting nil
-        lsp-enable-snippet nil  ;; Not supported by company capf, which is the recommended company backend
-        lsp-headerline-breadcrumb-enable nil
-        lsp-pyls-plugins-flake8-enabled t
-        lsp-completion-provider :capf)
-  (lsp-register-custom-settings
-   '(("pyls.plugins.pyls_mypy.enabled" t t)
-     ("pyls.plugins.pyls_mypy.live_mode" nil t)
-     ("pyls.plugins.pyls_black.enabled" t t)
-     ("pyls.plugins.pyls_isort.enabled" t t)))
   (set-local-leader-keys
+    :keymaps 'python-mode-map
     :states '(normal visual emacs)
-    "d" 'lsp-find-definition
-    "r" 'lsp-find-references
-    "?" 'lsp-ui-doc-glance
-    "=" 'lsp-format-buffer)
-  :hook
-  ((python-mode . lsp)
-   (c-mode . lsp)))
+    "g" 'anaconda-mode-find-definitions
+    "G" 'anaconda-mode-find-definitions-other-window
+    "a" 'anaconda-mode-find-assignments
+    "A" 'anaconda-mode-find-assignments-other-window
+    "r" 'anaconda-mode-find-references
+    "R" 'anaconda-mode-find-references-other-window
+    "?" 'anaconda-mode-show-doc
+    "b" 'blacken-buffer
+    "ss" 'py-isort-buffer
+    "sr" 'oneor0/autoflake-buffer)
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
-(use-package lsp-ui
+(use-package company-anaconda
   :config
-  (setq lsp-ui-doc-enable nil
-        lsp-ui-sideline-ignore-duplicates t)
-  :commands lsp-ui-mode)
+  (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
 
-(use-package lsp-ivy)
-
-(use-package pyvenv
-  :demand t
+(use-package auto-virtualenvwrapper
+  :init
+  (require 'auto-virtualenvwrapper)
   :config
-  (setq pyvenv-workon "emacs")  ; Default venv
-  (pyvenv-tracking-mode 1))  ; Automatically use pyvenv-workon via dir-locals
+  (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate))
 
 (use-package py-isort
   :init
