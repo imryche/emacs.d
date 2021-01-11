@@ -33,14 +33,11 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
-;; Start server
-(require 'server)
-(if (and (fboundp 'server-running-p)
-         (not (server-running-p)))
-    (server-start))
-
 ;; yes no -> y n
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Font
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
 
 ;; Package Management
 (require 'package)
@@ -59,7 +56,6 @@
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
-
 ;; Always compile packages and use the newest version available
 (use-package auto-compile
   :config (auto-compile-on-load-mode))
@@ -72,15 +68,13 @@
   (general-create-definer set-leader-keys :prefix "SPC")
   (general-create-definer set-local-leader-keys :prefix ","))
 
+;; Startup time profiler
 (use-package esup
   :init
   (setq esup-depth 0)
   :ensure t
   :pin melpa
   :commands (esup))
-
-;; Font
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
 
 ;; Theme
 (use-package color-theme-sanityinc-tomorrow
@@ -123,18 +117,9 @@
 (use-package evil-org
   :ensure t
   :after org
-  :init
-  (defun oneor0/org-mode-hook ()
-    (set-local-leader-keys
-      :keymaps 'org-mode-map
-      :states '(normal visual emacs)
-      "t" 'counsel-org-tag))
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-	    (lambda ()
-	      (evil-org-set-key-theme)))
-  (add-hook 'evil-org-mode-hook 'oneor0/org-mode-hook)
+  (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
@@ -152,10 +137,6 @@
     :states '(normal visual emacs)
     "o" 'ace-window))
 
-;; (use-package beacon
-;;   :config
-;;   (beacon-mode 1))
-
 (use-package buffer-move
   :config
   (set-leader-keys
@@ -169,16 +150,16 @@
 (use-package ivy
   :diminish (ivy-mode . "") ; does not display ivy in the modeline
   :init (ivy-mode 1)        ; enable ivy globally at startup
-  :bind (:map ivy-mode-map
-	      ("C-h" . 'delete-backward-char)
-	      ("C-j" . 'ivy-next-line)
-	      ("C-k" . 'ivy-previous-line)
-	      ("C-l" . 'ivy-alt-done))
   :config
   (setq ivy-use-virtual-buffers t)   ; extend searching to bookmarks and …
   (setq ivy-height 20)               ; set height of the ivy window
   (setq ivy-count-format "(%d/%d) ") ; count format, from the ivy help page
-  )
+  (general-define-key
+   :keymaps 'ivy-mode-map
+   "C-h" 'delete-backward-char
+   "C-j" 'ivy-next-line
+   "C-k" 'ivy-previous-line
+   "C-l" 'ivy-alt-done))
 
 (use-package counsel
   :config
@@ -213,7 +194,11 @@
   :config
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
-(use-package git-timemachine)
+(use-package git-timemachine
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "gt" 'git-timemachine))
 
 (use-package diff-hl
   :config
@@ -270,24 +255,35 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init
+  (setq markdown-command "multimarkdown"))
 
 ;; Autocompletion
 (use-package company
   :config
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.0) ;; default is 0.2
   (global-company-mode t))
 
 (use-package flycheck
   :init
-  (global-flycheck-mode))
+  (global-flycheck-mode)
+  :config
+  (setq flycheck-highlighting-style nil)
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "el" 'flycheck-list-errors
+    "en" 'flycheck-next-error
+    "ep" 'flycheck-previous-error))
 
 (use-package dumb-jump
   :config
   (set-leader-keys
     :states '(normal visual emacs)
-    "." 'dumb-jump-go
-    ">" 'dumb-jump-go-other-window)
-  (setq dumb-jump-selector 'ivy))
+    "." 'xref-find-definitions
+    "," 'xref-pop-marker-stack)
+  (setq dumb-jump-selector 'ivy)
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 ;; Autosave
 (use-package super-save
@@ -298,33 +294,29 @@
 (use-package lispy
   :defer t)
 
-;; Python
-(use-package anaconda-mode
-  :defer t
-  :config
-  (defun oneor0/python-mode-hook ()
-    (set-local-leader-keys
-      :keymaps 'python-mode-map
-      :states '(normal visual emacs)
-      "g" 'anaconda-mode-find-definitions
-      "G" 'anaconda-mode-find-definitions-other-window
-      "a" 'anaconda-mode-find-assignments
-      "A" 'anaconda-mode-find-assignments-other-window
-      "r" 'anaconda-mode-find-references
-      "R" 'anaconda-mode-find-references-other-window
-      "?" 'anaconda-mode-show-doc
-      "b" 'blacken-buffer
-      "ss" 'py-isort-buffer
-      "sr" 'oneor0/autoflake-buffer
-      "tt" 'iterm-pytest
-      "tf" 'iterm-pytest-file))
-  (add-hook 'python-mode-hook 'oneor0/python-mode-hook)
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+;; ;; Python
+;; (use-package anaconda-mode
+;;   :defer t
+;;   :config
+;;   (set-local-leader-keys
+;;     :keymaps 'python-mode-map
+;;     :states '(normal visual emacs)
+;;     "g" 'anaconda-mode-find-definitions
+;;     "G" 'anaconda-mode-find-definitions-other-window
+;;     "a" 'anaconda-mode-find-assignments
+;;     "A" 'anaconda-mode-find-assignments-other-window
+;;     "r" 'anaconda-mode-find-references
+;;     "R" 'anaconda-mode-find-references-other-window
+;;     "?" 'anaconda-mode-show-doc
+;;     "sr" 'oneor0/autoflake-buffer)
+;;   (add-hook 'python-mode-hook 'anaconda-mode)
+;;   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
-(use-package company-anaconda
-  :config
-  (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
+;; (use-package company-anaconda
+;;   :config
+;;   (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
+
+(use-package python-mode)
 
 (use-package auto-virtualenvwrapper
   :init
@@ -334,13 +326,22 @@
 
 (use-package py-isort
   :init
-  (setq py-isort-options '("-m=3")))
+  (setq py-isort-options '("-m=3"))
+  :config
+  (set-local-leader-keys
+    :keymaps 'python-mode-map
+    :states '(normal visual emacs)
+    "ss" 'py-isort-buffer))
 
-(use-package blacken)
+(use-package blacken
+  :config
+  (set-local-leader-keys
+    :keymaps 'python-mode-map
+    :states '(normal visual emacs)
+    "b" 'blacken-buffer))
 
 ;; Web
 (use-package web-mode)
-(use-package emmet-mode)
 
 ;; Yaml
 (use-package yaml-mode)
@@ -351,19 +352,21 @@
 ;; Racket
 (use-package racket-mode
   :defer t
-  :init
-  (defun oneor0/racket-mode-hook ()
-    (set-local-leader-keys
-      :keymaps 'racket-mode-map
-      :states '(normal visual emacs)
-      "'" 'racket-repl
-      "sb" 'racket-run
-      "sr" 'racket-send-region))
   :config
-  (add-hook 'racket-mode-hook 'oneor0/racket-mode-hook))
+  (set-local-leader-keys
+    :keymaps 'racket-mode-map
+    :states '(normal visual emacs)
+    "'" 'racket-repl
+    "sb" 'racket-run
+    "sr" 'racket-send-region))
 
 ;; iTerm
 (require 'iterm)
+(set-local-leader-keys
+  :keymaps 'python-mode-map
+  :states '(normal visual emacs)
+  "t" 'iterm-pytest
+  "T" 'iterm-pytest-file)
 
 ;; Custom functions
 (defun edit-emacs-config ()
