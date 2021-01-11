@@ -267,15 +267,23 @@
 
 (use-package flycheck
   :init
-  (global-flycheck-mode))
+  (global-flycheck-mode)
+  :config
+  (setq flycheck-highlighting-style nil)
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "el" 'flycheck-list-errors
+    "en" 'flycheck-next-error
+    "ep" 'flycheck-previous-error))
 
 (use-package dumb-jump
   :config
   (set-leader-keys
     :states '(normal visual emacs)
-    "." 'dumb-jump-go
-    ">" 'dumb-jump-go-other-window)
-  (setq dumb-jump-selector 'ivy))
+    "." 'xref-find-definitions
+    "," 'xref-pop-marker-stack)
+  (setq dumb-jump-selector 'ivy)
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 ;; Autosave
 (use-package super-save
@@ -286,29 +294,29 @@
 (use-package lispy
   :defer t)
 
-;; Python
-(use-package anaconda-mode
-  :defer t
-  :config
-  (set-local-leader-keys
-    :keymaps 'python-mode-map
-    :states '(normal visual emacs)
-    "g" 'anaconda-mode-find-definitions
-    "G" 'anaconda-mode-find-definitions-other-window
-    "a" 'anaconda-mode-find-assignments
-    "A" 'anaconda-mode-find-assignments-other-window
-    "r" 'anaconda-mode-find-references
-    "R" 'anaconda-mode-find-references-other-window
-    "?" 'anaconda-mode-show-doc
-    "b" 'blacken-buffer
-    "ss" 'py-isort-buffer
-    "sr" 'oneor0/autoflake-buffer)
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+;; ;; Python
+;; (use-package anaconda-mode
+;;   :defer t
+;;   :config
+;;   (set-local-leader-keys
+;;     :keymaps 'python-mode-map
+;;     :states '(normal visual emacs)
+;;     "g" 'anaconda-mode-find-definitions
+;;     "G" 'anaconda-mode-find-definitions-other-window
+;;     "a" 'anaconda-mode-find-assignments
+;;     "A" 'anaconda-mode-find-assignments-other-window
+;;     "r" 'anaconda-mode-find-references
+;;     "R" 'anaconda-mode-find-references-other-window
+;;     "?" 'anaconda-mode-show-doc
+;;     "sr" 'oneor0/autoflake-buffer)
+;;   (add-hook 'python-mode-hook 'anaconda-mode)
+;;   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
-(use-package company-anaconda
-  :config
-  (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
+;; (use-package company-anaconda
+;;   :config
+;;   (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
+
+(use-package python-mode)
 
 (use-package auto-virtualenvwrapper
   :init
@@ -318,9 +326,19 @@
 
 (use-package py-isort
   :init
-  (setq py-isort-options '("-m=3")))
+  (setq py-isort-options '("-m=3"))
+  :config
+  (set-local-leader-keys
+    :keymaps 'python-mode-map
+    :states '(normal visual emacs)
+    "ss" 'py-isort-buffer))
 
-(use-package blacken)
+(use-package blacken
+  :config
+  (set-local-leader-keys
+    :keymaps 'python-mode-map
+    :states '(normal visual emacs)
+    "b" 'blacken-buffer))
 
 ;; Web
 (use-package web-mode)
