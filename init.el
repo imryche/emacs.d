@@ -151,6 +151,8 @@
   :diminish (ivy-mode . "") ; does not display ivy in the modeline
   :init (ivy-mode 1)        ; enable ivy globally at startup
   :config
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-fuzzy)))
   (setq ivy-use-virtual-buffers t)   ; extend searching to bookmarks and …
   (setq ivy-height 20)               ; set height of the ivy window
   (setq ivy-count-format "(%d/%d) ") ; count format, from the ivy help page
@@ -220,7 +222,13 @@
 
 (use-package counsel-projectile
   :config
-  (counsel-projectile-mode))
+  (counsel-projectile-mode)
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "pp" 'counsel-projectile-switch-project
+    "pf" 'counsel-projectile-find-file
+    "pd" 'counsel-projectile-find-dir
+    "pb" 'counsel-projectile-switch-to-buffer))
 
 ;; Org
 (use-package org
@@ -476,9 +484,6 @@
   "wd" 'delete-window
   "ww" 'ace-delete-other-windows
   ;; Projects
-  "pp" 'counsel-projectile-switch-project
-  "pf" 'counsel-projectile
-  "pb" 'counsel-projectile-switch-to-buffer
   "pt" 'oneor0/project-tasks
   ;; Help
   "hv" 'counsel-describe-variable
