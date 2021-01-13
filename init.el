@@ -161,6 +161,12 @@
    "C-k" 'ivy-previous-line
    "C-l" 'ivy-alt-done))
 
+(use-package ivy-xref
+  :ensure t
+  :init
+  (setq xref-show-definitions-function #'ivy-xref-show-defs)
+  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
 (use-package counsel
   :config
   (use-package flx)
