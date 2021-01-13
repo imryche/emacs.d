@@ -294,29 +294,13 @@
 (use-package lispy
   :defer t)
 
-;; ;; Python
-;; (use-package anaconda-mode
-;;   :defer t
-;;   :config
-;;   (set-local-leader-keys
-;;     :keymaps 'python-mode-map
-;;     :states '(normal visual emacs)
-;;     "g" 'anaconda-mode-find-definitions
-;;     "G" 'anaconda-mode-find-definitions-other-window
-;;     "a" 'anaconda-mode-find-assignments
-;;     "A" 'anaconda-mode-find-assignments-other-window
-;;     "r" 'anaconda-mode-find-references
-;;     "R" 'anaconda-mode-find-references-other-window
-;;     "?" 'anaconda-mode-show-doc
-;;     "sr" 'oneor0/autoflake-buffer)
-;;   (add-hook 'python-mode-hook 'anaconda-mode)
-;;   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
-
-;; (use-package company-anaconda
-;;   :config
-;;   (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda)))
-
-(use-package python-mode)
+;; Python
+(use-package company-jedi
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "." 'jedi:goto-definition
+    "," 'jedi:goto-definition-pop-marker))
 
 (use-package auto-virtualenvwrapper
   :init
