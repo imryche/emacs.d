@@ -216,7 +216,13 @@
 
 (use-package counsel-projectile
   :config
-  (counsel-projectile-mode))
+  (counsel-projectile-mode)
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "pp" 'counsel-projectile-switch-project
+    "pf" 'counsel-projectile-find-file
+    "pd" 'counsel-projectile-find-dir
+    "pb" 'counsel-projectile-switch-to-buffer))
 
 ;; Org
 (use-package org
@@ -488,9 +494,6 @@
   "wd" 'delete-window
   "ww" 'ace-delete-other-windows
   ;; Projects
-  "pp" 'counsel-projectile-switch-project
-  "pf" 'counsel-projectile
-  "pb" 'counsel-projectile-switch-to-buffer
   "pt" 'oneor0/project-tasks
   ;; Help
   "hv" 'counsel-describe-variable
