@@ -76,6 +76,13 @@
   :pin melpa
   :commands (esup))
 
+;; Emacs restart
+(use-package restart-emacs
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "qr" 'restart-emacs))
+
 ;; Theme
 (use-package color-theme-sanityinc-tomorrow
   :config
@@ -108,7 +115,11 @@
   :config
   (evil-escape-mode))
 
-(use-package evil-nerd-commenter)
+(use-package evil-nerd-commenter
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    ";" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
   :config
@@ -147,12 +158,10 @@
     "wml" 'buf-move-right))
 
 ;; Ivy
-(use-package ivy
+(use-package counsel
   :diminish (ivy-mode . "") ; does not display ivy in the modeline
   :init (ivy-mode 1)        ; enable ivy globally at startup
   :config
-  (setq ivy-re-builders-alist
-        '((t . ivy--regex-fuzzy)))
   (setq ivy-use-virtual-buffers t)   ; extend searching to bookmarks and …
   (setq ivy-height 20)               ; set height of the ivy window
   (setq ivy-count-format "(%d/%d) ") ; count format, from the ivy help page
@@ -161,18 +170,23 @@
    "C-h" 'delete-backward-char
    "C-j" 'ivy-next-line
    "C-k" 'ivy-previous-line
-   "C-l" 'ivy-alt-done))
+   "C-l" 'ivy-alt-done)
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "/" 'counsel-rg
+    "?" 'oneor0/counsel-rg-thing-at-point
+    "x" 'counsel-M-x
+    "SPC" 'counsel-ibuffer
+    "ff" 'counsel-find-file
+    "hv" 'counsel-describe-variable
+    "hf" 'counsel-describe-function
+    "sr" 'ivy-resume))
 
 (use-package ivy-xref
   :ensure t
   :init
   (setq xref-show-definitions-function #'ivy-xref-show-defs)
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
-
-(use-package counsel
-  :config
-  (use-package flx)
-  (use-package smex))
 
 (use-package which-key
   :init
@@ -182,25 +196,42 @@
   (which-key-mode))
 
 (use-package avy
-  :commands (avy-goto-word-1))
+  :commands (avy-goto-word-1)
+  :config
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "jl" 'avy-goto-line
+    "jf" 'avy-goto-char-timer
+    "jw" 'avy-goto-word-1
+    "jr" 'avy-resume))
 
-;; Ranger
 (use-package ranger
-  :init
-  (setq ranger-show-hidden t))
+  :config
+  (setq ranger-show-hidden t
+        ranger-parent-depth 1
+        ranger-show-literal t)
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "fr" 'ranger
+    "fd" 'deer))
 
-;; iBuffer
-(use-package ibuffer)
-
+(use-package ibuffer
+  :config
+  (set-leader-keys
+  :states '(normal visual emacs)
+  "bb" 'ibuffer))
 (use-package ibuffer-vc
   :config
   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
-;; Git
 (use-package magit
   :defer t
   :config
-  (add-hook 'with-editor-mode-hook 'evil-insert-state))
+  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "gs" 'magit-status
+    "gb" 'magit-blame))
 
 (use-package git-timemachine
   :config
@@ -213,7 +244,6 @@
   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
 
-;; Project management
 (use-package projectile
   :init
   (setq projectile-completion-system 'ivy)
@@ -230,7 +260,6 @@
     "pd" 'counsel-projectile-find-dir
     "pb" 'counsel-projectile-switch-to-buffer))
 
-;; Org
 (use-package org
   :defer t
   :ensure org-plus-contrib
@@ -243,10 +272,7 @@
   (add-hook 'org-mode-hook 'visual-line-mode)
   (defun org-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
-    (concat (file-name-as-directory org-directory) filename))
-  (defun edit-work-tasks ()
-    (interactive)
-    (find-file (org-file-path "work.org"))))
+    (concat (file-name-as-directory org-directory) filename)))
 
 (use-package org-bullets
   :defer t
@@ -261,9 +287,13 @@
               (("C-c r i" . org-roam-insert))
               (("C-c r I" . org-roam-insert-immediate)))
   :config
-  (require 'org-roam-protocol))
+  (require 'org-roam-protocol)
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "rr" 'org-roam
+    "rf" 'org-roam-find-file
+    "rg" 'org-roam-graph))
 
-;; Markdown
 (use-package markdown-mode
   :defer t
   :mode (("README\\.md\\'" . gfm-mode)
@@ -272,7 +302,6 @@
   :init
   (setq markdown-command "multimarkdown"))
 
-;; Autocompletion
 (use-package company
   :config
   (setq company-minimum-prefix-length 1
@@ -299,20 +328,18 @@
   (setq dumb-jump-selector 'ivy)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
-;; Autosave
 (use-package super-save
   :config
   (super-save-mode +1))
 
-;; Lisp
 (use-package lispy
   :defer t)
 
-;; Python
 (use-package company-jedi
   :config
   (set-leader-keys
     :states '(normal visual emacs)
+    :keymaps 'python-mode-map
     "." 'jedi:goto-definition
     "," 'jedi:goto-definition-pop-marker))
 
@@ -338,16 +365,12 @@
     :states '(normal visual emacs)
     "b" 'blacken-buffer))
 
-;; Web
 (use-package web-mode)
 
-;; Yaml
 (use-package yaml-mode)
 
-;; Docker
 (use-package dockerfile-mode)
 
-;; Racket
 (use-package racket-mode
   :defer t
   :config
@@ -358,7 +381,6 @@
     "sb" 'racket-run
     "sr" 'racket-send-region))
 
-;; iTerm
 (require 'iterm)
 (set-local-leader-keys
   :keymaps 'python-mode-map
@@ -367,7 +389,7 @@
   "T" 'iterm-pytest-file)
 
 ;; Custom functions
-(defun edit-emacs-config ()
+(defun oneor0/edit-emacs-config ()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
@@ -377,9 +399,9 @@
 	  (cons cmd (thing-at-point 'symbol)))))
     (funcall cmd)))
 
-(defun counsel-ag-thing-at-point ()
+(defun oneor0/counsel-rg-thing-at-point ()
   (interactive)
-  (ivy-with-thing-at-point 'counsel-ag))
+  (ivy-with-thing-at-point 'counsel-rg))
 
 (defun swiper-thing-at-point ()
   (interactive)
@@ -443,38 +465,12 @@
 
 (set-leader-keys
   :states '(normal visual emacs)
-  "/" 'counsel-ag
-  "?" 'counsel-ag-thing-at-point
-  "x" 'counsel-M-x
   "TAB" 'mode-line-other-buffer
-  "SPC" 'counsel-ibuffer
-  ";" 'evilnc-comment-or-uncomment-lines
-  ;; File manager
-  "dr" 'ranger
-  "dd" 'deer
-  ;; Quit
   "qq" 'save-buffers-kill-emacs
-  ;; Files
   "fs" 'save-buffer
-  "fd" 'deft
   "fS" (lambda () (interactive)(save-some-buffers t))
-  "ff" 'counsel-find-file
-  "f." 'edit-emacs-config
-  "fow" 'edit-work-tasks
-  ;; Buffers
+  "f." 'oneor0/edit-emacs-config
   "bd" 'kill-current-buffer
-  "bb" 'ibuffer
-  ;; Search
-  "sr" 'ivy-resume
-  ;; Jump
-  "jl" 'avy-goto-line
-  "jf" 'avy-goto-char-timer
-  "jw" 'avy-goto-word-1
-  "jr" 'avy-resume
-  ;; Git
-  "gs" 'magit-status
-  "gb" 'magit-blame
-  ;; Window
   "wl" 'windmove-right
   "wh" 'windmove-left
   "wk" 'windmove-up
@@ -482,17 +478,4 @@
   "w/" 'oneor0/split-right-switch
   "w-" 'oneor0/split-below-switch
   "wd" 'delete-window
-  "ww" 'ace-delete-other-windows
-  ;; Projects
-  "pt" 'oneor0/project-tasks
-  ;; Help
-  "hv" 'counsel-describe-variable
-  "hf" 'counsel-describe-function
-  ;; Org
-  "at" 'org-todo-list
-  "aa" 'org-agenda
-  "al" 'org-store-link
-  ;; Roam
-  "rr" 'org-roam
-  "rf" 'org-roam-find-file
-  "rg" 'org-roam-graph)
+  "ww" 'ace-delete-other-windows)
