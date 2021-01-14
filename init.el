@@ -62,13 +62,11 @@
 
 (setq load-prefer-newer t)
 
-;; General
 (use-package general
   :config
   (general-create-definer set-leader-keys :prefix "SPC")
   (general-create-definer set-local-leader-keys :prefix ","))
 
-;; Startup time profiler
 (use-package esup
   :init
   (setq esup-depth 0)
@@ -76,26 +74,22 @@
   :pin melpa
   :commands (esup))
 
-;; Emacs restart
 (use-package restart-emacs
-  :config
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "qr" 'restart-emacs))
 
-;; Theme
 (use-package color-theme-sanityinc-tomorrow
   :config
   (load-theme 'sanityinc-tomorrow-night t))
 
-;; Hide all minor modes
 (use-package minions
   :config
   (setq minions-mode-line-lighter ""
 	minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
 
-;; Evil
 (use-package evil
   :init
   (setq evil-want-keybinding nil
@@ -111,17 +105,18 @@
   :config
   (evil-collection-init))
 
-(use-package evil-escape
-  :config
-  (evil-escape-mode))
+;; (use-package evil-escape
+;;   :config
+;;   (evil-escape-mode))
 
 (use-package evil-nerd-commenter
-  :config
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     ";" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
+  :defer t
   :config
   (global-evil-surround-mode 1))
 
@@ -134,7 +129,6 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-;; Path management
 (use-package exec-path-from-shell
   :init
   (setq exec-path-from-shell-check-startup-files nil)
@@ -143,13 +137,13 @@
 
 ;; Switch/Move windows
 (use-package ace-window
-  :config
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "o" 'ace-window))
 
 (use-package buffer-move
-  :config
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "wmh" 'buf-move-left
@@ -160,11 +154,8 @@
 ;; Ivy
 (use-package counsel
   :diminish (ivy-mode . "") ; does not display ivy in the modeline
-  :init (ivy-mode 1)        ; enable ivy globally at startup
-  :config
-  (setq ivy-use-virtual-buffers t)   ; extend searching to bookmarks and …
-  (setq ivy-height 20)               ; set height of the ivy window
-  (setq ivy-count-format "(%d/%d) ") ; count format, from the ivy help page
+  :init
+  (ivy-mode 1)        ; enable ivy globally at startup
   (general-define-key
    :keymaps 'ivy-mode-map
    "C-h" 'delete-backward-char
@@ -180,7 +171,11 @@
     "ff" 'counsel-find-file
     "hv" 'counsel-describe-variable
     "hf" 'counsel-describe-function
-    "sr" 'ivy-resume))
+    "sr" 'ivy-resume)
+  :config
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-height 20)
+  (setq ivy-count-format "(%d/%d) "))
 
 (use-package ivy-xref
   :ensure t
@@ -196,8 +191,9 @@
   (which-key-mode))
 
 (use-package avy
-  :commands (avy-goto-word-1)
-  :config
+  :commands
+  (avy-goto-word-1)
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "jl" 'avy-goto-line
@@ -206,35 +202,38 @@
     "jr" 'avy-resume))
 
 (use-package ranger
-  :config
-  (setq ranger-show-hidden t
-        ranger-parent-depth 1
-        ranger-show-literal t)
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "fr" 'ranger
-    "fd" 'deer))
+    "fd" 'deer)
+  :config
+  (setq ranger-show-hidden t
+        ranger-parent-depth 1
+        ranger-show-literal t))
 
 (use-package ibuffer
-  :config
+  :init
   (set-leader-keys
-  :states '(normal visual emacs)
-  "bb" 'ibuffer))
+    :states '(normal visual emacs)
+    "bb" 'ibuffer))
+
 (use-package ibuffer-vc
   :config
   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
 (use-package magit
   :defer t
-  :config
-  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "gs" 'magit-status
-    "gb" 'magit-blame))
+    "gb" 'magit-blame)
+  :config
+  (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
 (use-package git-timemachine
-  :config
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "gt" 'git-timemachine))
@@ -251,14 +250,15 @@
   (projectile-mode))
 
 (use-package counsel-projectile
-  :config
-  (counsel-projectile-mode)
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "pp" 'counsel-projectile-switch-project
     "pf" 'counsel-projectile-find-file
     "pd" 'counsel-projectile-find-dir
-    "pb" 'counsel-projectile-switch-to-buffer))
+    "pb" 'counsel-projectile-switch-to-buffer)
+  :config
+  (counsel-projectile-mode))
 
 (use-package org
   :defer t
@@ -281,18 +281,18 @@
 
 (use-package org-roam
   :init
-  (setq org-roam-directory "~/Dropbox/org-roam")
-  (setq org-roam-graph-viewer "/usr/bin/open")
-  :bind (:map org-mode-map
-              (("C-c r i" . org-roam-insert))
-              (("C-c r I" . org-roam-insert-immediate)))
-  :config
-  (require 'org-roam-protocol)
   (set-leader-keys
     :states '(normal visual emacs)
     "rr" 'org-roam
     "rf" 'org-roam-find-file
-    "rg" 'org-roam-graph))
+    "rg" 'org-roam-graph)
+  :bind (:map org-mode-map
+              (("C-c r i" . org-roam-insert))
+              (("C-c r I" . org-roam-insert-immediate)))
+  :config
+  (setq org-roam-directory "~/Dropbox/org-roam")
+  (setq org-roam-graph-viewer "/usr/bin/open")
+  (require 'org-roam-protocol))
 
 (use-package markdown-mode
   :defer t
@@ -311,20 +311,21 @@
 (use-package flycheck
   :init
   (global-flycheck-mode)
-  :config
-  (setq flycheck-highlighting-style nil)
   (set-leader-keys
     :states '(normal visual emacs)
     "el" 'flycheck-list-errors
     "en" 'flycheck-next-error
-    "ep" 'flycheck-previous-error))
+    "ep" 'flycheck-previous-error)
+  :config
+  (setq flycheck-highlighting-style nil))
 
 (use-package dumb-jump
-  :config
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack)
+  :config
   (setq dumb-jump-selector 'ivy)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
@@ -336,7 +337,7 @@
   :defer t)
 
 (use-package company-jedi
-  :config
+  :init
   (set-leader-keys
     :states '(normal visual emacs)
     :keymaps 'python-mode-map
@@ -344,8 +345,6 @@
     "," 'jedi:goto-definition-pop-marker))
 
 (use-package auto-virtualenvwrapper
-  :init
-  (require 'auto-virtualenvwrapper)
   :config
   (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate))
 
