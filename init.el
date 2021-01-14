@@ -260,6 +260,12 @@
   :config
   (counsel-projectile-mode))
 
+(use-package format-all
+  :init
+  (set-leader-keys
+    :states '(normal visual emacs)
+    "=" 'format-all-buffer))
+
 (use-package org
   :defer t
   :ensure org-plus-contrib
