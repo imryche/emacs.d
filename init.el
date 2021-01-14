@@ -12,6 +12,8 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
+;; Garbage collection
+(setq gc-cons-threshold 20000000)
 (global-hl-line-mode)
 
 (setq byte-compile-warnings '(cl-functions))
