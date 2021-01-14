@@ -43,8 +43,8 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("org" . "http://orgmode.org/elpa/")
-			 ("gnu" . "http://elpa.gnu.org/packages/")
-			 ("melpa" . "https://melpa.org/packages/")))
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -87,7 +87,7 @@
 (use-package minions
   :config
   (setq minions-mode-line-lighter ""
-	minions-mode-line-delimiters '("" . ""))
+        minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
 
 (use-package evil
@@ -266,6 +266,10 @@
     :states '(normal visual emacs)
     "=" 'format-all-buffer))
 
+(use-package whitespace-cleanup-mode
+  :config
+  (global-whitespace-cleanup-mode t))
+
 (use-package org
   :defer t
   :ensure org-plus-contrib
@@ -400,8 +404,8 @@
 
 (defun ivy-with-thing-at-point (cmd)
   (let ((ivy-initial-inputs-alist
-	 (list
-	  (cons cmd (thing-at-point 'symbol)))))
+         (list
+          (cons cmd (thing-at-point 'symbol)))))
     (funcall cmd)))
 
 (defun oneor0/counsel-rg-thing-at-point ()
