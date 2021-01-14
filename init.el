@@ -14,6 +14,8 @@
 
 ;; Garbage collection
 (setq gc-cons-threshold 20000000)
+(add-function :after after-focus-change-function #'garbage-collect)
+
 (global-hl-line-mode)
 
 (setq byte-compile-warnings '(cl-functions))
