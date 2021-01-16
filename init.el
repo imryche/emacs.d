@@ -378,8 +378,7 @@
   :config
   (super-save-mode +1))
 
-(use-package lispy
-  :defer t)
+(use-package lispy :defer t)
 
 (use-package company-jedi
   :init
