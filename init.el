@@ -388,9 +388,10 @@
     "." 'jedi:goto-definition
     "," 'jedi:goto-definition-pop-marker))
 
-(use-package auto-virtualenvwrapper
+(use-package auto-virtualenv
   :config
-  (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate))
+  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+  (add-hook 'window-configuration-change-hook 'auto-virtualenv-set-virtualenv))
 
 (use-package py-isort
   :init
