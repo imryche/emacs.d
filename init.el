@@ -118,12 +118,9 @@
 
 (use-package evil-collection
   :after evil
+  :ensure t
   :config
   (evil-collection-init))
-
-;; (use-package evil-escape
-;;   :config
-;;   (evil-escape-mode))
 
 (use-package evil-nerd-commenter
   :init
