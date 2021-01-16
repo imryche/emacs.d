@@ -88,6 +88,14 @@
   :config
   (load-theme 'sanityinc-tomorrow-night t))
 
+(use-package doom-modeline
+  :ensure t
+  :init
+  (doom-modeline-mode 1)
+  :config
+  (setq doom-modeline-major-mode-icon nil
+        doom-modeline-buffer-modification-icon nil))
+
 (use-package minions
   :config
   (setq minions-mode-line-lighter ""
