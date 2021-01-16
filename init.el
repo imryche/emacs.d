@@ -219,16 +219,33 @@
     "jw" 'avy-goto-word-1
     "jr" 'avy-resume))
 
-(use-package ranger
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
   :init
   (set-leader-keys
     :states '(normal visual emacs)
-    "fr" 'ranger
-    "fd" 'deer)
+    "fd" 'dired-jump
+    "fD" 'dired-jump-other-window)
   :config
-  (setq ranger-show-hidden t
-        ranger-parent-depth 1
-        ranger-show-literal t))
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired nil))
+  (setq-default dired-listing-switches "-lhvA")
+  (setq dired-clean-up-buffers-too t
+        dired-recursive-copies 'always
+        dired-recursive-deletes 'top))
+
+(use-package dired-single
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-up-directory
+    "l" 'dired-find-file))
+
+(use-package dired-hide-dotfiles
+  :config
+  (dired-hide-dotfiles-mode)
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "." 'dired-hide-dotfiles-mode))
 
 (use-package ibuffer
   :init
