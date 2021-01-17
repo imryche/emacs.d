@@ -12,6 +12,8 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
+(setq default-directory (concat (getenv "HOME") "/"))
+
 ;; Garbage collection
 (setq gc-cons-threshold 20000000)
 (add-function :after after-focus-change-function #'garbage-collect)
