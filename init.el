@@ -114,10 +114,6 @@
 
 (use-package undo-tree)
 
-(use-package aggressive-indent
-  :init
-  (global-aggressive-indent-mode 1))
-
 (use-package evil-collection
   :after evil
   :ensure t
