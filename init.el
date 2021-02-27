@@ -60,6 +60,8 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+(setq default-directory (expand-file-name "~/"))
+
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
