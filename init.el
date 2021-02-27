@@ -238,7 +238,8 @@
   (setq-default dired-listing-switches "-lhvA --group-directories-first")
   (setq dired-clean-up-buffers-too t
         dired-recursive-copies 'always
-        dired-recursive-deletes 'top))
+        dired-recursive-deletes 'top)
+  (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package dired-single
   :config
