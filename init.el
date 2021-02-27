@@ -4,7 +4,7 @@
       coding-system-for-read 'utf-8
       coding-system-for-write 'utf-8
       sentence-end-double-space nil
-      default-fill-column 80
+      fill-column 80
       initial-scratch-message ""
       frame-resize-pixelwise t
       make-backup-files nil
