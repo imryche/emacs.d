@@ -89,9 +89,13 @@
     :states '(normal visual emacs)
     "qr" 'restart-emacs))
 
-(use-package color-theme-sanityinc-tomorrow
+;; (use-package color-theme-sanityinc-tomorrow
+;;   :config
+;;   (load-theme 'sanityinc-tomorrow-night t))
+
+(use-package nord-theme
   :config
-  (load-theme 'sanityinc-tomorrow-night t))
+  (load-theme 'nord t))
 
 (use-package doom-modeline
   :ensure t
