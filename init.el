@@ -134,7 +134,6 @@
     ";" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
-  :defer t
   :config
   (global-evil-surround-mode 1))
 
