@@ -443,7 +443,9 @@
     "sb" 'racket-run
     "sr" 'racket-send-region))
 
-(require 'iterm)
+(use-package iterm
+  :load-path "lisp/iterm")
+
 (set-local-leader-keys
   :keymaps 'python-mode-map
   :states '(normal visual emacs)
