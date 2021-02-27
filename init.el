@@ -84,6 +84,9 @@
 (use-package hl-line
   :hook ((after-init . global-hl-line-mode)))
 
+(use-package saveplace
+  :hook ((after-init . save-place-mode)))
+
 (use-package restart-emacs
   :init
   (set-leader-keys
