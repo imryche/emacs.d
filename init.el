@@ -233,8 +233,9 @@
     "fD" 'dired-jump-other-window)
   :config
   (when (string= system-type "darwin")
-    (setq dired-use-ls-dired nil))
-  (setq-default dired-listing-switches "-lhvA")
+    (setq dired-use-ls-dired t
+          insert-directory-program "/usr/local/bin/gls"))
+  (setq-default dired-listing-switches "-lhvA --group-directories-first")
   (setq dired-clean-up-buffers-too t
         dired-recursive-copies 'always
         dired-recursive-deletes 'top))
@@ -243,7 +244,7 @@
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-up-directory
-    "l" 'dired-find-file))
+    "l" 'dired-find-alternate-file))
 
 (use-package dired-hide-dotfiles
   :config
