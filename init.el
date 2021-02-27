@@ -35,6 +35,9 @@
 ;; Highlight current line in prog mode
 (add-hook 'prog-mode-hook 'hl-line-mode)
 
+;; Text mode customizations
+(add-hook 'text-mode-hook #'auto-fill-mode)
+
 ;; Store customizations in the separate file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
