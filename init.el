@@ -358,17 +358,6 @@
         company-idle-delay 0.0) ;; default is 0.2
   (global-company-mode t))
 
-(use-package flycheck
-  :init
-  (global-flycheck-mode)
-  (set-leader-keys
-    :states '(normal visual emacs)
-    "el" 'flycheck-list-errors
-    "en" 'flycheck-next-error
-    "ep" 'flycheck-previous-error)
-  :config
-  (setq flycheck-highlighting-style nil))
-
 (use-package dumb-jump
   :init
   (set-leader-keys
@@ -385,18 +374,35 @@
 
 (use-package lispy :defer t)
 
-(use-package company-jedi
+(use-package flymake
+  :ensure nil
   :init
   (set-leader-keys
     :states '(normal visual emacs)
-    :keymaps 'python-mode-map
-    "." 'jedi:goto-definition
-    "," 'jedi:goto-definition-pop-marker))
-
-(use-package auto-virtualenv
+    "en" 'flymake-goto-next-error
+    "ep" 'flymake-goto-prev-error)
   :config
-  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
-  (add-hook 'window-configuration-change-hook 'auto-virtualenv-set-virtualenv))
+  (custom-set-faces
+   '(flymake-warning ((t (:underline nil))))
+   '(flymake-error ((t (:underline nil))))))
+
+(use-package eglot
+  :init
+  (setq eldoc-documentation-functions '(eglot-signature-eldoc-function))
+  (setq eglot-workspace-configuration
+        '((:pyls . ((configurationSources . ["flake8"])
+                    (:plugins (:flake8 (:enabled . t)))))))
+  (setq eglot-ignored-server-capabilites '(list :documentHighlightProvider :hoverProvider))
+  :hook
+  (python-mode . eglot-ensure)
+  :config
+  (custom-set-faces
+   '(eglot-highlight-symbol-face ((t (:inherit nil)))))
+  (set-leader-keys
+    :states '(normal visual emacs)
+    :keymaps 'python-mode-map
+    "." 'xref-find-definitions
+    "," 'xref-pop-marker-stack))
 
 (use-package py-isort
   :init
