@@ -541,3 +541,6 @@
   "w-" 'oneor0/split-below-switch
   "wd" 'delete-window
   "ww" 'ace-delete-other-windows)
+
+(provide 'init)
+;;; init.el ends here
