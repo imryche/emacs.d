@@ -18,8 +18,6 @@
 (setq gc-cons-threshold 20000000)
 (add-function :after after-focus-change-function #'garbage-collect)
 
-(global-hl-line-mode)
-
 (setq byte-compile-warnings '(cl-functions))
 (setq-default indent-tabs-mode nil)
 
@@ -82,6 +80,9 @@
   :ensure t
   :pin melpa
   :commands (esup))
+
+(use-package hl-line
+  :hook ((after-init . global-hl-line-mode)))
 
 (use-package restart-emacs
   :init
