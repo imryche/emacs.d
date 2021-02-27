@@ -194,9 +194,12 @@
   (setq ivy-height 20)
   (setq ivy-count-format "(%d/%d) "))
 
+(use-package prescient)
+
 (use-package ivy-prescient
   :after counsel
   :config
+  (prescient-persist-mode 1)
   (ivy-prescient-mode 1))
 
 (use-package ivy-xref
