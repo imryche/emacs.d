@@ -413,6 +413,11 @@
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack))
 
+(use-package auto-virtualenv
+  :config
+  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+  (add-hook 'window-configuration-change-hook 'auto-virtualenv-set-virtualenv))
+
 (use-package py-isort
   :init
   (setq py-isort-options '("-m=3"))
