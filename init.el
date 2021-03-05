@@ -111,6 +111,9 @@
   (setq doom-modeline-major-mode-icon nil
         doom-modeline-buffer-modification-icon nil))
 
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
+
 (use-package minions
   :config
   (setq minions-mode-line-lighter ""
