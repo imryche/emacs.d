@@ -410,6 +410,7 @@
   (set-leader-keys
     :states '(normal visual emacs)
     :keymaps 'python-mode-map
+    "m" 'xref-find-references
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack))
 
