@@ -440,6 +440,8 @@
     :states '(normal visual emacs)
     "b" 'blacken-buffer))
 
+(use-package pyimport)
+
 (use-package web-mode)
 
 (use-package yaml-mode)
@@ -500,15 +502,6 @@
   (balance-windows)
   (other-window 1))
 
-(defun oneor0/autoflake-buffer()
-  "autoflake --remove-all-unused-imports -i unused_imports.py"
-  (interactive)
-  (if (executable-find "autoflake")
-      (progn
-        (shell-command (format "autoflake --remove-all-unused-imports -i %s"
-                               (shell-quote-argument (buffer-file-name))))
-        (revert-buffer t t t))
-    (message "Error: Cannot find autoflake executable.")))
 
 (defun insert-line-above ()
   "Insert an empty line above the current line."
