@@ -419,6 +419,11 @@
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack))
 
+(use-package python
+  :ensure nil
+  :config
+  (add-hook 'before-save-hook #'oneor0/python-before-save-hook))
+
 (use-package auto-virtualenv
   :config
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
@@ -502,6 +507,11 @@
   (balance-windows)
   (other-window 1))
 
+(defun oneor0/python-before-save-hook ()
+  (when (eq major-mode 'python-mode)
+    (interactive)
+    (py-isort-buffer)
+    (blacken-buffer)))
 
 (defun insert-line-above ()
   "Insert an empty line above the current line."
