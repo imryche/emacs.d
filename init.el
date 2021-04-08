@@ -324,6 +324,8 @@
   :config
   (global-whitespace-cleanup-mode t))
 
+(use-package writeroom-mode)
+
 (use-package org
   :defer t
   :ensure org-plus-contrib
