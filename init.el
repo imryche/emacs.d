@@ -403,8 +403,7 @@
   :init
   (setq eldoc-documentation-functions '(eglot-signature-eldoc-function))
   (setq eglot-workspace-configuration
-        '((:pyls . ((configurationSources . ["flake8"])
-                    (:plugins (:flake8 (:enabled . t)))))))
+        '((:pyls . (:plugins (:pyls_mypy (:enabled t))))))
   (setq eglot-ignored-server-capabilites '(list :documentHighlightProvider :hoverProvider))
   :hook
   (python-mode . eglot-ensure)
