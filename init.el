@@ -126,7 +126,10 @@
         evil-undo-system 'undo-tree)
   (global-undo-tree-mode)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (with-eval-after-load 'evil-maps
+    (define-key evil-normal-state-map (kbd "C-n") nil)
+    (define-key evil-normal-state-map (kbd "C-p") nil)))
 
 (use-package undo-tree)
 
@@ -177,45 +180,39 @@
     "wmk" 'buf-move-up
     "wml" 'buf-move-right))
 
-;; Ivy
-(use-package counsel
-  :diminish (ivy-mode . "") ; does not display ivy in the modeline
-  :init
-  (ivy-mode 1)        ; enable ivy globally at startup
+(use-package selectrum
+  :config
+  (selectrum-mode +1)
   (general-define-key
-   :keymaps 'ivy-mode-map
-   "C-h" 'delete-backward-char
-   "C-j" 'ivy-next-line
-   "C-k" 'ivy-previous-line
-   "C-l" 'ivy-alt-done)
+   :keymaps 'selectrum-minibuffer-map
+   "C-j" 'selectrum-next-candidate
+   "C-k" 'selectrum-previous-candidate))
+
+(use-package selectrum-prescient
+  :config
+  (selectrum-prescient-mode +1)
+  (prescient-persist-mode +1))
+
+(use-package consult
+  :init
+  (setq register-preview-delay 0
+        register-preview-function #'consult-register-format)
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+  :config
+  (setq consult-project-root-function #'projectile-project-root)
+  (general-define-key
+   :states '(normal visual emacs)
+   "/" 'consult-line
+   "?" 'consult-imenu)
   (set-leader-keys
     :states '(normal visual emacs)
-    "/" 'counsel-rg
-    "?" 'oneor0/counsel-rg-thing-at-point
-    "x" 'counsel-M-x
-    "SPC" 'counsel-ibuffer
-    "ff" 'counsel-find-file
-    "hv" 'counsel-describe-variable
-    "hf" 'counsel-describe-function
-    "sr" 'ivy-resume)
-  :config
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-height 20)
-  (setq ivy-count-format "(%d/%d) "))
+    "/" 'consult-ripgrep
+    "SPC" 'consult-buffer))
 
-(use-package prescient)
-
-(use-package ivy-prescient
-  :after counsel
-  :config
-  (prescient-persist-mode 1)
-  (ivy-prescient-mode 1))
-
-(use-package ivy-xref
-  :ensure t
+(use-package marginalia
   :init
-  (setq xref-show-definitions-function #'ivy-xref-show-defs)
-  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+  (marginalia-mode))
 
 (use-package which-key
   :init
@@ -276,13 +273,12 @@
   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
 (use-package magit
-  :defer t
-  :init
+  :config
+  (setq magit-completing-read-function #'selectrum-completing-read)
   (set-leader-keys
     :states '(normal visual emacs)
     "gs" 'magit-status
     "gb" 'magit-blame)
-  :config
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
 (use-package git-timemachine
@@ -298,21 +294,12 @@
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package projectile
-  :init
-  (setq projectile-completion-system 'ivy)
   :config
-  (projectile-mode))
-
-(use-package counsel-projectile
-  :init
+  (projectile-mode)
   (set-leader-keys
     :states '(normal visual emacs)
-    "pp" 'counsel-projectile-switch-project
-    "pf" 'counsel-projectile-find-file
-    "pd" 'counsel-projectile-find-dir
-    "pb" 'counsel-projectile-switch-to-buffer)
-  :config
-  (counsel-projectile-mode))
+    "P" 'projectile-switch-project
+    "p" 'projectile-find-file))
 
 (use-package format-all
   :init
@@ -446,7 +433,18 @@
 
 (use-package pyimport)
 
-(use-package web-mode)
+(use-package web-mode
+  :mode "\\.html?\\'"
+  :config
+  (add-hook 'web-mode-hook (function (lambda () (setq evil-shift-width 2))))
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-enable-auto-expanding t))
+
+(use-package js2-mode
+  :config
+  (setq js-indent-level 2))
 
 (use-package yaml-mode)
 
@@ -490,10 +488,6 @@
   (interactive)
   (ivy-with-thing-at-point 'swiper))
 
-(defun oneor0/project-tasks ()
-  (interactive)
-  (find-file (concat (projectile-project-root) "tasks.org")))
-
 (defun oneor0/split-right-switch ()
   (interactive)
   (split-window-right)
@@ -529,11 +523,6 @@
 ;; Keybindings
 (general-define-key
  :states '(normal visual emacs)
- "/" 'swiper
- "?" 'swiper-thing-at-point)
-
-(general-define-key
- :states '(normal visual emacs)
  :prefix "["
  "SPC" 'insert-line-above)
 
@@ -545,7 +534,9 @@
 (set-leader-keys
   :states '(normal visual emacs)
   "TAB" 'mode-line-other-buffer
+  "x" 'execute-extended-command
   "qq" 'save-buffers-kill-emacs
+  "ff" 'find-file
   "fs" 'save-buffer
   "fS" (lambda () (interactive)(save-some-buffers t))
   "f." 'oneor0/edit-emacs-config
