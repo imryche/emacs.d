@@ -359,7 +359,8 @@
 (use-package company
   :hook ((prog-mode . company-mode))
   :config
-  (setq company-idle-delay 0.3))
+  (setq company-idle-delay 0.0
+        company-minimum-prefix-length 1))
 
 (use-package dumb-jump
   :init
