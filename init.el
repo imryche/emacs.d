@@ -18,6 +18,8 @@
 (setq gc-cons-threshold 20000000)
 (add-function :after after-focus-change-function #'garbage-collect)
 
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 (setq byte-compile-warnings '(cl-functions))
 (setq-default indent-tabs-mode nil)
 
@@ -71,10 +73,9 @@
 
 (setq load-prefer-newer t)
 
-(use-package general
-  :config
-  (general-create-definer set-leader-keys :prefix "SPC")
-  (general-create-definer set-local-leader-keys :prefix ","))
+(use-package general)
+(general-create-definer set-local-leader-keys :prefix ",")
+(general-create-definer set-leader-keys :prefix "SPC")
 
 (use-package esup
   :init
@@ -376,34 +377,43 @@
 
 (use-package lispy :defer t)
 
-(use-package flymake
-  :ensure nil
-  :init
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode)
+  :config
+  (setq flycheck-highlighting-mode nil)
   (set-leader-keys
     :states '(normal visual emacs)
-    "en" 'flymake-goto-next-error
-    "ep" 'flymake-goto-prev-error)
-  :config
-  (custom-set-faces
-   '(flymake-warning ((t (:underline nil))))
-   '(flymake-error ((t (:underline nil))))))
+    "en" 'flycheck-next-error
+    "ep" 'flycheck-previous-error
+    "el" 'flycheck-list-errors))
 
-(use-package eglot
+(use-package lsp-mode
+  :hook (
+         ;; (python-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp
   :init
-  (setq eglot-workspace-configuration
-        '((:pyls . (:plugins (:pyls_mypy (:enabled t))))))
-  (setq eglot-ignored-server-capabilites '(list :documentHighlightProvider :hoverProvider))
-  :hook
-  (python-mode . eglot-ensure)
+  (setq lsp-keymap-prefix "C-c l")
   :config
-  (custom-set-faces
-   '(eglot-highlight-symbol-face ((t (:inherit nil)))))
+  (setq lsp-headerline-breadcrumb-enable nil
+        lsp-enable-symbol-highlighting nil
+        lsp-lens-enable nil
+        lsp-semantic-tokens-enable nil
+        lsp-eldoc-enable-hover nil
+        lsp-modeline-diagnostics-enable nil
+        lsp-signature-render-documentation nil)
   (set-leader-keys
     :states '(normal visual emacs)
     :keymaps 'python-mode-map
-    "m" 'xref-find-references
-    "." 'xref-find-definitions
-    "," 'xref-pop-marker-stack))
+    "." 'lsp-find-definition
+    "," 'lsp-find-references))
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp))))
 
 (use-package python
   :ensure nil
