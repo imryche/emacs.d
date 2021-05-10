@@ -26,9 +26,11 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (scroll-bar-mode -1)
-(tool-bar-mode -1)
+;; (tool-bar-mode -1)
+;; (menu-bar-mode -1)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(menu-bar-lines . 0) default-frame-alist)
 (tooltip-mode -1)
-(menu-bar-mode -1)
 (show-paren-mode 1)
 (electric-pair-mode)
 
@@ -105,9 +107,7 @@
   (load-theme 'nord t))
 
 (use-package doom-modeline
-  :ensure t
-  :init
-  (doom-modeline-mode 1)
+  :hook (after-init . doom-modeline-mode)
   :config
   (setq doom-modeline-major-mode-icon nil
         doom-modeline-buffer-modification-icon nil))
@@ -122,6 +122,7 @@
   (minions-mode 1))
 
 (use-package evil
+  :defer .1
   :init
   (setq evil-want-keybinding nil
         evil-undo-system 'undo-tree)
@@ -147,6 +148,7 @@
     ";" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
+  :after evil
   :config
   (global-evil-surround-mode 1))
 
@@ -252,12 +254,14 @@
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package dired-single
+  :after evil
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-up-directory
     "l" 'dired-find-alternate-file))
 
 (use-package dired-hide-dotfiles
+  :after evil
   :config
   (dired-hide-dotfiles-mode)
   (evil-collection-define-key 'normal 'dired-mode-map
@@ -283,6 +287,7 @@
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
 (use-package git-timemachine
+  :defer t
   :init
   (set-leader-keys
     :states '(normal visual emacs)
@@ -411,20 +416,16 @@
     "," 'lsp-find-references))
 
 (use-package lsp-pyright
-  :ensure t
+  :defer t
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp))))
 
-(use-package python
-  :ensure nil
-  :config
-  (add-hook 'before-save-hook #'oneor0/python-before-save-hook))
+;; (use-package auto-virtualenv
+;;   :config
+;;   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+;;   (add-hook 'window-configuration-change-hook 'auto-virtualenv-set-virtualenv))
 
-(use-package auto-virtualenv
-  :config
-  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
-  (add-hook 'window-configuration-change-hook 'auto-virtualenv-set-virtualenv))
 
 (use-package py-isort
   :init
@@ -452,10 +453,6 @@
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
         web-mode-enable-auto-expanding t))
-
-(use-package js2-mode
-  :config
-  (setq js-indent-level 2))
 
 (use-package yaml-mode)
 
@@ -510,12 +507,6 @@
   (split-window-below)
   (balance-windows)
   (other-window 1))
-
-(defun oneor0/python-before-save-hook ()
-  (when (eq major-mode 'python-mode)
-    (interactive)
-    (py-isort-buffer)
-    (blacken-buffer)))
 
 (defun insert-line-above ()
   "Insert an empty line above the current line."
