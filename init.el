@@ -234,6 +234,8 @@
   :init
   (marginalia-mode))
 
+(use-package wgrep)
+
 (use-package which-key
   :init
   (setq which-key-separator " ")
