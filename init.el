@@ -302,8 +302,10 @@
   (projectile-mode)
   (set-leader-keys
     :states '(normal visual emacs)
-    "P" 'projectile-switch-project
-    "p" 'projectile-find-file))
+    "pp" 'projectile-switch-project
+    "pf" 'projectile-find-file
+    "pr" 'projectile-replace
+    "pR" 'projectile-replace-regexp))
 
 (use-package format-all
   :init
