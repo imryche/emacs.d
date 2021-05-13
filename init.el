@@ -144,16 +144,21 @@
   :defer .1
   :init
   (setq evil-want-keybinding nil
+        evil-respect-visual-line-mode t
         evil-undo-system 'undo-tree)
   :config
   (evil-mode 1)
+
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
   (with-eval-after-load 'evil-maps
     (define-key evil-normal-state-map (kbd "C-n") nil)
     (define-key evil-normal-state-map (kbd "C-p") nil)))
 
 (use-package evil-collection
   :after evil
-  :ensure t
   :config
   (evil-collection-init))
 
