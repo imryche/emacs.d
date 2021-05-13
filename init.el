@@ -21,6 +21,9 @@
 
 (setq default-directory (concat (getenv "HOME") "/"))
 
+;; Silence compiler warnings as they can be pretty disruptive
+(setq comp-async-report-warnings-errors nil)
+
 ;; Garbage collection
 (setq gc-cons-threshold 20000000)
 (add-function :after after-focus-change-function #'garbage-collect)
