@@ -335,9 +335,9 @@
     :states '(normal visual emacs)
     "=" 'format-all-buffer))
 
-(use-package whitespace-cleanup-mode
-  :config
-  (global-whitespace-cleanup-mode t))
+(use-package ws-butler
+  :hook ((text-mode . ws-butler-mode)
+         (prog-mode . ws-butler-mode)))
 
 (use-package writeroom-mode)
 
