@@ -106,7 +106,7 @@
 
 (use-package restart-emacs
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "qr" 'restart-emacs))
 
@@ -155,7 +155,7 @@
 
 (use-package evil-nerd-commenter
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     ";" 'evilnc-comment-or-uncomment-lines))
 
@@ -176,13 +176,13 @@
 ;; Switch/Move windows
 (use-package ace-window
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "o" 'ace-window))
 
 (use-package buffer-move
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "wmh" 'buf-move-left
     "wmj" 'buf-move-down
@@ -214,7 +214,7 @@
    :states '(normal visual emacs)
    "/" 'consult-line
    "?" 'consult-imenu)
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "/" 'consult-ripgrep
     "SPC" 'consult-buffer))
@@ -234,7 +234,7 @@
   :commands
   (avy-goto-word-1)
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "jl" 'avy-goto-line
     "jf" 'avy-goto-char-timer
@@ -245,7 +245,7 @@
   :ensure nil
   :commands (dired dired-jump)
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "fd" 'dired-jump
     "fD" 'dired-jump-other-window)
@@ -275,7 +275,7 @@
 
 (use-package ibuffer
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "bb" 'ibuffer))
 
@@ -286,7 +286,7 @@
 (use-package magit
   :config
   (setq magit-completing-read-function #'selectrum-completing-read)
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "gs" 'magit-status
     "gb" 'magit-blame)
@@ -295,7 +295,7 @@
 (use-package git-timemachine
   :defer t
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "gt" 'git-timemachine))
 
@@ -308,7 +308,7 @@
 (use-package projectile
   :config
   (projectile-mode)
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "pp" 'projectile-switch-project
     "pf" 'projectile-find-file
@@ -317,7 +317,7 @@
 
 (use-package format-all
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "=" 'format-all-buffer))
 
@@ -348,7 +348,7 @@
 
 (use-package org-roam
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "rr" 'org-roam
     "rf" 'org-roam-find-file
@@ -377,7 +377,7 @@
 
 (use-package dumb-jump
   :init
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack)
@@ -396,7 +396,7 @@
   :init (global-flycheck-mode)
   :config
   (setq flycheck-highlighting-mode nil)
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     "en" 'flycheck-next-error
     "ep" 'flycheck-previous-error
@@ -418,7 +418,7 @@
         lsp-eldoc-enable-hover nil
         lsp-modeline-diagnostics-enable nil
         lsp-signature-render-documentation nil)
-  (set-leader-keys
+  (ryche/define-super-keys
     :states '(normal visual emacs)
     :keymaps 'python-mode-map
     "." 'lsp-find-definition
@@ -463,7 +463,7 @@
 (use-package racket-mode
   :defer t
   :config
-  (set-local-leader-keys
+  (ryche/define-leader-keys
     :keymaps 'racket-mode-map
     :states '(normal visual emacs)
     "'" 'racket-repl
@@ -473,7 +473,7 @@
 (use-package iterm
   :load-path "lisp/iterm")
 
-(set-local-leader-keys
+(ryche/define-leader-keys
   :keymaps 'python-mode-map
   :states '(normal visual emacs)
   "t" 'iterm-pytest
@@ -535,7 +535,7 @@
  :prefix "]"
  "SPC" 'insert-line-below)
 
-(set-leader-keys
+(ryche/define-super-keys
   :states '(normal visual emacs)
   "TAB" 'mode-line-other-buffer
   "x" 'execute-extended-command
