@@ -394,7 +394,8 @@
 
 (use-package lsp-mode
   :hook (
-         ;; (python-mode . lsp)
+         (python-mode . lsp)
+         (ruby-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :init
