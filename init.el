@@ -400,8 +400,11 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 (use-package super-save
+  :defer 1
   :config
-  (super-save-mode +1))
+  (super-save-mode +1)
+  (setq super-save-auto-save-when-idle t))
+
 
 (use-package lispy :defer t)
 
