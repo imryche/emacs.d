@@ -79,9 +79,11 @@
 
 (setq load-prefer-newer t)
 
-(use-package general)
-(general-create-definer set-local-leader-keys :prefix ",")
-(general-create-definer set-leader-keys :prefix "SPC")
+(use-package general
+  :config
+  (general-evil-setup t)
+  (general-create-definer ryche/define-leader-keys :prefix ",")
+  (general-create-definer ryche/define-super-keys :prefix "SPC"))
 
 (use-package esup
   :init
