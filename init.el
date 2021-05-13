@@ -298,14 +298,15 @@
   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
 (use-package magit
+  :commands (magit-status)
   :config
   (setq magit-completing-read-function #'selectrum-completing-read)
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "gs" 'magit-status
-    "gb" 'magit-blame)
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
+(ryche/define-super-keys
+  :states '(normal visual emacs)
+  "gs" 'magit-status
+  "gb" 'magit-blame)
 (use-package git-timemachine
   :defer t
   :init
