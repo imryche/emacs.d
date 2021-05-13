@@ -92,6 +92,12 @@
   :pin melpa
   :commands (esup))
 
+(use-package exec-path-from-shell
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package hl-line
   :hook ((after-init . global-hl-line-mode)))
 
@@ -127,19 +133,19 @@
         minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
 
+(use-package undo-tree
+  :init
+  (global-undo-tree-mode 1))
 (use-package evil
   :defer .1
   :init
   (setq evil-want-keybinding nil
         evil-undo-system 'undo-tree)
-  (global-undo-tree-mode)
   :config
   (evil-mode 1)
   (with-eval-after-load 'evil-maps
     (define-key evil-normal-state-map (kbd "C-n") nil)
     (define-key evil-normal-state-map (kbd "C-p") nil)))
-
-(use-package undo-tree)
 
 (use-package evil-collection
   :after evil
@@ -166,12 +172,6 @@
   (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
-
-(use-package exec-path-from-shell
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  :config
-  (exec-path-from-shell-initialize))
 
 ;; Switch/Move windows
 (use-package ace-window
