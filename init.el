@@ -21,6 +21,9 @@
 
 (setq default-directory (concat (getenv "HOME") "/"))
 
+;; Follow symlinks
+(setq vc-follow-symlinks t)
+
 ;; Silence compiler warnings as they can be pretty disruptive
 (setq comp-async-report-warnings-errors nil)
 
