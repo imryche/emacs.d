@@ -434,10 +434,7 @@
   :init
   (setq py-isort-options '("-m=3"))
   :config
-  (set-local-leader-keys
-    :keymaps 'python-mode-map
-    :states '(normal visual emacs)
-    "ss" 'py-isort-buffer))
+  (add-hook 'before-save-hook 'py-isort-before-save))
 
 (use-package blacken
   :config
