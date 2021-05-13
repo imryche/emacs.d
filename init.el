@@ -438,10 +438,7 @@
 
 (use-package blacken
   :config
-  (set-local-leader-keys
-    :keymaps 'python-mode-map
-    :states '(normal visual emacs)
-    "b" 'blacken-buffer))
+  (add-hook 'python-mode-hook 'blacken-mode))
 
 (use-package pyimport)
 
