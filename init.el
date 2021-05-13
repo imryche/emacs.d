@@ -509,19 +509,19 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
-(defun ivy-with-thing-at-point (cmd)
+(defun ryche/thing-at-point (cmd)
   (let ((ivy-initial-inputs-alist
          (list
           (cons cmd (thing-at-point 'symbol)))))
     (funcall cmd)))
 
-(defun ryche/counsel-rg-thing-at-point ()
+(defun ryche/consult-ripgrep-thing-at-point ()
   (interactive)
-  (ivy-with-thing-at-point 'counsel-rg))
+  (ryche/thing-at-point 'consult-ripgrep))
 
-(defun swiper-thing-at-point ()
+(defun ryche/consult-thing-at-point ()
   (interactive)
-  (ivy-with-thing-at-point 'swiper))
+  (ryche/thing-at-point 'consult-line))
 
 (defun ryche/split-right-switch ()
   (interactive)
