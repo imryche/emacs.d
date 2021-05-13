@@ -481,7 +481,7 @@
   "T" 'iterm-pytest-file)
 
 ;; Custom functions
-(defun oneor0/edit-emacs-config ()
+(defun ryche/edit-emacs-config ()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
@@ -491,7 +491,7 @@
           (cons cmd (thing-at-point 'symbol)))))
     (funcall cmd)))
 
-(defun oneor0/counsel-rg-thing-at-point ()
+(defun ryche/counsel-rg-thing-at-point ()
   (interactive)
   (ivy-with-thing-at-point 'counsel-rg))
 
@@ -499,13 +499,13 @@
   (interactive)
   (ivy-with-thing-at-point 'swiper))
 
-(defun oneor0/split-right-switch ()
+(defun ryche/split-right-switch ()
   (interactive)
   (split-window-right)
   (balance-windows)
   (other-window 1))
 
-(defun oneor0/split-below-switch ()
+(defun ryche/split-below-switch ()
   (interactive)
   (split-window-below)
   (balance-windows)
@@ -546,14 +546,14 @@
   "ff" 'find-file
   "fs" 'save-buffer
   "fS" (lambda () (interactive)(save-some-buffers t))
-  "f." 'oneor0/edit-emacs-config
+  "f." 'ryche/edit-emacs-config
   "bd" 'kill-current-buffer
   "wl" 'windmove-right
   "wh" 'windmove-left
   "wk" 'windmove-up
   "wj" 'windmove-down
-  "w/" 'oneor0/split-right-switch
-  "w-" 'oneor0/split-below-switch
+  "w/" 'ryche/split-right-switch
+  "w-" 'ryche/split-below-switch
   "wd" 'delete-window
   "ww" 'ace-delete-other-windows)
 
