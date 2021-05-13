@@ -12,6 +12,13 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(tooltip-mode -1)
+(show-paren-mode 1)
+(electric-pair-mode)
+
 (setq default-directory (concat (getenv "HOME") "/"))
 
 ;; Garbage collection
@@ -24,15 +31,6 @@
 (setq-default indent-tabs-mode nil)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-(scroll-bar-mode -1)
-;; (tool-bar-mode -1)
-;; (menu-bar-mode -1)
-(push '(tool-bar-lines . 0) default-frame-alist)
-(push '(menu-bar-lines . 0) default-frame-alist)
-(tooltip-mode -1)
-(show-paren-mode 1)
-(electric-pair-mode)
 
 ;; Highlight current line in prog mode
 (add-hook 'prog-mode-hook 'hl-line-mode)
