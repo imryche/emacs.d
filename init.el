@@ -199,6 +199,8 @@
     "wml" 'buf-move-right))
 
 (use-package selectrum
+  :custom
+  (selectrum-fix-minibuffer-height t)
   :config
   (selectrum-mode +1)
   (general-define-key
