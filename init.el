@@ -136,6 +136,10 @@
 (use-package undo-tree
   :init
   (global-undo-tree-mode 1))
+
+(use-package hydra
+  :defer 1)
+
 (use-package evil
   :defer .1
   :init
