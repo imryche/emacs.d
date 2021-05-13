@@ -249,9 +249,10 @@
   :init
   (ryche/define-super-keys
     :states '(normal visual emacs)
+    "jj" 'avy-goto-char
     "jl" 'avy-goto-line
     "jf" 'avy-goto-char-timer
-    "jw" 'avy-goto-word-1
+    "jw" 'avy-goto-word-0
     "jr" 'avy-resume))
 
 (use-package dired
