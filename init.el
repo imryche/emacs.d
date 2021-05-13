@@ -472,7 +472,6 @@
 (use-package web-mode
   :mode "\\.html?\\'"
   :config
-  (add-hook 'web-mode-hook (function (lambda () (setq evil-shift-width 2))))
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
@@ -491,6 +490,10 @@
     "'" 'racket-repl
     "sb" 'racket-run
     "sr" 'racket-send-region))
+
+(setq-default tab-width 2)
+(setq-default evil-shift-width tab-width)
+(setq-default indent-tabs-mode nil)
 
 (use-package iterm
   :load-path "lisp/iterm")
