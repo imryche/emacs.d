@@ -307,6 +307,10 @@
   :states '(normal visual emacs)
   "gs" 'magit-status
   "gb" 'magit-blame)
+
+(use-package magit-todos
+  :defer t)
+
 (use-package git-timemachine
   :defer t
   :init
