@@ -326,8 +326,19 @@
 
 (ryche/define-super-keys
   :states '(normal visual emacs)
+  "g" '(:ignore t :which-key "git")
   "gs" 'magit-status
-  "gb" 'magit-blame)
+  "gd" 'magit-diff-unstaged
+  "gc" 'magit-branch-or-checkout
+  "gl" '(:ignore t :which-key "log")
+  "glc" 'magit-log-current
+  "glf" 'magit-log-buffer-file
+  "gb" 'magit-branch
+  "gP" 'magit-push-current
+  "gp" 'magit-pull-branch
+  "gf" 'magit-fetch
+  "gF" 'magit-fetch-all
+  "gr" 'magit-rebase)
 
 (use-package magit-todos
   :defer t)
