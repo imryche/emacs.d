@@ -1,3 +1,28 @@
+;; Package Management
+(require 'package)
+(setq package-enable-at-startup nil)
+(setq package-archives '(("org" . "http://orgmode.org/elpa/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
+(package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+(setq default-directory (expand-file-name "~/"))
+
+;; Store customizations in the separate file
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror)
+
+(setq byte-compile-warnings '(cl-functions))
+
 (setq delete-old-versions -1
       inhibit-startup-screen t
       ring-bell-function 'ignore
@@ -19,59 +44,34 @@
 (show-paren-mode 1)
 (electric-pair-mode)
 
-(setq default-directory (concat (getenv "HOME") "/"))
-
-;; Follow symlinks
-(setq vc-follow-symlinks t)
-
-;; Silence compiler warnings as they can be pretty disruptive
-(setq comp-async-report-warnings-errors nil)
-
 ;; Garbage collection
 (setq gc-cons-threshold 20000000)
 (add-function :after after-focus-change-function #'garbage-collect)
 
+;; Increase the amount of data which Emacs reads from the process
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
-(setq byte-compile-warnings '(cl-functions))
-(setq-default indent-tabs-mode nil)
-
+;; Maximize window
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; Highlight current line in prog mode
-(add-hook 'prog-mode-hook 'hl-line-mode)
 
 ;; Text mode customizations
 (add-hook 'text-mode-hook #'auto-fill-mode)
 
-;; Store customizations in the separate file
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
-
 ;; yes no -> y n
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+(setq-default tab-width 2)
+(setq-default evil-shift-width tab-width)
+(setq-default indent-tabs-mode nil)
 
 ;; Font
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
 
-;; Package Management
-(require 'package)
-(setq package-enable-at-startup nil)
-(setq package-archives '(("org" . "http://orgmode.org/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(require 'use-package)
-
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
-(setq default-directory (expand-file-name "~/"))
-
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
+(use-package exec-path-from-shell
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  :config
+  (exec-path-from-shell-initialize))
 
 ;; Always compile packages and use the newest version available
 (use-package auto-compile
@@ -85,6 +85,9 @@
   (general-create-definer ryche/define-leader-keys :prefix ",")
   (general-create-definer ryche/define-super-keys :prefix "SPC"))
 
+(use-package hydra
+  :defer 1)
+
 (use-package esup
   :init
   (setq esup-depth 0)
@@ -92,31 +95,20 @@
   :pin melpa
   :commands (esup))
 
-(use-package exec-path-from-shell
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  :config
-  (exec-path-from-shell-initialize))
-
-(use-package hl-line
-  :hook ((after-init . global-hl-line-mode)))
-
-(use-package saveplace
-  :hook ((after-init . save-place-mode)))
-
 (use-package restart-emacs
   :init
   (ryche/define-super-keys
     :states '(normal visual emacs)
     "qr" 'restart-emacs))
 
-;; (use-package color-theme-sanityinc-tomorrow
-;;   :config
-;;   (load-theme 'sanityinc-tomorrow-night t))
-
+;; UI
 (use-package nord-theme
   :config
   (load-theme 'nord t))
+
+(use-package hl-line
+  :config
+  (add-hook 'prog-mode-hook 'hl-line-mode))
 
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
@@ -127,19 +119,31 @@
 (use-package emojify
   :hook (after-init . global-emojify-mode))
 
+(use-package which-key
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  :config
+  (which-key-mode))
+
 (use-package minions
   :config
   (setq minions-mode-line-lighter ""
         minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
 
+;; Other
 (use-package undo-tree
   :init
   (global-undo-tree-mode 1))
 
-(use-package hydra
-  :defer 1)
+(use-package format-all
+  :init
+  (ryche/define-super-keys
+    :states '(normal visual emacs)
+    "=" 'format-all-buffer))
 
+;; Movement
 (use-package evil
   :defer .1
   :init
@@ -182,7 +186,19 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-;; Switch/Move windows
+(use-package avy
+  :commands
+  (avy-goto-word-1)
+  :init
+  (ryche/define-super-keys
+    :states '(normal visual emacs)
+    "jj" 'avy-goto-char
+    "jl" 'avy-goto-line
+    "jf" 'avy-goto-char-timer
+    "jw" 'avy-goto-word-0
+    "jr" 'avy-resume))
+
+;; Windows and buffers
 (use-package ace-window
   :init
   (ryche/define-super-keys
@@ -198,6 +214,17 @@
     "wmk" 'buf-move-up
     "wml" 'buf-move-right))
 
+(use-package ibuffer
+  :init
+  (ryche/define-super-keys
+    :states '(normal visual emacs)
+    "bb" 'ibuffer))
+
+(use-package ibuffer-vc
+  :config
+  (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
+
+;; Completion system
 (use-package selectrum
   :custom
   (selectrum-fix-minibuffer-height t)
@@ -236,25 +263,7 @@
 
 (use-package wgrep)
 
-(use-package which-key
-  :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
-  :config
-  (which-key-mode))
-
-(use-package avy
-  :commands
-  (avy-goto-word-1)
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "jj" 'avy-goto-char
-    "jl" 'avy-goto-line
-    "jf" 'avy-goto-char-timer
-    "jw" 'avy-goto-word-0
-    "jr" 'avy-resume))
-
+;; File management
 (use-package dired
   :ensure nil
   :commands (dired dired-jump)
@@ -287,16 +296,20 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "." 'dired-hide-dotfiles-mode))
 
-(use-package ibuffer
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "bb" 'ibuffer))
-
-(use-package ibuffer-vc
+(use-package super-save
+  :defer 1
   :config
-  (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
+  (super-save-mode +1)
+  (setq super-save-auto-save-when-idle t))
 
+(use-package saveplace
+  :hook ((after-init . save-place-mode)))
+
+(use-package ws-butler
+  :hook ((text-mode . ws-butler-mode)
+         (prog-mode . ws-butler-mode)))
+
+;; Git
 (use-package magit
   :commands (magit-status)
   :config
@@ -334,16 +347,7 @@
     "pr" 'projectile-replace
     "pR" 'projectile-replace-regexp))
 
-(use-package format-all
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "=" 'format-all-buffer))
-
-(use-package ws-butler
-  :hook ((text-mode . ws-butler-mode)
-         (prog-mode . ws-butler-mode)))
-
+;; Writing
 (use-package writeroom-mode)
 
 (use-package org
@@ -404,23 +408,10 @@
   (setq dumb-jump-selector 'ivy)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
-(use-package super-save
-  :defer 1
-  :config
-  (super-save-mode +1)
-  (setq super-save-auto-save-when-idle t))
-
-;; Revert Dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
-
-;; Revert buffers when the underlying file has changed
-(global-auto-revert-mode 1)
-
-(use-package lispy :defer t)
-
+;; Syntax checking
 (use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
+  :init
+  (global-flycheck-mode)
   :config
   (defun flycheck-mypy--find-project-root (_checker)
     (and buffer-file-name
@@ -457,6 +448,7 @@
     "ep" 'flycheck-previous-error
     "el" 'flycheck-list-errors))
 
+;; Languages
 (use-package lsp-mode
   :hook ((python-mode . lsp)
          (ruby-mode . lsp)
@@ -487,7 +479,6 @@
   :config
   (setq lsp-pyright-typechecking-mode "off"))
 
-
 (use-package auto-virtualenv
   :config
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
@@ -513,6 +504,8 @@
         web-mode-code-indent-offset 2
         web-mode-enable-auto-expanding t))
 
+(use-package lispy :defer t)
+
 (use-package yaml-mode)
 
 (use-package dockerfile-mode)
@@ -527,18 +520,14 @@
     "sb" 'racket-run
     "sr" 'racket-send-region))
 
-(setq-default tab-width 2)
-(setq-default evil-shift-width tab-width)
-(setq-default indent-tabs-mode nil)
-
 (use-package iterm
-  :load-path "lisp/iterm")
-
-(ryche/define-leader-keys
-  :keymaps 'python-mode-map
-  :states '(normal visual emacs)
-  "t" 'iterm-pytest
-  "T" 'iterm-pytest-file)
+  :load-path "lisp/iterm"
+  :config
+  (ryche/define-leader-keys
+    :keymaps 'python-mode-map
+    :states '(normal visual emacs)
+    "t" 'iterm-pytest
+    "T" 'iterm-pytest-file))
 
 ;; Custom functions
 (defun ryche/edit-emacs-config ()
@@ -571,14 +560,14 @@
   (balance-windows)
   (other-window 1))
 
-(defun insert-line-above ()
+(defun ryche/insert-line-above ()
   "Insert an empty line above the current line."
   (interactive)
   (save-excursion
     (end-of-line 0)
     (open-line 1)))
 
-(defun insert-line-below ()
+(defun ryche/insert-line-below ()
   "Insert an empty line below the current line."
   (interactive)
   (save-excursion
@@ -589,12 +578,12 @@
 (general-define-key
  :states '(normal visual emacs)
  :prefix "["
- "SPC" 'insert-line-above)
+ "SPC" 'ryche/insert-line-above)
 
 (general-define-key
  :states '(normal visual emacs)
  :prefix "]"
- "SPC" 'insert-line-below)
+ "SPC" 'ryche/insert-line-below)
 
 (ryche/define-super-keys
   :states '(normal visual emacs)
