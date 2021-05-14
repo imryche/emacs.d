@@ -472,6 +472,7 @@
         lsp-eldoc-enable-hover nil
         lsp-modeline-diagnostics-enable nil
         lsp-signature-render-documentation nil)
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
   (ryche/define-super-keys
     :states '(normal visual emacs)
     :keymaps 'python-mode-map
