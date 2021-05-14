@@ -1,20 +1,5 @@
 ;; Package Management
-
-;; (require 'package)
-;; (setq package-enable-at-startup nil)
-;; (setq package-archives '(("org" . "http://orgmode.org/elpa/")
-;;                          ("gnu" . "http://elpa.gnu.org/packages/")
-;;                          ("melpa" . "https://melpa.org/packages/")))
-;; (package-initialize)
-;; (unless (package-installed-p 'use-package)
-;;   (package-refresh-contents)
-;;   (package-install 'use-package))
-;; (require 'use-package)
-
-;; (require 'use-package-ensure)
-;; (setq use-package-always-ensure t)
-
-(setq package-enable-at-startup nil)
+(setq straight-use-package-by-default t)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -30,7 +15,6 @@
   (load bootstrap-file nil 'nomessage))
 
 (straight-use-package 'use-package)
-(setq straight-use-package-by-default t)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
@@ -110,7 +94,6 @@
 (use-package esup
   :init
   (setq esup-depth 0)
-  :ensure t
   :pin melpa
   :commands (esup))
 
@@ -197,7 +180,6 @@
   (global-evil-surround-mode 1))
 
 (use-package evil-org
-  :ensure t
   :after org
   :config
   (add-hook 'org-mode-hook 'evil-org-mode)
@@ -284,7 +266,6 @@
 
 ;; File management
 (use-package dired
-  :ensure nil
   :commands (dired dired-jump)
   :init
   (ryche/define-super-keys
@@ -371,7 +352,6 @@
 
 (use-package org
   :defer t
-  :ensure org-plus-contrib
   :init
   (setq org-log-done 'time)
   (setq org-directory "~/Dropbox/org")
