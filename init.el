@@ -343,6 +343,15 @@
 (use-package magit-todos
   :defer t)
 
+(use-package git-link
+  :commands git-link
+  :config
+  (setq git-link-open-in-browser t))
+
+(ryche/define-super-keys
+  :states '(normal visual emacs)
+  "gL" 'git-link)
+
 (use-package git-timemachine
   :defer t
   :init
