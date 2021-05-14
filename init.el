@@ -1,5 +1,11 @@
-;; Package Management
-(setq straight-use-package-by-default t)
+;;; init.el --- Load the full configuration -*- lexical-binding: t -*-
+;;; Commentary:
+
+;; This file bootstraps the configuration
+
+;;; Code:
+
+(setq byte-compile-warnings '(cl-functions))
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -15,16 +21,16 @@
   (load bootstrap-file nil 'nomessage))
 
 (straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
-(setq default-directory (expand-file-name "~/"))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; Store customizations in the separate file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
-(setq byte-compile-warnings '(cl-functions))
+;; Sensible defaults
+(setq inhibit-startup-message t)
 
 (setq delete-old-versions -1
       inhibit-startup-screen t
@@ -40,12 +46,20 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
+(setq-default tab-width 2)
+(setq-default indent-tabs-mode nil)
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tooltip-mode -1)
 (show-paren-mode 1)
 (electric-pair-mode)
+
+(defalias 'yes-or-no-p 'y-or-n-p) ;; yes no -> y n
+
+;; Set default directory
+(setq default-directory (expand-file-name "~/"))
 
 ;; Garbage collection
 (setq gc-cons-threshold 20000000)
@@ -56,19 +70,6 @@
 
 ;; Maximize window
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; Text mode customizations
-(add-hook 'text-mode-hook #'auto-fill-mode)
-
-;; yes no -> y n
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-(setq-default tab-width 2)
-(setq-default evil-shift-width tab-width)
-(setq-default indent-tabs-mode nil)
-
-;; Font
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
 
 (use-package exec-path-from-shell
   :init
@@ -82,6 +83,7 @@
 
 (setq load-prefer-newer t)
 
+;; Simplify key bindings
 (use-package general
   :config
   (general-evil-setup t)
@@ -91,12 +93,13 @@
 (use-package hydra
   :defer 1)
 
+;; Profile startup time
 (use-package esup
   :init
   (setq esup-depth 0)
-  :pin melpa
   :commands (esup))
 
+;; Restart
 (use-package restart-emacs
   :init
   (ryche/define-super-keys
@@ -104,6 +107,8 @@
     "qr" 'restart-emacs))
 
 ;; UI
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
+
 (use-package nord-theme
   :config
   (load-theme 'nord t))
@@ -113,7 +118,8 @@
   (add-hook 'prog-mode-hook 'hl-line-mode))
 
 (use-package doom-modeline
-  :hook (after-init . doom-modeline-mode)
+  :hook
+  (after-init . doom-modeline-mode)
   :config
   (setq doom-modeline-major-mode-icon nil
         doom-modeline-buffer-modification-icon nil))
@@ -139,12 +145,6 @@
   :init
   (global-undo-tree-mode 1))
 
-(use-package format-all
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "=" 'format-all-buffer))
-
 ;; Movement
 (use-package evil
   :defer .1
@@ -152,6 +152,7 @@
   (setq evil-want-keybinding nil
         evil-respect-visual-line-mode t
         evil-undo-system 'undo-tree)
+  (setq-default evil-shift-width tab-width)
   :config
   (evil-mode 1)
 
@@ -225,6 +226,12 @@
   :config
   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
+(use-package format-all
+  :init
+  (ryche/define-super-keys
+    :states '(normal visual emacs)
+    "=" 'format-all-buffer))
+
 ;; Completion system
 (use-package selectrum
   :custom
@@ -266,6 +273,7 @@
 
 ;; File management
 (use-package dired
+  :straight (:type built-in)
   :commands (dired dired-jump)
   :init
   (ryche/define-super-keys
@@ -391,22 +399,6 @@
   :init
   (setq markdown-command "multimarkdown"))
 
-(use-package company
-  :hook ((prog-mode . company-mode))
-  :config
-  (setq company-idle-delay 0.0
-        company-minimum-prefix-length 1))
-
-(use-package dumb-jump
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "." 'xref-find-definitions
-    "," 'xref-pop-marker-stack)
-  :config
-  (setq dumb-jump-selector 'ivy)
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
-
 ;; Syntax checking
 (use-package flycheck
   :init
@@ -447,6 +439,13 @@
     "ep" 'flycheck-previous-error
     "el" 'flycheck-list-errors))
 
+;; Autocompletion
+(use-package company
+  :hook ((prog-mode . company-mode))
+  :config
+  (setq company-idle-delay 0.0
+        company-minimum-prefix-length 1))
+
 ;; Languages
 (use-package lsp-mode
   :hook ((python-mode . lsp)
@@ -471,6 +470,7 @@
     "," 'lsp-find-references))
 
 (use-package lsp-pyright
+  :defer t
   :hook
   (python-mode . (lambda ()
                    (require 'lsp-pyright)
@@ -503,7 +503,8 @@
         web-mode-code-indent-offset 2
         web-mode-enable-auto-expanding t))
 
-(use-package lispy :defer t)
+(use-package lispy
+  :defer t)
 
 (use-package yaml-mode)
 
@@ -519,7 +520,20 @@
     "sb" 'racket-run
     "sr" 'racket-send-region))
 
+;; Jump to definition everywhere
+(use-package dumb-jump
+  :init
+  (ryche/define-super-keys
+    :states '(normal visual emacs)
+    "." 'xref-find-definitions
+    "," 'xref-pop-marker-stack)
+  :config
+  (setq dumb-jump-selector 'selectrum)
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+
+;; Custom iterm package
 (use-package iterm
+  :straight (:type built-in)
   :load-path "lisp/iterm"
   :config
   (ryche/define-leader-keys
@@ -606,4 +620,5 @@
   "ww" 'ace-delete-other-windows)
 
 (provide 'init)
+
 ;;; init.el ends here
