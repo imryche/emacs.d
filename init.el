@@ -378,7 +378,8 @@
     "pR" 'projectile-replace-regexp))
 
 ;; Writing
-(use-package writeroom-mode)
+(use-package darkroom
+  :commands darkroom-mode)
 
 (use-package org
   :defer t
