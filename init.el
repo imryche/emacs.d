@@ -422,7 +422,35 @@
   :ensure t
   :init (global-flycheck-mode)
   :config
+  (defun flycheck-mypy--find-project-root (_checker)
+    (and buffer-file-name
+         (flycheck--locate-dominating-file-matching
+          (file-name-directory buffer-file-name)
+          (rx-to-string
+           `(: bos (or ,@flycheck-python-mypy-config) eos)
+           t))))
+
+  (flycheck-define-checker
+      python-mypy ""
+      :command ("mypy"
+                (config-file "--config-file" flycheck-python-mypy-config)
+                (option "--cache-dir" flycheck-python-mypy-cache-dir)
+                source-original)
+      :working-directory flycheck-mypy--find-project-root
+      :error-patterns
+      ((error line-start (file-name) ":" line ": error:" (message) line-end))
+      :modes python-mode)
+
+  (add-to-list 'flycheck-checkers 'python-mypy t)
+
+  (add-hook 'lsp-after-initialize-hook
+            (lambda ()
+              (when (derived-mode-p 'python-mode)
+                (flycheck-add-next-checker 'lsp 'python-mypy t)
+                (message "Added flycheck checkers."))))
+
   (setq flycheck-highlighting-mode nil)
+
   (ryche/define-super-keys
     :states '(normal visual emacs)
     "en" 'flycheck-next-error
@@ -430,8 +458,7 @@
     "el" 'flycheck-list-errors))
 
 (use-package lsp-mode
-  :hook (
-         (python-mode . lsp)
+  :hook ((python-mode . lsp)
          (ruby-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
@@ -452,10 +479,13 @@
     "," 'lsp-find-references))
 
 (use-package lsp-pyright
-  :defer t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp))))
+  :hook
+  (python-mode . (lambda ()
+                   (require 'lsp-pyright)
+                   (lsp-deferred)))
+  :config
+  (setq lsp-pyright-typechecking-mode "off"))
+
 
 (use-package auto-virtualenv
   :config
