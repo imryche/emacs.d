@@ -54,7 +54,6 @@
 (menu-bar-mode -1)
 (tooltip-mode -1)
 (show-paren-mode 1)
-(electric-pair-mode)
 
 (defalias 'yes-or-no-p 'y-or-n-p) ;; yes no -> y n
 
@@ -144,6 +143,9 @@
 (use-package undo-tree
   :init
   (global-undo-tree-mode 1))
+
+(use-package smartparens
+  :hook (prog-mode . smartparens-mode))
 
 ;; Movement
 (use-package evil
