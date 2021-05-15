@@ -245,7 +245,6 @@
 (use-package ibuffer
   :init
   (ryche/define-super-keys
-    :states '(normal visual emacs)
     "bb" 'ibuffer))
 
 (use-package ibuffer-vc
