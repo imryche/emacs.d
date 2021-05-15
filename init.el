@@ -180,6 +180,11 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+(use-package expand-region
+  :config
+  (general-define-key
+   "C-=" 'er/expand-region))
+
 (use-package avy
   :commands
   (avy-goto-word-1)
