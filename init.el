@@ -645,6 +645,13 @@
   "R" 'query-replace-regexp
   "k" 'kill-current-buffer
   "K" 'kill-buffer-and-window
+  "wl" 'windmove-right
+  "wh" 'windmove-left
+  "wk" 'windmove-up
+  "wj" 'windmove-down
+  "wd" 'delete-window'
+  "wJ" 'split-window-below
+  "wL" 'split-window-right
   "ff" 'find-file
   "fs" 'save-buffer
   "fS" (lambda () (interactive)(save-some-buffers t))
