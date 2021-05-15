@@ -125,10 +125,11 @@
 
 (use-package which-key
   :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
+  (which-key-mode)
   :config
-  (which-key-mode))
+  (setq which-key-separator " "
+        which-key-prefix-prefix "+"
+        which-key-idle-delay 0.3))
 
 (use-package minions
   :config
