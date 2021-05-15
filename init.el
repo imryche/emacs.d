@@ -399,21 +399,6 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-(use-package org-roam
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "rr" 'org-roam
-    "rf" 'org-roam-find-file
-    "rg" 'org-roam-graph)
-  :bind (:map org-mode-map
-              (("C-c r i" . org-roam-insert))
-              (("C-c r I" . org-roam-insert-immediate)))
-  :config
-  (setq org-roam-directory "~/Dropbox/org-roam")
-  (setq org-roam-graph-viewer "/usr/bin/open")
-  (require 'org-roam-protocol))
-
 (use-package markdown-mode
   :defer t
   :mode (("README\\.md\\'" . gfm-mode)
