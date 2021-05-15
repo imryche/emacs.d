@@ -274,6 +274,8 @@
   (marginalia-mode))
 
 ;; File management
+(setq vc-follow-symlinks t) ;; Follow symlinks without asking
+
 (use-package dired
   :straight (:type built-in)
   :commands (dired dired-jump)
