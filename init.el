@@ -213,6 +213,14 @@
 (use-package wgrep)
 
 ;; Windows and buffers
+(use-package winner
+  :straight (:type built-in)
+  :after evil
+  :config
+  (winner-mode)
+  (define-key evil-window-map "u" 'winner-undo)
+  (define-key evil-window-map "U" 'winner-redo))
+
 (use-package ace-window
   :init
   (ryche/define-super-keys
