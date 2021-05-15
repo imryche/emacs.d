@@ -46,9 +46,6 @@
       auto-save-default nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
-(setq-default tab-width 2)
-(setq-default indent-tabs-mode nil)
-
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
@@ -139,22 +136,17 @@
         minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
 
-;; Other
-(use-package undo-tree
-  :init
-  (global-undo-tree-mode 1))
+;; Editing
+(setq-default tab-width 2)
+(setq-default evil-shift-width tab-width)
+(setq-default indent-tabs-mode nil)
 
-(use-package smartparens
-  :hook (prog-mode . smartparens-mode))
-
-;; Movement
 (use-package evil
   :defer .1
   :init
   (setq evil-want-keybinding nil
         evil-respect-visual-line-mode t
         evil-undo-system 'undo-tree)
-  (setq-default evil-shift-width tab-width)
   :config
   (evil-mode 1)
 
@@ -202,6 +194,21 @@
     "jw" 'avy-goto-word-0
     "jr" 'avy-resume))
 
+(use-package undo-tree
+  :init
+  (global-undo-tree-mode 1))
+
+(use-package smartparens
+  :hook (prog-mode . smartparens-mode))
+
+(use-package format-all
+  :init
+  (ryche/define-super-keys
+    :states '(normal visual emacs)
+    "=" 'format-all-buffer))
+
+(use-package wgrep)
+
 ;; Windows and buffers
 (use-package ace-window
   :init
@@ -227,12 +234,6 @@
 (use-package ibuffer-vc
   :config
   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
-
-(use-package format-all
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "=" 'format-all-buffer))
 
 ;; Completion system
 (use-package selectrum
@@ -270,8 +271,6 @@
 (use-package marginalia
   :init
   (marginalia-mode))
-
-(use-package wgrep)
 
 ;; File management
 (use-package dired
@@ -567,30 +566,36 @@
 
 ;; Custom functions
 (defun ryche/edit-emacs-config ()
+  "Open Emacs configuration file."
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
 (defun ryche/thing-at-point (cmd)
+  "Call a CMD with argument at point."
   (let ((ivy-initial-inputs-alist
          (list
           (cons cmd (thing-at-point 'symbol)))))
     (funcall cmd)))
 
 (defun ryche/consult-ripgrep-thing-at-point ()
+  "Ripgrep with thing at point."
   (interactive)
   (ryche/thing-at-point 'consult-ripgrep))
 
 (defun ryche/consult-thing-at-point ()
+  "Consult-line with thing at point."
   (interactive)
   (ryche/thing-at-point 'consult-line))
 
 (defun ryche/split-right-switch ()
+  "Split vertically and switch window immediately."
   (interactive)
   (split-window-right)
   (balance-windows)
   (other-window 1))
 
 (defun ryche/split-below-switch ()
+  "Split horizontally and switch window immediately."
   (interactive)
   (split-window-below)
   (balance-windows)
