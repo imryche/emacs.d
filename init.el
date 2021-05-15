@@ -54,9 +54,6 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p) ;; yes no -> y n
 
-;; Set default directory
-(setq default-directory (expand-file-name "~/"))
-
 ;; Garbage collection
 (setq gc-cons-threshold 20000000)
 (add-function :after after-focus-change-function #'garbage-collect)
