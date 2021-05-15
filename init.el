@@ -80,8 +80,13 @@
 (use-package general
   :config
   (general-evil-setup t)
-  (general-create-definer ryche/define-leader-keys :prefix ",")
-  (general-create-definer ryche/define-super-keys :prefix "SPC"))
+  (general-create-definer
+    ryche/define-leader-keys
+    :prefix ",")
+  (general-create-definer
+    ryche/define-super-keys
+    :prefix "SPC"
+    :states '(normal visual emacs))
 
 (use-package hydra
   :defer 1)
@@ -96,7 +101,6 @@
 (use-package restart-emacs
   :init
   (ryche/define-super-keys
-    :states '(normal visual emacs)
     "qr" 'restart-emacs))
 
 ;; UI
@@ -164,7 +168,6 @@
 (use-package evil-nerd-commenter
   :init
   (ryche/define-super-keys
-    :states '(normal visual emacs)
     ";" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
@@ -190,7 +193,6 @@
   (avy-goto-word-1)
   :init
   (ryche/define-super-keys
-    :states '(normal visual emacs)
     "jj" 'avy-goto-char
     "jl" 'avy-goto-line
     "jf" 'avy-goto-char-timer
@@ -207,7 +209,6 @@
 (use-package format-all
   :init
   (ryche/define-super-keys
-    :states '(normal visual emacs)
     "=" 'format-all-buffer))
 
 (use-package wgrep)
@@ -231,13 +232,11 @@
 (use-package ace-window
   :init
   (ryche/define-super-keys
-    :states '(normal visual emacs)
     "o" 'ace-window))
 
 (use-package buffer-move
   :init
   (ryche/define-super-keys
-    :states '(normal visual emacs)
     "wmh" 'buf-move-left
     "wmj" 'buf-move-down
     "wmk" 'buf-move-up
@@ -640,7 +639,6 @@
  "SPC" 'ryche/insert-line-below)
 
 (ryche/define-super-keys
-  :states '(normal visual emacs)
   "TAB" 'mode-line-other-buffer
   "x" 'execute-extended-command
   "qq" 'save-buffers-kill-emacs
