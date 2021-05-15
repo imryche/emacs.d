@@ -254,8 +254,10 @@
   (selectrum-mode +1)
   (general-define-key
    :keymaps 'selectrum-minibuffer-map
+   "C-r" 'selectrum-select-from-history
    "C-j" 'selectrum-next-candidate
-   "C-k" 'selectrum-previous-candidate))
+   "C-k" 'selectrum-previous-candidate
+   "C-h" 'backward-kill-word))
 
 (use-package selectrum-prescient
   :config
