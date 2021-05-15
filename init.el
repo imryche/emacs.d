@@ -638,15 +638,6 @@
   "fs" 'save-buffer
   "fS" (lambda () (interactive)(save-some-buffers t))
   "f." 'ryche/edit-emacs-config
-  "bd" 'kill-current-buffer
-  "wl" 'windmove-right
-  "wh" 'windmove-left
-  "wk" 'windmove-up
-  "wj" 'windmove-down
-  "w/" 'ryche/split-right-switch
-  "w-" 'ryche/split-below-switch
-  "wd" 'delete-window
-  "ww" 'ace-delete-other-windows)
 
 (provide 'init)
 
