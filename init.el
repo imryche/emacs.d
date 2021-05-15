@@ -639,6 +639,7 @@
   "qq" 'save-buffers-kill-emacs
   "r" 'query-replace
   "R" 'query-replace-regexp
+  "k" 'kill-current-buffer
   "ff" 'find-file
   "fs" 'save-buffer
   "fS" (lambda () (interactive)(save-some-buffers t))
