@@ -569,7 +569,12 @@
 (defun ryche/edit-emacs-config ()
   "Open Emacs configuration file."
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (find-file user-init-file))
+
+(defun ryche/reload-emacs-config ()
+  "Reload Emacs configuration file."
+  (interactive)
+  (load-file user-init-file))
 
 (defun ryche/thing-at-point (cmd)
   "Call a CMD with argument at point."
@@ -638,6 +643,7 @@
   "fs" 'save-buffer
   "fS" (lambda () (interactive)(save-some-buffers t))
   "f." 'ryche/edit-emacs-config
+  "f>" 'ryche/reload-emacs-config)
 
 (provide 'init)
 
