@@ -376,8 +376,9 @@
     "gt" 'git-timemachine))
 
 (use-package diff-hl
-  :config
+  :init
   (global-diff-hl-mode)
+  :config
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
