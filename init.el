@@ -97,7 +97,10 @@
   (setq esup-depth 0)
   :commands (esup))
 
-;; Restart
+;; Quit and restart
+(ryche/define-super-keys
+  "qq" 'save-buffers-kill-emacs)
+
 (use-package restart-emacs
   :init
   (ryche/define-super-keys
@@ -142,6 +145,20 @@
 (setq-default tab-width 2)
 (setq-default evil-shift-width tab-width)
 (setq-default indent-tabs-mode nil)
+
+(ryche/define-super-keys
+  "r" 'query-replace
+  "R" 'query-replace-regexp)
+
+(general-define-key
+ :states '(normal visual emacs)
+ :prefix "["
+ "SPC" 'ryche/insert-line-above)
+
+(general-define-key
+ :states '(normal visual emacs)
+ :prefix "]"
+ "SPC" 'ryche/insert-line-below)
 
 (use-package evil
   :defer .1
@@ -214,12 +231,20 @@
 (use-package wgrep)
 
 ;; Windows and buffers
-
-;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
-
-;; Revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
+
+(ryche/define-super-keys
+  "TAB" 'mode-line-other-buffer
+  "k" 'kill-current-buffer
+  "K" 'kill-buffer-and-window
+  "wl" 'windmove-right
+  "wh" 'windmove-left
+  "wk" 'windmove-up
+  "wj" 'windmove-down
+  "wd" 'delete-window'
+  "wJ" 'split-window-below
+  "wL" 'split-window-right)
 
 (use-package winner
   :straight (:type built-in)
@@ -286,12 +311,23 @@
     "/" 'consult-ripgrep
     "SPC" 'consult-buffer))
 
+;; M-x
+(ryche/define-super-keys
+  "x" 'execute-extended-command)
+
 (use-package marginalia
   :init
   (marginalia-mode))
 
 ;; File management
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
+
+(ryche/define-super-keys
+  "ff" 'find-file
+  "fs" 'save-buffer
+  "fS" (lambda () (interactive)(save-some-buffers t))
+  "f." 'ryche/edit-emacs-config
+  "f>" 'ryche/reload-emacs-config)
 
 (use-package dired
   :straight (:type built-in)
@@ -625,38 +661,6 @@
   (save-excursion
     (end-of-line)
     (open-line 1)))
-
-;; Keybindings
-(general-define-key
- :states '(normal visual emacs)
- :prefix "["
- "SPC" 'ryche/insert-line-above)
-
-(general-define-key
- :states '(normal visual emacs)
- :prefix "]"
- "SPC" 'ryche/insert-line-below)
-
-(ryche/define-super-keys
-  "TAB" 'mode-line-other-buffer
-  "x" 'execute-extended-command
-  "qq" 'save-buffers-kill-emacs
-  "r" 'query-replace
-  "R" 'query-replace-regexp
-  "k" 'kill-current-buffer
-  "K" 'kill-buffer-and-window
-  "wl" 'windmove-right
-  "wh" 'windmove-left
-  "wk" 'windmove-up
-  "wj" 'windmove-down
-  "wd" 'delete-window'
-  "wJ" 'split-window-below
-  "wL" 'split-window-right
-  "ff" 'find-file
-  "fs" 'save-buffer
-  "fS" (lambda () (interactive)(save-some-buffers t))
-  "f." 'ryche/edit-emacs-config
-  "f>" 'ryche/reload-emacs-config)
 
 (provide 'init)
 
