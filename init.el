@@ -112,7 +112,7 @@
 
 (use-package hl-line
   :config
-  (add-hook 'prog-mode-hook 'hl-line-mode))
+  (global-hl-line-mode))
 
 (use-package doom-modeline
   :hook
