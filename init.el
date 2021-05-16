@@ -86,7 +86,7 @@
   (general-create-definer
     ryche/define-super-keys
     :prefix "SPC"
-    :states '(normal visual emacs))
+    :states '(normal visual emacs)))
 
 (use-package hydra
   :defer 1)
