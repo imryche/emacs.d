@@ -3,11 +3,14 @@ This is my Emacs configuration that I continuously use and improve to meet my pr
 
 ![Screenshot](https://github.com/imryche/emacs.d/raw/master/images/screenshot.png)
 
+## About
+My goal is to keep this configuration as minimal as possible while providing a fast editing experience and extensive support for the programming languages I use.
+
 ## Supported versions
-This configurations runs smoothly on Emacs 27.2
+It runs smoothly on Emacs 27.2.
 
 ## Installation
-To install you have to clone this repo to `~/.emacs.d`
+To install, you have to clone this repo to `~/.emacs.d`:
 ```bash
 git clone https://github.com/imryche/emacs.d ~/.emacs.d
 ```
