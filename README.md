@@ -3,7 +3,7 @@ This is my Emacs configuration that I continuously use and improve to meet my pr
 
 ![Screenshot](https://github.com/imryche/emacs.d/raw/master/images/screenshot.png)
 
-## About
+## Summary
 My goal is to keep this configuration as minimal as possible while providing a fast editing experience and extensive support for the programming languages I use.
 
 ## Supported versions
