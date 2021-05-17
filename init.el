@@ -81,30 +81,17 @@
   :config
   (general-evil-setup t)
   (general-create-definer
-    ryche/define-leader-keys
-    :prefix ",")
-  (general-create-definer
     ryche/define-super-keys
     :prefix "SPC"
     :states '(normal visual emacs)))
 
-(use-package hydra
-  :defer 1)
+(use-package hydra)
 
 ;; Profile startup time
 (use-package esup
   :init
   (setq esup-depth 0)
   :commands (esup))
-
-;; Quit and restart
-(ryche/define-super-keys
-  "qq" 'save-buffers-kill-emacs)
-
-(use-package restart-emacs
-  :init
-  (ryche/define-super-keys
-    "qr" 'restart-emacs))
 
 ;; UI
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
@@ -146,9 +133,9 @@
 (setq-default evil-shift-width tab-width)
 (setq-default indent-tabs-mode nil)
 
-(ryche/define-super-keys
-  "r" 'query-replace
-  "R" 'query-replace-regexp)
+(use-package visual-regexp
+  :config
+  (general-define-key "C-c C-r" 'vr/query-replace))
 
 (general-define-key
  :states '(normal visual emacs)
@@ -161,7 +148,6 @@
  "SPC" 'ryche/insert-line-below)
 
 (use-package evil
-  :defer .1
   :init
   (setq evil-want-keybinding nil
         evil-respect-visual-line-mode t
@@ -183,9 +169,10 @@
   (evil-collection-init))
 
 (use-package evil-nerd-commenter
-  :init
-  (ryche/define-super-keys
-    ";" 'evilnc-comment-or-uncomment-lines))
+  :after evil
+  :config
+  (general-define-key
+   "M-;" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
   :after evil
@@ -206,15 +193,10 @@
    "C-=" 'er/expand-region))
 
 (use-package avy
-  :commands
-  (avy-goto-word-1)
-  :init
-  (ryche/define-super-keys
-    "jj" 'avy-goto-char
-    "jl" 'avy-goto-line
-    "jf" 'avy-goto-char-timer
-    "jw" 'avy-goto-word-0
-    "jr" 'avy-resume))
+  :config
+  (general-define-key "C-:" 'avy-goto-char)
+  (general-define-key "C-'" 'avy-goto-char-2)
+  (general-define-key "C-;" 'avy-goto-line))
 
 (use-package undo-tree
   :init
@@ -224,27 +206,18 @@
   :hook (prog-mode . smartparens-mode))
 
 (use-package format-all
-  :init
-  (ryche/define-super-keys
-    "=" 'format-all-buffer))
+  :commands format-all-buffer)
+
+;; Search
+(use-package rg
+  :config
+  (rg-enable-default-bindings))
 
 (use-package wgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode 1)
-
-(ryche/define-super-keys
-  "TAB" 'mode-line-other-buffer
-  "k" 'kill-current-buffer
-  "K" 'kill-buffer-and-window
-  "wl" 'windmove-right
-  "wh" 'windmove-left
-  "wk" 'windmove-up
-  "wj" 'windmove-down
-  "wd" 'delete-window'
-  "wJ" 'split-window-below
-  "wL" 'split-window-right)
 
 (use-package winner
   :straight (:type built-in)
@@ -254,25 +227,14 @@
   (define-key evil-window-map "u" 'winner-undo)
   (define-key evil-window-map "U" 'winner-redo))
 
-(use-package ace-window
-  :init
-  (ryche/define-super-keys
-    "o" 'ace-window))
-
-(use-package buffer-move
-  :init
-  (ryche/define-super-keys
-    "wmh" 'buf-move-left
-    "wmj" 'buf-move-down
-    "wmk" 'buf-move-up
-    "wml" 'buf-move-right))
-
 (use-package ibuffer
-  :init
-  (ryche/define-super-keys
-    "bb" 'ibuffer))
+  :commands (ibuffer)
+  :config
+  (general-define-key
+   "C-x C-b" 'ibuffer))
 
 (use-package ibuffer-vc
+  :after ibuffer
   :config
   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
@@ -303,17 +265,9 @@
   :config
   (setq consult-project-root-function #'projectile-project-root)
   (general-define-key
-   :states '(normal visual emacs)
-   "/" 'consult-line
-   "?" 'consult-imenu)
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "/" 'consult-ripgrep
-    "SPC" 'consult-buffer))
-
-;; M-x
-(ryche/define-super-keys
-  "x" 'execute-extended-command)
+   "M-?" 'consult-ripgrep
+   [remap switch-to-buffer] 'consult-buffer
+   [remap switch-to-buffer-other-window] 'consult-buffer-other-window))
 
 (use-package marginalia
   :init
@@ -322,21 +276,13 @@
 ;; File management
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
-(ryche/define-super-keys
-  "ff" 'find-file
-  "fs" 'save-buffer
-  "fS" (lambda () (interactive)(save-some-buffers t))
-  "f." 'ryche/edit-emacs-config
-  "f>" 'ryche/reload-emacs-config)
+(general-define-key
+ "C-c ." 'ryche/edit-emacs-config
+ "C-c >" 'ryche/reload-emacs-config)
 
 (use-package dired
   :straight (:type built-in)
   :commands (dired dired-jump)
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "fd" 'dired-jump
-    "fD" 'dired-jump-other-window)
   :config
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired t
@@ -348,14 +294,14 @@
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package dired-single
-  :after evil
+  :after dired
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-up-directory
     "l" 'dired-find-alternate-file))
 
 (use-package dired-hide-dotfiles
-  :after evil
+  :after dired
   :config
   (dired-hide-dotfiles-mode)
   (evil-collection-define-key 'normal 'dired-mode-map
@@ -379,23 +325,8 @@
   :commands (magit-status)
   :config
   (setq magit-completing-read-function #'selectrum-completing-read)
-  (add-hook 'with-editor-mode-hook 'evil-insert-state))
-
-(ryche/define-super-keys
-  :states '(normal visual emacs)
-  "g" '(:ignore t :which-key "git")
-  "gs" 'magit-status
-  "gd" 'magit-diff-unstaged
-  "gc" 'magit-branch-or-checkout
-  "gl" '(:ignore t :which-key "log")
-  "glc" 'magit-log-current
-  "glf" 'magit-log-buffer-file
-  "gb" 'magit-branch
-  "gP" 'magit-push-current
-  "gp" 'magit-pull-branch
-  "gf" 'magit-fetch
-  "gF" 'magit-fetch-all
-  "gr" 'magit-rebase)
+  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+  (general-define-key "C-c g s" 'magit-status))
 
 (use-package magit-todos
   :defer t)
@@ -405,16 +336,12 @@
   :config
   (setq git-link-open-in-browser t))
 
-(ryche/define-super-keys
-  :states '(normal visual emacs)
-  "gL" 'git-link)
+(general-define-key "C-c g l" 'git-link)
 
 (use-package git-timemachine
-  :defer t
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "gt" 'git-timemachine))
+  :commands git-timemachine)
+
+(general-define-key "C-c g t" 'git-timemachine)
 
 (use-package diff-hl
   :init
@@ -425,13 +352,9 @@
 
 (use-package projectile
   :config
-  (projectile-mode)
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "pp" 'projectile-switch-project
-    "pf" 'projectile-find-file
-    "pr" 'projectile-replace
-    "pR" 'projectile-replace-regexp))
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 ;; Writing
 (use-package darkroom
@@ -495,13 +418,13 @@
                 (flycheck-add-next-checker 'lsp 'python-mypy t)
                 (message "Added flycheck checkers."))))
 
-  (setq flycheck-highlighting-mode nil)
+  (setq flycheck-highlighting-mode nil
+        flycheck-check-syntax-automatically '(mode-enabled save))
 
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "en" 'flycheck-next-error
-    "ep" 'flycheck-previous-error
-    "el" 'flycheck-list-errors))
+  (general-define-key
+   "C-c e n" 'flycheck-next-error
+   "C-c e p" 'flycheck-previous-error
+   "C-c e l" 'flycheck-list-errors))
 
 ;; Autocompletion
 (use-package company
@@ -570,41 +493,29 @@
 (use-package lispy
   :defer t)
 
-(use-package yaml-mode)
+(use-package yaml-mode
+  :mode "\\.yml\\'")
 
-(use-package dockerfile-mode)
+(use-package dockerfile-mode
+  :mode "Dockerfile\\'")
 
 (use-package racket-mode
-  :defer t
-  :config
-  (ryche/define-leader-keys
-    :keymaps 'racket-mode-map
-    :states '(normal visual emacs)
-    "'" 'racket-repl
-    "sb" 'racket-run
-    "sr" 'racket-send-region))
+  :defer t)
 
 ;; Jump to definition everywhere
 (use-package dumb-jump
-  :init
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "." 'xref-find-definitions
-    "," 'xref-pop-marker-stack)
+  :commands (xref-find-definitions)
   :config
   (setq dumb-jump-selector 'selectrum)
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (ryche/define-super-keys
+    :states '(normal visual emacs)
+    "." 'xref-find-definitions))
 
 ;; Custom iterm package
 (use-package iterm
   :straight (:type built-in)
-  :load-path "lisp/iterm"
-  :config
-  (ryche/define-leader-keys
-    :keymaps 'python-mode-map
-    :states '(normal visual emacs)
-    "t" 'iterm-pytest
-    "T" 'iterm-pytest-file))
+  :load-path "lisp/iterm")
 
 ;; Custom functions
 (defun ryche/edit-emacs-config ()
