@@ -528,23 +528,6 @@
   (interactive)
   (load-file user-init-file))
 
-(defun ryche/thing-at-point (cmd)
-  "Call a CMD with argument at point."
-  (let ((ivy-initial-inputs-alist
-         (list
-          (cons cmd (thing-at-point 'symbol)))))
-    (funcall cmd)))
-
-(defun ryche/consult-ripgrep-thing-at-point ()
-  "Ripgrep with thing at point."
-  (interactive)
-  (ryche/thing-at-point 'consult-ripgrep))
-
-(defun ryche/consult-thing-at-point ()
-  "Consult-line with thing at point."
-  (interactive)
-  (ryche/thing-at-point 'consult-line))
-
 (defun ryche/split-right-switch ()
   "Split vertically and switch window immediately."
   (interactive)
