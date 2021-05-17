@@ -84,6 +84,12 @@ anaconda-mode/
 # emoji
 emojis/
 
+# straight
+straight/
+
 # precsient
 places
 var/
+
+# lsp
+.lsp-session*
