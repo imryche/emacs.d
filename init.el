@@ -426,8 +426,7 @@
                 (flycheck-add-next-checker 'lsp 'python-mypy t)
                 (message "Added flycheck checkers."))))
 
-  (setq flycheck-highlighting-mode nil
-        flycheck-check-syntax-automatically '(mode-enabled save))
+  (setq flycheck-highlighting-mode nil)
 
   (defhydra hydra-error (global-map "C-c e")
     "goto-error"
