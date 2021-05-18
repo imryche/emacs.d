@@ -207,6 +207,8 @@
 (use-package format-all
   :commands format-all-buffer)
 
+(general-define-key "C-f" 'format-all-buffer)
+
 ;; Search
 (use-package rg
   :config
