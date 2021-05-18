@@ -437,7 +437,7 @@
   (general-define-key
    "C-c e p" 'flycheck-previous-error
    "C-c e l" 'flycheck-list-errors))
--
+
 ;; Autocompletion
 (use-package company
   :hook ((prog-mode . company-mode))
@@ -488,9 +488,9 @@
   :config
   (add-hook 'before-save-hook 'py-isort-before-save))
 
-(use-package blacken
-  :config
-  (add-hook 'python-mode-hook 'blacken-mode))
+(use-package python-black
+  :after python
+  :hook (python-mode . python-black-on-save-mode))
 
 (use-package pyimport)
 
