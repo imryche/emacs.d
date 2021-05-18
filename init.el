@@ -479,16 +479,20 @@
   (add-hook 'window-configuration-change-hook 'auto-virtualenv-set-virtualenv))
 
 (use-package py-isort
-  :init
-  (setq py-isort-options '("-m=3"))
+  :after python
   :config
-  (add-hook 'before-save-hook 'py-isort-before-save))
+  (setq py-isort-options '("-m=3")))
 
 (use-package python-black
-  :after python
-  :hook (python-mode . python-black-on-save-mode))
+  :after python)
 
-(use-package pyimport)
+(use-package pyimport
+  :after python)
+
+(general-define-key :keymaps 'evil-motion-state-map "C-f" nil)
+(general-define-key
+ :keymaps 'python-mode-map
+ "C-f" 'ryche/format-python)
 
 (use-package web-mode
   :mode "\\.html?\\'"
@@ -551,6 +555,15 @@
   (save-excursion
     (end-of-line)
     (open-line 1)))
+
+(defun ryche/format-python ()
+  "Make python buffer pretty."
+  (interactive)
+  (save-buffer)
+  (pyimport-remove-unused)
+  (py-isort-buffer)
+  (python-black-buffer))
+
 
 (provide 'init)
 
