@@ -79,11 +79,7 @@
 ;; Simplify key bindings
 (use-package general
   :config
-  (general-evil-setup t)
-  (general-create-definer
-    ryche/define-super-keys
-    :prefix "SPC"
-    :states '(normal visual emacs)))
+  (general-evil-setup t))
 
 (use-package hydra)
 
@@ -462,11 +458,11 @@
         lsp-modeline-diagnostics-enable nil
         lsp-signature-render-documentation nil)
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    :keymaps 'python-mode-map
-    "." 'lsp-find-definition
-    "," 'lsp-find-references))
+  (general-define-key :keymaps 'evil-normal-state-map "C-." nil)
+  (general-define-key
+   :keymaps 'python-mode-map
+   "C-." 'lsp-find-definition
+   "C-," 'lsp-find-references))
 
 (use-package lsp-pyright
   :defer t
