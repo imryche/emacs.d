@@ -199,7 +199,9 @@
   (global-undo-tree-mode 1))
 
 (use-package smartparens
-  :hook (prog-mode . smartparens-mode))
+  :hook (prog-mode . smartparens-mode)
+  :config
+  (require 'smartparens-config))
 
 (use-package format-all
   :commands format-all-buffer)
