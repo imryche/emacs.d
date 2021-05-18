@@ -421,11 +421,16 @@
   (setq flycheck-highlighting-mode nil
         flycheck-check-syntax-automatically '(mode-enabled save))
 
+  (defhydra hydra-error (global-map "C-c e")
+    "goto-error"
+    ("n" flycheck-next-error "next")
+    ("p" flycheck-previous-error "prev")
+    ("h" flycheck-first-error "first")
+    ("q" nil "quit"))
   (general-define-key
-   "C-c e n" 'flycheck-next-error
    "C-c e p" 'flycheck-previous-error
    "C-c e l" 'flycheck-list-errors))
-
+-
 ;; Autocompletion
 (use-package company
   :hook ((prog-mode . company-mode))
