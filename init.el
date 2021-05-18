@@ -538,20 +538,6 @@
   (save-buffer)
   (load-file user-init-file))
 
-(defun ryche/split-right-switch ()
-  "Split vertically and switch window immediately."
-  (interactive)
-  (split-window-right)
-  (balance-windows)
-  (other-window 1))
-
-(defun ryche/split-below-switch ()
-  "Split horizontally and switch window immediately."
-  (interactive)
-  (split-window-below)
-  (balance-windows)
-  (other-window 1))
-
 (defun ryche/insert-line-above ()
   "Insert an empty line above the current line."
   (interactive)
