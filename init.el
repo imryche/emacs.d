@@ -154,6 +154,7 @@
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (general-define-key :keymaps 'evil-normal-state-map "C-." nil)
 
   (with-eval-after-load 'evil-maps
     (define-key evil-normal-state-map (kbd "C-n") nil)
@@ -460,7 +461,6 @@
         lsp-modeline-diagnostics-enable nil
         lsp-signature-render-documentation nil)
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
-  (general-define-key :keymaps 'evil-normal-state-map "C-." nil)
   (general-define-key
    :keymaps 'python-mode-map
    "C-." 'lsp-find-definition
@@ -518,13 +518,14 @@
 
 ;; Jump to definition everywhere
 (use-package dumb-jump
-  :commands (xref-find-definitions)
+  :commands (xref-find-definitions xref-find-references)
   :config
   (setq dumb-jump-selector 'selectrum)
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  (ryche/define-super-keys
-    :states '(normal visual emacs)
-    "." 'xref-find-definitions))
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+
+(general-define-key
+ "C-." 'xref-find-definitions
+ "C-," 'xref-find-references)
 
 ;; Custom iterm package
 (use-package iterm
