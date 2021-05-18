@@ -538,6 +538,8 @@
 (defun ryche/reload-emacs-config ()
   "Reload Emacs configuration file."
   (interactive)
+  (find-file user-init-file)
+  (save-buffer)
   (load-file user-init-file))
 
 (defun ryche/split-right-switch ()
