@@ -349,12 +349,12 @@
   :config
   (setq git-link-open-in-browser t))
 
-(general-define-key "C-c g l" 'git-link)
+(general-define-key "s-g l" 'git-link)
 
 (use-package git-timemachine
   :commands git-timemachine)
 
-(general-define-key "C-c g t" 'git-timemachine)
+(general-define-key "s-g t" 'git-timemachine)
 
 (use-package diff-hl
   :init
