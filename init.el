@@ -279,6 +279,10 @@
   (marginalia-mode))
 
 ;; File management
+(recentf-mode 1)
+(setq recentf-max-menu-items 25
+      recentf-max-saved-items 25)
+
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
 (general-define-key
