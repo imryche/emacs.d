@@ -302,6 +302,8 @@
         dired-recursive-deletes 'top)
   (put 'dired-find-alternate-file 'disabled nil))
 
+(general-define-key "s-d" 'dired-jump)
+
 (use-package dired-single
   :after dired
   :config
