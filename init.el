@@ -221,8 +221,8 @@
 (global-auto-revert-mode t)
 
 (general-define-key
- "C->" 'next-buffer
- "C-<" 'previous-buffer)
+ "s->" 'next-buffer
+ "s-<" 'previous-buffer)
 
 (use-package winner
   :straight (:type built-in)
