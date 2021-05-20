@@ -269,10 +269,11 @@
         xref-show-definitions-function #'consult-xref)
   :config
   (setq consult-project-root-function #'projectile-project-root)
+  (general-define-key "s-F" nil)
   (general-define-key
-   "M-?" 'consult-ripgrep
-   [remap switch-to-buffer] 'consult-buffer
-   [remap switch-to-buffer-other-window] 'consult-buffer-other-window))
+   "s-F" 'consult-ripgrep
+   "s-b" 'consult-buffer
+   "s-B" 'consult-buffer-other-window))
 
 (use-package marginalia
   :init
