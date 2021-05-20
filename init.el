@@ -218,7 +218,7 @@
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
-(global-auto-revert-mode 1)
+(global-auto-revert-mode t)
 
 (general-define-key
  "C->" 'next-buffer
