@@ -336,7 +336,8 @@
   (setq magit-completing-read-function #'selectrum-completing-read)
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
-(general-define-key "C-c g s" 'magit-status)
+(general-define-key "s-g" nil)
+(general-define-key "s-g s" 'magit-status)
 
 (use-package magit-todos
   :defer t)
