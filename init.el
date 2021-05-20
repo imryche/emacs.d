@@ -526,6 +526,9 @@
 (use-package dockerfile-mode
   :mode "Dockerfile\\'")
 
+(use-package haml-mode
+  :mode "\\.haml\\'")
+
 (use-package racket-mode
   :defer t)
 
