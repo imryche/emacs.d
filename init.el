@@ -213,7 +213,9 @@
 ;; Search
 (use-package rg
   :config
-  (rg-enable-default-bindings))
+  (rg-enable-default-bindings)
+  (general-define-key "s-F" nil)
+  (general-define-key "s-F" 'rg-menu))
 
 (use-package wgrep)
 
