@@ -193,8 +193,8 @@
 (use-package avy
   :config
   (general-define-key "C-:" 'avy-goto-char)
-  (general-define-key "C-'" 'avy-goto-char-2)
-  (general-define-key "C-;" 'avy-goto-line))
+  (general-define-key "C-;" 'avy-goto-char-2)
+  (general-define-key "C-'" 'avy-goto-line))
 
 (use-package undo-tree
   :init
