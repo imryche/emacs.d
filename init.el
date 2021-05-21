@@ -224,6 +224,13 @@
 (global-auto-revert-mode t)
 
 (general-define-key
+ "s-1" 'delete-other-windows
+ "s-2" 'split-window-below
+ "s-3" 'split-window-right
+ "s-0" 'delete-window
+ "s-w" 'delete-window)
+
+(general-define-key
  "s->" 'next-buffer
  "s-<" 'previous-buffer)
 
