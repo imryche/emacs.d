@@ -334,7 +334,6 @@
     "." 'dired-hide-dotfiles-mode))
 
 (use-package super-save
-  :defer 1
   :config
   (super-save-mode +1)
   (setq super-save-auto-save-when-idle t))
