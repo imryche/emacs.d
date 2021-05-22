@@ -169,7 +169,7 @@
   :after evil
   :config
   (general-define-key
-   "M-;" 'evilnc-comment-or-uncomment-lines))
+   "s-/" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
   :after evil
