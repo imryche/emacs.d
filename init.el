@@ -234,6 +234,10 @@
  "s->" 'next-buffer
  "s-<" 'previous-buffer)
 
+(use-package ace-window
+  :config
+  (general-define-key "s-o" 'ace-window))
+
 (use-package winner
   :straight (:type built-in)
   :after evil
