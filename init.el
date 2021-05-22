@@ -335,6 +335,7 @@
 
 (use-package super-save
   :config
+  (add-to-list 'super-save-triggers 'ace-window)
   (super-save-mode +1)
   (setq super-save-auto-save-when-idle t))
 
