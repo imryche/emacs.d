@@ -283,9 +283,7 @@
         xref-show-definitions-function #'consult-xref)
   :config
   (setq consult-project-root-function #'projectile-project-root)
-  (general-define-key "s-F" nil)
   (general-define-key
-   "s-F" 'consult-ripgrep
    "s-b" 'consult-buffer
    "s-B" 'consult-buffer-other-window))
 
