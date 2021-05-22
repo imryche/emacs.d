@@ -543,6 +543,9 @@
 (use-package haml-mode
   :mode "\\.haml\\'")
 
+(use-package coffee-mode
+  :mode "\\.coffee\\'")
+
 (use-package racket-mode
   :defer t)
 
