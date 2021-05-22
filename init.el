@@ -131,7 +131,7 @@
 
 (use-package visual-regexp
   :config
-  (general-define-key "C-c C-r" 'vr/query-replace))
+  (general-define-key "s-r" 'vr/query-replace))
 
 (general-define-key
  :states '(normal visual emacs)
