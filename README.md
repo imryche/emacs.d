@@ -3,13 +3,30 @@ This is my Emacs configuration that I continuously use and improve to meet my pr
 
 ![Screenshot](https://github.com/imryche/emacs.d/raw/master/images/screenshot.png)
 
-## Summary
+# Summary
 My goal is to keep this configuration as minimal as possible while providing a fast editing experience and extensive support for the programming languages I use.
 
-## Supported versions
-It runs smoothly on Emacs 27.2.
+# Installation
 
-## Installation
+## Install Emacs
+It runs smoothly on Emacs 27.2.
+```bash
+$ brew tap d12frosted/emacs-plus
+$ brew install emacs-plus@27 --with-elrumo2-icon
+```
+
+## Install dependencies
+Ripgrep for blazingly fast recursive search in a directory.
+```bash
+$ brew install ripgrep
+```
+
+Coreutils for GNU like utilities. This config uses `gls` with `--group-directories-first` as directory program for `dired`.
+```bash
+$ brew install coreutils
+```
+
+# Installation
 To install, you have to clone this repo to `~/.emacs.d`:
 ```bash
 git clone https://github.com/imryche/emacs.d ~/.emacs.d
