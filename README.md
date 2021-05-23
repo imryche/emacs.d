@@ -38,16 +38,16 @@ $ git clone https://github.com/imryche/emacs.d ~/.emacs.d
 # Prepare keyboard
 
 ## Remap Caps Lock
-Configure your keyboard so your `Caps Lock` is `Left Ctrl`. Go to
+Configure your keyboard, so your `Caps Lock` is `Left Ctrl`. Go to
 System Preferences -> Keyboard -> Modifier Keys.
 
 ## Cursor keys on the home row
-Arrow keys are very important for navigation in modern applications,
-but their location on most keyboards is afterthought that forces you
-to move your palm back and forth frequently.
+Arrow keys are essential for navigation in modern applications,
+but their location on most keyboards looks like an afterthought that
+forces you to move your palm back and forth frequently.
 
-To make workflow more consistent I think it's a good idea to make
-`Ctrl+hjkl` combination act like arrow keys.
+To make workflow more consistent, I think it's a good idea to make
+`Ctrl+hjkl` combination act as arrow keys.
 
 Karabiner-Elements can help with this task:
 ```bash
@@ -55,5 +55,5 @@ $ brew install --cask karabiner-elements
 ```
 
 Search for `ctrl + hjkl`
-[here](https://ke-complex-modifications.pqrs.org/) to install complex
+[here](https://ke-complex-modifications.pqrs.org/) to install the
 modification.
