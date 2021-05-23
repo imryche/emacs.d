@@ -16,18 +16,21 @@ $ brew install emacs-plus@27 --with-elrumo2-icon
 ```
 
 ## Install dependencies
-Ripgrep for blazingly fast recursive search in a directory.
+Ripgrep for blazingly fast recursive search in a directory:
 ```bash
 $ brew install ripgrep
 ```
 
-Coreutils for GNU like utilities. This config uses `gls` with `--group-directories-first` as directory program for `dired`.
+Coreutils for GNU like utilities. This config uses `gls` with `--group-directories-first` as directory program for `dired`:
 ```bash
 $ brew install coreutils
 ```
 
-# Installation
-To install, you have to clone this repo to `~/.emacs.d`:
+## Install configuration
+Clone this repo to `~/.emacs.d` directory. Launch Emacs and wait for several minutes:
 ```bash
 git clone https://github.com/imryche/emacs.d ~/.emacs.d
 ```
+
+## Prepare keyboard
+Configure your keyboard so your `Caps Lock` is `Right Ctrl`. Go to System Preferences -> Keyboard -> Modifier Keys.
