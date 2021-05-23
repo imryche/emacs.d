@@ -1,10 +1,13 @@
 # Emacs configuration
-This is my Emacs configuration that I continuously use and improve to meet my programming and text editing needs.
+This is my Emacs configuration that I continuously use and improve to
+meet my programming and text editing needs.
 
 ![Screenshot](https://github.com/imryche/emacs.d/raw/master/images/screenshot.png)
 
 # Summary
-My goal is to keep this configuration as minimal as possible while providing a fast editing experience and extensive support for the programming languages I use.
+My goal is to keep this configuration as minimal as possible while
+providing a fast editing experience and extensive support for the
+programming languages I use.
 
 # Installation
 
@@ -29,8 +32,28 @@ $ brew install coreutils
 ## Install configuration
 Clone this repo to `~/.emacs.d` directory. Launch Emacs and wait for several minutes:
 ```bash
-git clone https://github.com/imryche/emacs.d ~/.emacs.d
+$ git clone https://github.com/imryche/emacs.d ~/.emacs.d
 ```
 
-## Prepare keyboard
-Configure your keyboard so your `Caps Lock` is `Right Ctrl`. Go to System Preferences -> Keyboard -> Modifier Keys.
+# Prepare keyboard
+
+## Remap Caps Lock
+Configure your keyboard so your `Caps Lock` is `Left Ctrl`. Go to
+System Preferences -> Keyboard -> Modifier Keys.
+
+## Cursor keys on the home row
+Arrow keys are very important for navigation in modern applications,
+but their location on most keyboards is afterthought that forces you
+to move your palm back and forth frequently.
+
+To make workflow more consistent I think it's a good idea to make
+`Ctrl+hjkl` combination act like arrow keys.
+
+Karabiner-Elements can help with this task:
+```bash
+$ brew install --cask karabiner-elements
+```
+
+Search for `ctrl + hjkl`
+[here](https://ke-complex-modifications.pqrs.org/) to install complex
+modification.
