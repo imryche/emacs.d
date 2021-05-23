@@ -55,5 +55,5 @@ $ brew install --cask karabiner-elements
 ```
 
 Search for `ctrl + hjkl`
-[here](https://ke-complex-modifications.pqrs.org/) to install the
+[here](https://ke-complex-modifications.pqrs.org/?q=ctrl%20%2B%20hjkl) to install the
 modification.
