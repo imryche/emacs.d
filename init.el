@@ -214,11 +214,10 @@
 (general-define-key "C-f" 'format-all-buffer)
 
 ;; Search
-(use-package rg
+(use-package deadgrep
   :config
-  (rg-enable-default-bindings)
   (general-define-key "s-F" nil)
-  (general-define-key "s-F" 'rg-menu))
+  (general-define-key "s-F" 'deadgrep))
 
 (use-package wgrep)
 
