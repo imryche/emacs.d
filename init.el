@@ -108,13 +108,6 @@
   :config
   (global-hl-line-mode))
 
-(use-package doom-modeline
-  :hook
-  (after-init . doom-modeline-mode)
-  :config
-  (setq doom-modeline-major-mode-icon nil
-        doom-modeline-buffer-modification-icon nil))
-
 (use-package emojify
   :hook (after-init . global-emojify-mode))
 
