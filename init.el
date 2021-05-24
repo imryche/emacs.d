@@ -214,6 +214,10 @@
 (general-define-key "C-f" 'format-all-buffer)
 
 ;; Search
+(use-package ctrlf
+  :config
+  (ctrlf-mode +1))
+
 (use-package deadgrep
   :config
   (general-define-key "s-F" nil)
