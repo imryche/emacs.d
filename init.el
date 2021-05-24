@@ -472,6 +472,14 @@
   (setq company-idle-delay 0.0
         company-minimum-prefix-length 1))
 
+;; Terminal
+(use-package vterm
+  :commands vterm
+  :config
+  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
+
+(general-define-key "s-t" 'vterm)
+
 ;; Languages
 (use-package lsp-mode
   :hook ((python-mode . lsp)
