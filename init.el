@@ -478,6 +478,22 @@
 
 (general-define-key "s-t" 'vterm)
 
+;; Snippets
+(use-package yasnippet
+  :commands yas-expand
+  :config
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets"))
+  (yas-global-mode 1))
+
+(general-define-key
+ :keymaps 'yas-minor-mode-map
+ "s-y" 'yas-expand
+ "s-Y" 'yas-describe-tables)
+
+(use-package yasnippet-snippets
+  :defer t)
+
 ;; Languages
 (use-package lsp-mode
   :hook ((python-mode . lsp)
