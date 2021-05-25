@@ -235,8 +235,8 @@
  "s-w" 'delete-window)
 
 (general-define-key
- "s->" 'next-buffer
- "s-<" 'previous-buffer)
+ "s-}" 'next-buffer
+ "s-{" 'previous-buffer)
 
 (use-package ace-window
   :config
