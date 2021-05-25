@@ -497,8 +497,8 @@
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
   (general-define-key
    :keymaps 'python-mode-map
-   "C-." 'lsp-find-definition
-   "C-," 'lsp-find-references))
+   "s-." 'lsp-find-definition
+   "s-," 'lsp-find-references))
 
 (use-package lsp-pyright
   :defer t
@@ -564,8 +564,8 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 (general-define-key
- "C-." 'xref-find-definitions
- "C-," 'xref-find-references)
+ "s-." 'xref-find-definitions
+ "s-," 'xref-find-references)
 
 ;; Custom iterm package
 (use-package iterm
