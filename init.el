@@ -247,8 +247,8 @@
   :after evil
   :config
   (winner-mode)
-  (define-key evil-window-map "u" 'winner-undo)
-  (define-key evil-window-map "U" 'winner-redo))
+  (general-define-key "s-w" 'winner-undo)
+  (general-define-key "s-W" 'winner-redo))
 
 (use-package ibuffer
   :commands (ibuffer)
