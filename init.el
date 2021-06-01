@@ -316,7 +316,8 @@
   (setq-default dired-listing-switches "-lhvA --group-directories-first")
   (setq dired-clean-up-buffers-too t
         dired-recursive-copies 'always
-        dired-recursive-deletes 'top)
+        dired-recursive-deletes 'top
+        dired-dwim-target t)
   (put 'dired-find-alternate-file 'disabled nil))
 
 (general-define-key "s-d" 'dired-jump)
