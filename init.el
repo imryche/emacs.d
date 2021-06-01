@@ -532,6 +532,7 @@
 
 (use-package py-isort
   :after python
+  :hook ((before-save . py-isort-before-save))
   :config
   (setq py-isort-options '("-m=3")))
 
