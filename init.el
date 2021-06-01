@@ -193,7 +193,7 @@
 
 (use-package avy
   :config
-  (general-define-key "s-;" 'avy-goto-char-2)
+  (general-define-key "s-;" 'avy-goto-char-timer)
   (general-define-key "s-'" 'avy-goto-line))
 
 (use-package undo-tree
