@@ -537,7 +537,8 @@
   (setq py-isort-options '("-m=3")))
 
 (use-package python-black
-  :after python)
+  :after python
+  :hook (python-mode . python-black-on-save-mode))
 
 (use-package pyimport
   :after python)
