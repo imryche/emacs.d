@@ -82,9 +82,6 @@
 
 (use-package hydra)
 
-;; To use Ctrl+hjkl as arrow keys system-wide, I need to remap help keybindings
-(general-define-key "C-?" help-map)
-
 ;; Profile startup time
 (use-package esup
   :init
@@ -167,7 +164,9 @@
 (use-package undo-tree
   :init
   (global-undo-tree-mode 1)
-  (general-define-key :keymaps 'undo-tree-map "C-?" nil))
+  :config
+  (general-define-key "C-/" 'undo)
+  (general-define-key "C-?" 'undo-tree-redo))
 
 (use-package smartparens
   :hook (prog-mode . smartparens-mode)
@@ -507,7 +506,7 @@
  )
 
 (use-package web-mode
-  :mode "\\.html?\\'"
+  :mode ("\\.html?\\'" "\\.scss\\'")
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
