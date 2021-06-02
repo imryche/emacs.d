@@ -132,6 +132,12 @@
   :config
   (general-define-key "s-r" 'vr/query-replace))
 
+(use-package multiple-cursors
+  :config
+  (general-define-key "C->" 'mc/mark-next-like-this)
+  (general-define-key "C-<" 'mc/mark-previous-like-this)
+  (general-define-key "C-c C-<" 'mc/mark-all-like-this))
+
 (general-define-key
  :states '(normal visual emacs)
  :prefix "["
