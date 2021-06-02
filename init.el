@@ -25,6 +25,14 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+;; Garbage collection
+(setq gc-cons-threshold (* 512 1024 1024)
+      gc-cons-percentage 0.7
+      garbage-collection-messages nil)
+
+;; Increase the amount of data which Emacs reads from the process
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 ;; Store customizations in the separate file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
@@ -54,13 +62,6 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p) ;; yes no -> y n
 
-;; Garbage collection
-(setq gc-cons-threshold 20000000)
-(add-function :after after-focus-change-function #'garbage-collect)
-
-;; Increase the amount of data which Emacs reads from the process
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
 ;; Maximize window
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -77,9 +78,7 @@
 (setq load-prefer-newer t)
 
 ;; Simplify key bindings
-(use-package general
-  :config
-  (general-evil-setup t))
+(use-package general)
 
 (use-package hydra)
 
@@ -127,7 +126,6 @@
 
 ;; Editing
 (setq-default tab-width 2)
-(setq-default evil-shift-width tab-width)
 (setq-default indent-tabs-mode nil)
 
 (use-package visual-regexp
@@ -144,46 +142,10 @@
  :prefix "]"
  "SPC" 'ryche/insert-line-below)
 
-(use-package evil
-  :init
-  (setq evil-want-keybinding nil
-        evil-respect-visual-line-mode t
-        evil-undo-system 'undo-tree)
-  :config
-  (evil-mode 1)
-
-  ;; Use visual line motions even outside of visual-line-mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-  (general-define-key :keymaps 'evil-normal-state-map "C-." nil)
-
-  (with-eval-after-load 'evil-maps
-    (define-key evil-normal-state-map (kbd "C-n") nil)
-    (define-key evil-normal-state-map (kbd "C-p") nil)))
-
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))
-
 (use-package evil-nerd-commenter
-  :after evil
   :config
   (general-define-key
    "s-/" 'evilnc-comment-or-uncomment-lines))
-
-(use-package evil-surround
-  :after evil
-  :config
-  (global-evil-surround-mode 1))
-
-(use-package evil-org
-  :after org
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme)))
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
 
 (use-package expand-region
   :config
@@ -208,8 +170,6 @@
 
 (use-package format-all
   :commands format-all-buffer)
-
-(general-define-key "C-f" 'format-all-buffer)
 
 ;; Search
 (use-package ctrlf
@@ -244,7 +204,6 @@
 
 (use-package winner
   :straight (:type built-in)
-  :after evil
   :config
   (winner-mode)
   (general-define-key "s-w" 'winner-undo)
@@ -323,18 +282,12 @@
 (general-define-key "s-d" 'dired-jump)
 
 (use-package dired-single
-  :after dired
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-up-directory
-    "l" 'dired-find-alternate-file))
+  :after dired)
 
 (use-package dired-hide-dotfiles
   :after dired
   :config
-  (dired-hide-dotfiles-mode)
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "." 'dired-hide-dotfiles-mode))
+  (dired-hide-dotfiles-mode))
 
 (use-package super-save
   :config
@@ -353,8 +306,7 @@
 (use-package magit
   :commands (magit-status)
   :config
-  (setq magit-completing-read-function #'selectrum-completing-read)
-  (add-hook 'with-editor-mode-hook 'evil-insert-state))
+  (setq magit-completing-read-function #'selectrum-completing-read))
 
 (general-define-key "s-g" nil)
 (general-define-key "s-g s" 'magit-status)
@@ -543,10 +495,10 @@
 (use-package pyimport
   :after python)
 
-(general-define-key :keymaps 'evil-motion-state-map "C-f" nil)
 (general-define-key
  :keymaps 'python-mode-map
- "C-f" 'ryche/format-python)
+ ;; "C-f" 'ryche/format-python
+ )
 
 (use-package web-mode
   :mode "\\.html?\\'"
