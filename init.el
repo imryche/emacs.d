@@ -78,7 +78,9 @@
 (setq load-prefer-newer t)
 
 ;; Simplify key bindings
-(use-package general)
+(use-package general
+  :config
+  (general-evil-setup t))
 
 (use-package hydra)
 
@@ -123,17 +125,34 @@
 
 ;; Editing
 (setq-default tab-width 2)
+(setq-default evil-shift-width tab-width)
 (setq-default indent-tabs-mode nil)
+
+(use-package evil
+  :init
+  (setq evil-want-keybinding nil
+        evil-respect-visual-line-mode t
+        evil-undo-system 'undo-tree)
+  :config
+  (evil-mode 1)
+
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (general-define-key :keymaps 'evil-normal-state-map "C-." nil)
+
+  (with-eval-after-load 'evil-maps
+    (define-key evil-normal-state-map (kbd "C-n") nil)
+    (define-key evil-normal-state-map (kbd "C-p") nil)))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 
 (use-package visual-regexp
   :config
   (general-define-key "s-r" 'vr/query-replace))
-
-(use-package multiple-cursors
-  :config
-  (general-define-key "C->" 'mc/mark-next-like-this)
-  (general-define-key "C-<" 'mc/mark-previous-like-this)
-  (general-define-key "C-c C-<" 'mc/mark-all-like-this))
 
 (general-define-key
  :states '(normal visual emacs)
@@ -146,9 +165,23 @@
  "SPC" 'ryche/insert-line-below)
 
 (use-package evil-nerd-commenter
+  :after evil
   :config
   (general-define-key
    "s-/" 'evilnc-comment-or-uncomment-lines))
+
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
+(use-package evil-org
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 (use-package expand-region
   :config
@@ -164,9 +197,7 @@
 (use-package undo-tree
   :init
   (global-undo-tree-mode 1)
-  :config
-  (general-define-key "C-/" 'undo)
-  (general-define-key "C-?" 'undo-tree-redo))
+  (general-define-key :keymaps 'undo-tree-map "C-?" nil))
 
 (use-package smartparens
   :hook (prog-mode . smartparens-mode)
@@ -175,6 +206,8 @@
 
 (use-package format-all
   :commands format-all-buffer)
+
+(general-define-key "C-f" 'format-all-buffer)
 
 ;; Search
 (use-package ctrlf
@@ -287,12 +320,18 @@
 (general-define-key "s-d" 'dired-jump)
 
 (use-package dired-single
-  :after dired)
+  :after dired
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+                              "h" 'dired-up-directory
+                              "l" 'dired-find-alternate-file))
 
 (use-package dired-hide-dotfiles
   :after dired
   :config
-  (dired-hide-dotfiles-mode))
+  (dired-hide-dotfiles-mode)
+  (evil-collection-define-key 'normal 'dired-mode-map
+                              "." 'dired-hide-dotfiles-mode))
 
 (use-package super-save
   :config
@@ -311,7 +350,8 @@
 (use-package magit
   :commands (magit-status)
   :config
-  (setq magit-completing-read-function #'selectrum-completing-read))
+  (setq magit-completing-read-function #'selectrum-completing-read)
+  (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
 (general-define-key "s-g" nil)
 (general-define-key "s-g s" 'magit-status)
@@ -500,10 +540,10 @@
 (use-package pyimport
   :after python)
 
+(general-define-key :keymaps 'evil-motion-state-map "C-f" nil)
 (general-define-key
  :keymaps 'python-mode-map
- ;; "C-f" 'ryche/format-python
- )
+ "C-f" 'ryche/format-python)
 
 (use-package web-mode
   :mode ("\\.html?\\'" "\\.scss\\'")
