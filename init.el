@@ -508,6 +508,7 @@
   ;;               (message "Added flycheck checkers."))))
 
   (setq flycheck-highlighting-mode nil)
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
 
   (defhydra hydra-error (global-map "s-e")
     "Flycheck errors"
