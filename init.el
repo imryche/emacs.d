@@ -156,6 +156,20 @@
   :config
   (general-define-key "s-r" 'vr/query-replace))
 
+(defun ryche/insert-line-above ()
+  "Insert an empty line above the current line."
+  (interactive)
+  (save-excursion
+    (end-of-line 0)
+    (open-line 1)))
+
+(defun ryche/insert-line-below ()
+  "Insert an empty line below the current line."
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (open-line 1)))
+
 (general-define-key
  :states '(normal visual emacs)
  :prefix "["
@@ -209,7 +223,7 @@
 (use-package format-all
   :commands format-all-buffer)
 
-(general-define-key "C-f" 'format-all-buffer)
+(general-define-key "s-=" 'format-all-buffer)
 
 ;; Search
 (use-package ctrlf
@@ -319,9 +333,22 @@
 (general-define-key "s-f" nil)
 (general-define-key "s-f s-s" 'save-buffer
                     "s-f s" 'save-some-buffers)
+
+(defun ryche/edit-emacs-config ()
+  "Open Emacs configuration file."
+  (interactive)
+  (find-file user-init-file))
+
+(defun ryche/reload-emacs-config ()
+  "Reload Emacs configuration file."
+  (interactive)
+  (find-file user-init-file)
+  (save-buffer)
+  (load-file user-init-file))
+
 (general-define-key
- "s-f ." 'ryche/edit-emacs-config
- "s-f >" 'ryche/reload-emacs-config)
+ "s-f s-." 'ryche/edit-emacs-config
+ "s-f ." 'ryche/reload-emacs-config)
 
 (use-package dired
   :straight (:type built-in)
@@ -343,15 +370,15 @@
   :after dired
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
-                              "h" 'dired-up-directory
-                              "l" 'dired-find-alternate-file))
+    "h" 'dired-up-directory
+    "l" 'dired-find-alternate-file))
 
 (use-package dired-hide-dotfiles
   :after dired
   :config
   (dired-hide-dotfiles-mode)
   (evil-collection-define-key 'normal 'dired-mode-map
-                              "." 'dired-hide-dotfiles-mode))
+    "." 'dired-hide-dotfiles-mode))
 
 (use-package super-save
   :config
@@ -560,10 +587,17 @@
 (use-package pyimport
   :after python)
 
-(general-define-key :keymaps 'evil-motion-state-map "C-f" nil)
+(defun ryche/format-python ()
+  "Make python buffer pretty."
+  (interactive)
+  (save-buffer)
+  (pyimport-remove-unused)
+  (py-isort-buffer)
+  (python-black-buffer))
+
 (general-define-key
  :keymaps 'python-mode-map
- "C-f" 'ryche/format-python)
+ "s-=" 'ryche/format-python)
 
 (use-package web-mode
   :mode ("\\.html?\\'" "\\.scss\\'")
@@ -606,42 +640,6 @@
 (use-package iterm
   :straight (:type built-in)
   :load-path "lisp/iterm")
-
-;; Custom functions
-(defun ryche/edit-emacs-config ()
-  "Open Emacs configuration file."
-  (interactive)
-  (find-file user-init-file))
-
-(defun ryche/reload-emacs-config ()
-  "Reload Emacs configuration file."
-  (interactive)
-  (find-file user-init-file)
-  (save-buffer)
-  (load-file user-init-file))
-
-(defun ryche/insert-line-above ()
-  "Insert an empty line above the current line."
-  (interactive)
-  (save-excursion
-    (end-of-line 0)
-    (open-line 1)))
-
-(defun ryche/insert-line-below ()
-  "Insert an empty line below the current line."
-  (interactive)
-  (save-excursion
-    (end-of-line)
-    (open-line 1)))
-
-(defun ryche/format-python ()
-  "Make python buffer pretty."
-  (interactive)
-  (save-buffer)
-  (pyimport-remove-unused)
-  (py-isort-buffer)
-  (python-black-buffer))
-
 
 (provide 'init)
 
