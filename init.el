@@ -232,6 +232,7 @@
 (use-package ctrlf
   :config
   (ctrlf-mode +1)
+  (general-define-key "C-s" nil)
   (general-define-key "s-s" 'ctrlf-forward-default
                       "M-s-s" 'ctrlf-backward-default))
 
