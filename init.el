@@ -228,10 +228,24 @@
 (setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode t)
 
+(defun ryche/split-window-below-and-switch ()
+  "Split the window horizontally and swith to the new pane."
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+
+(defun ryche/split-window-right-and-switch ()
+  "Split the window horizontally and swith to the new pane."
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+
 (general-define-key
  "s-1" 'delete-other-windows
- "s-2" 'split-window-below
- "s-3" 'split-window-right
+ "s-2" 'ryche/split-window-below-and-switch
+ "s-3" 'ryche/split-window-right-and-switch
  "s-0" 'delete-window
  "s-w" 'delete-window)
 
