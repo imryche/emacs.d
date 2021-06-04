@@ -271,6 +271,10 @@
  "s-}" 'next-buffer
  "s-{" 'previous-buffer)
 
+(general-define-key
+ "s-]" 'evil-jump-forward
+ "s-[" 'evil-jump-backward)
+
 (use-package ace-window
   :config
   (general-define-key "s-o" 'ace-window))
