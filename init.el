@@ -84,6 +84,9 @@
 
 (use-package hydra)
 
+;; To use Ctrl+hjkl as arrow keys system-wide, I need to remap help keybindings
+(general-define-key "C-?" help-map)
+
 ;; Profile startup time
 (use-package esup
   :init
@@ -212,12 +215,13 @@
 ;; Search
 (use-package ctrlf
   :config
-  (ctrlf-mode +1))
+  (ctrlf-mode +1)
+  (general-define-key "s-s" 'ctrlf-forward-default
+                      "M-s-s" 'ctrlf-backward-default))
 
 (use-package deadgrep
   :config
-  (general-define-key "s-F" nil)
-  (general-define-key "s-F" 'deadgrep))
+  (general-define-key "s-S" 'deadgrep))
 
 (use-package wgrep)
 
@@ -299,9 +303,12 @@
 
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
+(general-define-key "s-f" nil)
+(general-define-key "s-f s" 'save-buffer
+                    "s-f S" 'save-some-buffers)
 (general-define-key
- "C-c ." 'ryche/edit-emacs-config
- "C-c >" 'ryche/reload-emacs-config)
+ "s-f ." 'ryche/edit-emacs-config
+ "s-f >" 'ryche/reload-emacs-config)
 
 (use-package dired
   :straight (:type built-in)
