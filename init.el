@@ -418,39 +418,39 @@
   :init
   (global-flycheck-mode)
   :config
-  (defun flycheck-mypy--find-project-root (_checker)
-    (and buffer-file-name
-         (flycheck--locate-dominating-file-matching
-          (file-name-directory buffer-file-name)
-          (rx-to-string
-           `(: bos (or ,@flycheck-python-mypy-config) eos)
-           t))))
+  ;; (defun flycheck-mypy--find-project-root (_checker)
+  ;;   (and buffer-file-name
+  ;;        (flycheck--locate-dominating-file-matching
+  ;;         (file-name-directory buffer-file-name)
+  ;;         (rx-to-string
+  ;;          `(: bos (or ,@flycheck-python-mypy-config) eos)
+  ;;          t))))
 
-  (flycheck-define-checker python-mypy
-    "Mypy syntax and type checker."
-    :command ("mypy"
-              "--show-column-numbers"
-              (config-file "--config-file" flycheck-python-mypy-config)
-              (option "--cache-dir" flycheck-python-mypy-cache-dir)
-              source-original)
-    :working-directory flycheck-mypy--find-project-root
-    :error-patterns
-    ((error line-start (file-name) ":" line (optional ":" column)
-            ": error:" (message) line-end)
-     (warning line-start (file-name) ":" line (optional ":" column)
-              ": warning:" (message) line-end)
-     (info line-start (file-name) ":" line (optional ":" column)
-           ": note:" (message) line-end))
-    :modes python-mode
-    ;; Ensure the file is saved, to work around
-    ;; https://github.com/python/mypy/issues/4746.
-    :predicate flycheck-buffer-saved-p)
+  ;; (flycheck-define-checker python-mypy
+  ;;   "Mypy syntax and type checker."
+  ;;   :command ("mypy"
+  ;;             "--show-column-numbers"
+  ;;             (config-file "--config-file" flycheck-python-mypy-config)
+  ;;             (option "--cache-dir" flycheck-python-mypy-cache-dir)
+  ;;             source-original)
+  ;;   :working-directory flycheck-mypy--find-project-root
+  ;;   :error-patterns
+  ;;   ((error line-start (file-name) ":" line (optional ":" column)
+  ;;           ": error:" (message) line-end)
+  ;;    (warning line-start (file-name) ":" line (optional ":" column)
+  ;;             ": warning:" (message) line-end)
+  ;;    (info line-start (file-name) ":" line (optional ":" column)
+  ;;          ": note:" (message) line-end))
+  ;;   :modes python-mode
+  ;;   ;; Ensure the file is saved, to work around
+  ;;   ;; https://github.com/python/mypy/issues/4746.
+  ;;   :predicate flycheck-buffer-saved-p)
 
-  (add-hook 'lsp-after-initialize-hook
-            (lambda ()
-              (when (derived-mode-p 'python-mode)
-                (flycheck-add-next-checker 'lsp 'python-mypy t)
-                (message "Added flycheck checkers."))))
+  ;; (add-hook 'lsp-after-initialize-hook
+  ;;           (lambda ()
+  ;;             (when (derived-mode-p 'python-mode)
+  ;;               (flycheck-add-next-checker 'lsp 'python-mypy t)
+  ;;               (message "Added flycheck checkers."))))
 
   (setq flycheck-highlighting-mode nil)
 
