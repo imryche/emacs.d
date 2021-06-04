@@ -339,8 +339,8 @@
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
 (general-define-key "s-f" nil)
-(general-define-key "s-f s-s" 'save-buffer
-                    "s-f s" 'save-some-buffers)
+(general-define-key "s-f s" 'save-buffer
+                    "s-f s-s" 'save-some-buffers)
 
 (defun ryche/edit-emacs-config ()
   "Open Emacs configuration file."
@@ -355,8 +355,8 @@
   (load-file user-init-file))
 
 (general-define-key
- "s-f s-." 'ryche/edit-emacs-config
- "s-f ." 'ryche/reload-emacs-config)
+ "s-f ." 'ryche/edit-emacs-config
+ "s-f s-." 'ryche/reload-emacs-config)
 
 (use-package dired
   :straight (:type built-in)
