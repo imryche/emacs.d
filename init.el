@@ -159,6 +159,12 @@
   :config
   (evil-collection-init))
 
+(use-package move-text
+  :config
+  (general-define-key
+   "M-k" 'move-text-up
+   "M-j" 'move-text-down))
+
 (use-package visual-regexp
   :config
   (general-define-key "s-r" 'vr/query-replace))
