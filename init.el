@@ -343,8 +343,8 @@
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
 (general-define-key "s-f" nil)
-(general-define-key "s-f s" 'save-buffer
-                    "s-f s-s" 'save-some-buffers)
+(general-define-key "s-f s-s" 'save-buffer
+                    "s-f s" 'save-some-buffers)
 
 (defun ryche/edit-emacs-config ()
   "Open Emacs configuration file."
