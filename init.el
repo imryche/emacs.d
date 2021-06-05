@@ -103,9 +103,13 @@
 ;;   :config
 ;;   (load-theme 'nord t))
 
-(use-package twilight-bright-theme
+;; (use-package twilight-bright-theme
+;;   :config
+;;   (load-theme 'twilight-bright t))
+
+(use-package solarized-theme
   :config
-  (load-theme 'twilight-bright t))
+  (load-theme 'solarized-light t))
 
 (use-package hl-line
   :config
