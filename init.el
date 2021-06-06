@@ -99,14 +99,6 @@
 ;; UI
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
 
-;; (use-package nord-theme
-;;   :config
-;;   (load-theme 'nord t))
-
-;; (use-package twilight-bright-theme
-;;   :config
-;;   (load-theme 'twilight-bright t))
-
 (use-package solarized-theme
   :config
   (load-theme 'solarized-light t))
