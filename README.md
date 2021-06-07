@@ -41,7 +41,7 @@ $ git clone https://github.com/imryche/emacs.d ~/.emacs.d
 Configure your keyboard, so your `Caps Lock` is `Left Ctrl`. Go to
 System Preferences -> Keyboard -> Modifier Keys.
 
-## Cursor keys on the home row
+## Arrow keys on the home row
 Arrow keys are essential for navigation in modern applications,
 but their location on most keyboards looks like an afterthought that
 forces you to move your palm back and forth frequently.

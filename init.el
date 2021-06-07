@@ -99,13 +99,9 @@
 ;; UI
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
 
-;; (use-package nord-theme
-;;   :config
-;;   (load-theme 'nord t))
-
-(use-package twilight-bright-theme
+(use-package solarized-theme
   :config
-  (load-theme 'twilight-bright t))
+  (load-theme 'solarized-light t))
 
 (use-package hl-line
   :config
@@ -154,6 +150,12 @@
   :after evil
   :config
   (evil-collection-init))
+
+(use-package move-text
+  :config
+  (general-define-key
+   "M-k" 'move-text-up
+   "M-j" 'move-text-down))
 
 (use-package visual-regexp
   :config
@@ -339,8 +341,8 @@
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
 (general-define-key "s-f" nil)
-(general-define-key "s-f s" 'save-buffer
-                    "s-f s-s" 'save-some-buffers)
+(general-define-key "s-f s-s" 'save-buffer
+                    "s-f s" 'save-some-buffers)
 
 (defun ryche/edit-emacs-config ()
   "Open Emacs configuration file."
