@@ -394,8 +394,7 @@
 (use-package super-save
   :config
   (add-to-list 'super-save-triggers 'ace-window)
-  (super-save-mode +1)
-  (setq super-save-auto-save-when-idle t))
+  (super-save-mode +1))
 
 (use-package saveplace
   :hook ((after-init . save-place-mode)))
