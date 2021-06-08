@@ -438,7 +438,8 @@
 (use-package projectile
   :config
   (projectile-mode +1)
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
+  (general-define-key "s-p" 'projectile-find-file
+                      "s-P" 'projectile-switch-project))
 
 ;; Writing
 (use-package darkroom
