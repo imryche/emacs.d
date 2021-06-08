@@ -342,7 +342,8 @@
 
 (general-define-key "s-f" nil)
 (general-define-key "s-f s-s" 'save-buffer
-                    "s-f s" 'save-some-buffers)
+                    "s-f s" 'save-some-buffers
+                    "s-f f" 'find-file)
 
 (defun ryche/edit-emacs-config ()
   "Open Emacs configuration file."
