@@ -476,6 +476,9 @@
   :init
   (global-flycheck-mode)
   :config
+  (setq flycheck-highlighting-style nil)
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+
   (defun flycheck-mypy--find-project-root (_checker)
     (and buffer-file-name
          (flycheck--locate-dominating-file-matching
@@ -510,15 +513,13 @@
                 (flycheck-add-next-checker 'lsp 'python-mypy t)
                 (message "Added flycheck checkers."))))
 
-  (setq flycheck-highlighting-mode nil)
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
-
   (defhydra hydra-error (global-map "s-e")
     "Flycheck errors"
     ("n" flycheck-next-error "next")
     ("p" flycheck-previous-error "prev")
     ("h" flycheck-first-error "first")
     ("q" nil "quit")))
+
 
 ;; Autocompletion
 (use-package company
