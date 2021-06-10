@@ -507,11 +507,7 @@
     ;; https://github.com/python/mypy/issues/4746.
     :predicate flycheck-buffer-saved-p)
 
-  (add-hook 'lsp-after-initialize-hook
-            (lambda ()
-              (when (derived-mode-p 'python-mode)
-                (flycheck-add-next-checker 'lsp 'python-mypy t)
-                (message "Added flycheck checkers."))))
+  (add-hook 'python-mode-hook (lambda () (flycheck-add-next-checker 'python-flake8 'python-mypy)))
 
   (defhydra hydra-error (global-map "s-e")
     "Flycheck errors"
@@ -567,6 +563,7 @@
         lsp-eldoc-enable-hover nil
         lsp-modeline-diagnostics-enable nil
         lsp-signature-render-documentation nil)
+  (setq lsp-diagnostic-package :none)
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
   (general-define-key
    :keymaps 'python-mode-map
