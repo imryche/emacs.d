@@ -235,12 +235,12 @@
   :config
   (ctrlf-mode +1)
   (general-define-key "C-s" nil)
-  (general-define-key "s-s" 'ctrlf-forward-default
-                      "M-s-s" 'ctrlf-backward-default))
+  (general-define-key "s-f" 'ctrlf-forward-default
+                      "M-f" 'ctrlf-backward-default))
 
 (use-package deadgrep
   :config
-  (general-define-key "s-S" 'deadgrep))
+  (general-define-key "s-F" 'deadgrep))
 
 (use-package wgrep)
 
@@ -340,10 +340,8 @@
 
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
-(general-define-key "s-f" nil)
-(general-define-key "s-f s-s" 'save-buffer
-                    "s-f s" 'save-some-buffers
-                    "s-f f" 'find-file)
+(general-define-key "s-s" 'save-buffer
+                    "s-S" 'save-some-buffers)
 
 (defun ryche/edit-emacs-config ()
   "Open Emacs configuration file."
@@ -358,8 +356,8 @@
   (load-file user-init-file))
 
 (general-define-key
- "s-f ." 'ryche/edit-emacs-config
- "s-f s-." 'ryche/reload-emacs-config)
+ "s-i ." 'ryche/edit-emacs-config
+ "s-i s-." 'ryche/reload-emacs-config)
 
 (use-package dired
   :straight (:type built-in)
