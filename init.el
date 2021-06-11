@@ -129,6 +129,8 @@
 (setq-default evil-shift-width tab-width)
 (setq-default indent-tabs-mode nil)
 
+(electric-pair-mode 1)
+
 (use-package evil
   :init
   (setq evil-want-keybinding nil
@@ -219,11 +221,6 @@
   :init
   (global-undo-tree-mode 1)
   (general-define-key :keymaps 'undo-tree-map "C-?" nil))
-
-(use-package smartparens
-  :hook (prog-mode . smartparens-mode)
-  :config
-  (require 'smartparens-config))
 
 (use-package format-all
   :commands format-all-buffer)
