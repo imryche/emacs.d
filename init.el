@@ -59,6 +59,7 @@
 (menu-bar-mode -1)
 (tooltip-mode -1)
 (show-paren-mode 1)
+(blink-cursor-mode 0)
 
 (defalias 'yes-or-no-p 'y-or-n-p) ;; yes no -> y n
 
