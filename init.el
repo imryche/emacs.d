@@ -473,7 +473,6 @@
   (global-flycheck-mode)
   :config
   (setq flycheck-highlighting-style nil)
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
 
   (defun flycheck-mypy--find-project-root (_checker)
     (and buffer-file-name
