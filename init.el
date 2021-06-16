@@ -132,11 +132,13 @@
 
 (electric-pair-mode 1)
 
+(use-package undo-fu)
+
 (use-package evil
   :init
   (setq evil-want-keybinding nil
         evil-respect-visual-line-mode t
-        evil-undo-system 'undo-tree)
+        evil-undo-system 'undo-fu)
   :config
   (evil-mode 1)
 
@@ -217,11 +219,6 @@
   :config
   (general-define-key "s-;" 'avy-goto-char-timer)
   (general-define-key "s-l" 'avy-goto-line))
-
-(use-package undo-tree
-  :init
-  (global-undo-tree-mode 1)
-  (general-define-key :keymaps 'undo-tree-map "C-?" nil))
 
 (use-package format-all
   :commands format-all-buffer)
