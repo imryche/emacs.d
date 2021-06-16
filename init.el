@@ -212,8 +212,8 @@
 (use-package expand-region
   :config
   (general-define-key
-   "C-=" 'er/expand-region
-   "C--" 'er/contract-region))
+   "s-a" 'er/expand-region
+   "s-A" 'er/contract-region))
 
 (use-package avy
   :config
