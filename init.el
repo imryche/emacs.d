@@ -578,13 +578,11 @@
 
 (use-package py-isort
   :after python
-  :hook ((before-save . py-isort-before-save))
   :config
   (setq py-isort-options '("-m=3")))
 
 (use-package python-black
-  :after python
-  :hook (python-mode . python-black-on-save-mode))
+  :after python)
 
 (use-package pyimport
   :after python)
