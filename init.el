@@ -100,9 +100,9 @@
 ;; UI
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
 
-(use-package solarized-theme
+(use-package color-theme-sanityinc-tomorrow
   :config
-  (load-theme 'solarized-light t))
+  (color-theme-sanityinc-tomorrow-night))
 
 (use-package hl-line
   :config
