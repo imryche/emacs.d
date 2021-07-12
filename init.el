@@ -432,7 +432,8 @@
   :config
   (projectile-mode +1)
   (general-define-key "s-p" 'projectile-find-file
-                      "s-P" 'projectile-switch-project))
+                      "s-P" 'projectile-switch-project
+                      "s-R" 'projectile-replace))
 
 ;; Writing
 (use-package darkroom
