@@ -516,14 +516,6 @@
   :config
   (setq company-idle-delay 0.3))
 
-;; Terminal
-(use-package vterm
-  :commands vterm
-  :config
-  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
-
-(general-define-key "s-t" 'vterm)
-
 ;; Snippets
 (use-package yasnippet
   :commands yas-expand
