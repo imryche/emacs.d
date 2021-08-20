@@ -26,9 +26,7 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; Garbage collection
-(setq gc-cons-threshold (* 512 1024 1024)
-      gc-cons-percentage 0.7
-      garbage-collection-messages nil)
+(setq gc-cons-threshold 100000000)
 
 ;; Increase the amount of data which Emacs reads from the process
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
