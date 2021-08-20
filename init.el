@@ -584,7 +584,6 @@
   "Make python buffer pretty."
   (interactive)
   (save-buffer)
-  (pyimport-remove-unused)
   (py-isort-buffer)
   (python-black-buffer))
 
