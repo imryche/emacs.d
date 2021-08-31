@@ -275,22 +275,9 @@
   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
 ;; Completion system
-(use-package selectrum
-  :custom
-  (selectrum-fix-minibuffer-height t)
-  :config
-  (selectrum-mode +1)
-  (general-define-key
-   :keymaps 'selectrum-minibuffer-map
-   "C-r" 'selectrum-select-from-history
-   "C-j" 'selectrum-next-candidate
-   "C-k" 'selectrum-previous-candidate
-   "C-h" 'backward-kill-word))
-
-(use-package selectrum-prescient
-  :config
-  (selectrum-prescient-mode +1)
-  (prescient-persist-mode +1))
+(use-package vertico
+  :init
+  (vertico-mode))
 
 (use-package consult
   :init
@@ -302,7 +289,11 @@
   (setq consult-project-root-function #'projectile-project-root)
   (general-define-key
    "s-b" 'consult-buffer
-   "s-B" 'consult-buffer-other-window))
+   "s-B" 'consult-buffer-other-window)
+  (general-define-key
+   :states '(normal visual emacs)
+   "/" 'consult-line
+   "?" 'consult-ripgrep))
 
 (use-package marginalia
   :init
