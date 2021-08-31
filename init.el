@@ -337,9 +337,11 @@
   (save-buffer)
   (load-file user-init-file))
 
+(general-define-key "s-f" nil)
 (general-define-key
- "s-i ." 'ryche/edit-emacs-config
- "s-i s-." 'ryche/reload-emacs-config)
+ "s-f f" 'find-file
+ "s-f ." 'ryche/edit-emacs-config
+ "s-f s-." 'ryche/reload-emacs-config)
 
 (use-package dired
   :ensure nil
