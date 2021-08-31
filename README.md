@@ -14,25 +14,25 @@ programming languages I use.
 ## Install Emacs
 It runs smoothly on Emacs 27.2.
 ```bash
-$ brew tap d12frosted/emacs-plus
-$ brew install emacs-plus@27 --with-elrumo2-icon
+brew tap d12frosted/emacs-plus
+brew install emacs-plus@27 --with-elrumo2-icon
 ```
 
 ## Install dependencies
 Ripgrep for blazingly fast recursive search in a directory:
 ```bash
-$ brew install ripgrep
+brew install ripgrep
 ```
 
 Coreutils for GNU like utilities. This config uses `gls` with `--group-directories-first` as directory program for `dired`:
 ```bash
-$ brew install coreutils
+brew install coreutils
 ```
 
 ## Install configuration
 Clone this repo to `~/.emacs.d` directory. Launch Emacs and wait for several minutes:
 ```bash
-$ git clone https://github.com/imryche/emacs.d ~/.emacs.d
+git clone git@github.com:imryche/emacs.d.git ~/.emacs.d
 ```
 
 # Prepare keyboard
@@ -51,7 +51,7 @@ To make workflow more consistent, I think it's a good idea to make
 
 Karabiner-Elements can help with this task:
 ```bash
-$ brew install --cask karabiner-elements
+brew install --cask karabiner-elements
 ```
 
 Search for `ctrl + hjkl`
