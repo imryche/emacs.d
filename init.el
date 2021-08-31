@@ -263,13 +263,6 @@
   :config
   (general-define-key "s-o" 'ace-window))
 
-(use-package winner
-  :straight (:type built-in)
-  :config
-  (winner-mode)
-  (general-define-key "s-w" 'winner-undo)
-  (general-define-key "s-W" 'winner-redo))
-
 (use-package ibuffer
   :commands (ibuffer)
   :config
