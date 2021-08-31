@@ -220,14 +220,6 @@
 
 (general-define-key "s-=" 'format-all-buffer)
 
-;; Search
-(use-package ctrlf
-  :config
-  (ctrlf-mode +1)
-  (general-define-key "C-s" nil)
-  (general-define-key "s-f" 'ctrlf-forward-default
-                      "M-f" 'ctrlf-backward-default))
-
 (use-package deadgrep
   :config
   (general-define-key "s-F" 'deadgrep))
