@@ -389,7 +389,6 @@
 (use-package magit
   :commands (magit-status)
   :config
-  (setq magit-completing-read-function #'selectrum-completing-read)
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
 (general-define-key "s-g" nil)
