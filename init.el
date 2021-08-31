@@ -78,10 +78,8 @@
   :config
   (general-evil-setup t))
 
-(use-package hydra)
-
 ;; To use Ctrl+hjkl as arrow keys system-wide, I need to remap help keybindings
-(general-define-key "C-?" help-map)
+(general-define-key "s-?" help-map)
 
 ;; More convenient M-x
 (general-define-key "s-x" 'execute-extended-command)
@@ -189,7 +187,7 @@
   :after evil
   :config
   (general-define-key
-   "s-/" 'evilnc-comment-or-uncomment-lines))
+   "s-'" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
   :after evil
@@ -279,14 +277,24 @@
   :init
   (vertico-mode))
 
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
 (use-package consult
   :init
+  (setq consult-project-root-function #'projectile-project-root)
   (setq register-preview-delay 0
         register-preview-function #'consult-register-format)
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
   :config
-  (setq consult-project-root-function #'projectile-project-root)
   (general-define-key
    "s-b" 'consult-buffer
    "s-B" 'consult-buffer-other-window)
@@ -298,6 +306,14 @@
 (use-package marginalia
   :init
   (marginalia-mode))
+
+(use-package embark
+  :config
+  (general-define-key "s-x" 'embark-act
+                      "s-X" 'embark-dwim))
+
+(use-package embark-consult
+  :after (embark consult))
 
 ;; File management
 (recentf-mode 1)
@@ -326,7 +342,7 @@
  "s-i s-." 'ryche/reload-emacs-config)
 
 (use-package dired
-  :straight (:type built-in)
+  :ensure nil
   :commands (dired dired-jump)
   :config
   (when (string= system-type "darwin")
@@ -473,13 +489,8 @@
 
   (add-hook 'python-mode-hook (lambda () (flycheck-add-next-checker 'python-flake8 'python-mypy)))
 
-  (defhydra hydra-error (global-map "s-e")
-    "Flycheck errors"
-    ("n" flycheck-next-error "next")
-    ("p" flycheck-previous-error "prev")
-    ("h" flycheck-first-error "first")
-    ("q" nil "quit")))
-
+  (general-define-key "s-e" 'flycheck-next-error
+                      "s-E" 'flycheck-previous-error))
 
 ;; Autocompletion
 (use-package company
@@ -601,7 +612,7 @@
 
 ;; Custom iterm package
 (use-package iterm
-  :straight (:type built-in)
+  :ensure nil
   :load-path "lisp/iterm")
 
 (provide 'init)
