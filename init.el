@@ -497,6 +497,7 @@
 (use-package company
   :hook ((prog-mode . company-mode))
   :config
+  (company-tng-configure-default)
   (setq company-idle-delay 0.3))
 
 ;; Snippets
