@@ -531,7 +531,6 @@
         lsp-eldoc-enable-hover nil
         lsp-modeline-diagnostics-enable nil
         lsp-signature-render-documentation nil)
-  (setq lsp-diagnostic-package :none)
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
   (general-define-key
    :keymaps 'python-mode-map
