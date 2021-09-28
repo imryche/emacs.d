@@ -575,7 +575,7 @@
  "s-=" 'ryche/format-python)
 
 (use-package web-mode
-  :mode ("\\.html?\\'" "\\.scss\\'")
+  :mode ("\\.html?\\'" "\\.scss\\'" "\\.hbs\\'")
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
