@@ -582,6 +582,13 @@
         web-mode-code-indent-offset 2
         web-mode-enable-auto-expanding t))
 
+(use-package js2-mode
+  :mode ("\\.js\\'")
+  :config
+  (setq js-indent-level 2
+        js2-mode-show-parse-errors nil
+        js2-mode-show-strict-warnings nil))
+
 (use-package lispy
   :defer t)
 
