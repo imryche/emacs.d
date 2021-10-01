@@ -459,37 +459,6 @@
   (global-flycheck-mode)
   :config
   (setq flycheck-highlighting-style nil)
-
-  (defun flycheck-mypy--find-project-root (_checker)
-    (and buffer-file-name
-         (flycheck--locate-dominating-file-matching
-          (file-name-directory buffer-file-name)
-          (rx-to-string
-           `(: bos (or ,@flycheck-python-mypy-config) eos)
-           t))))
-
-  (flycheck-define-checker python-mypy
-    "Mypy syntax and type checker."
-    :command ("mypy"
-              "--show-column-numbers"
-              (config-file "--config-file" flycheck-python-mypy-config)
-              (option "--cache-dir" flycheck-python-mypy-cache-dir)
-              source-original)
-    :working-directory flycheck-mypy--find-project-root
-    :error-patterns
-    ((error line-start (file-name) ":" line (optional ":" column)
-            ": error:" (message) line-end)
-     (warning line-start (file-name) ":" line (optional ":" column)
-              ": warning:" (message) line-end)
-     (info line-start (file-name) ":" line (optional ":" column)
-           ": note:" (message) line-end))
-    :modes python-mode
-    ;; Ensure the file is saved, to work around
-    ;; https://github.com/python/mypy/issues/4746.
-    :predicate flycheck-buffer-saved-p)
-
-  (add-hook 'python-mode-hook (lambda () (flycheck-add-next-checker 'python-flake8 'python-mypy)))
-
   (general-define-key "s-e" 'flycheck-next-error
                       "s-E" 'flycheck-previous-error))
 
@@ -531,7 +500,8 @@
         lsp-semantic-tokens-enable nil
         lsp-eldoc-enable-hover nil
         lsp-modeline-diagnostics-enable nil
-        lsp-signature-render-documentation nil)
+        lsp-signature-render-documentation nil
+        lsp-diagnostic-package :none)
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
   (general-define-key
    :keymaps 'python-mode-map
