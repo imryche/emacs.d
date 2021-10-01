@@ -430,10 +430,10 @@
 (use-package org
   :defer t
   :init
-  (setq org-log-done 'time)
-  (setq org-directory "~/Dropbox/org")
-  (setq org-agenda-files (list "~/Dropbox/org/projects/"))
-  (setq org-link-frame-setup '((file . find-file)))
+  (setq org-log-done 'time
+        org-directory "~/Dropbox/org"
+        org-agenda-files (list "~/Dropbox/org/projects/")
+        org-link-frame-setup '((file . find-file)))
   :config
   (add-hook 'org-mode-hook 'visual-line-mode)
   (defun org-file-path (filename)
@@ -452,6 +452,10 @@
          ("\\.markdown\\'" . markdown-mode))
   :init
   (setq markdown-command "multimarkdown"))
+
+(use-package visual-fill-column
+  :config
+  (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
 
 ;; Syntax checking
 (use-package flycheck
@@ -545,12 +549,19 @@
  "s-=" 'ryche/format-python)
 
 (use-package web-mode
-  :mode ("\\.html?\\'" "\\.scss\\'")
+  :mode ("\\.html?\\'" "\\.scss\\'" "\\.hbs\\'" "\\.handlebars\\'")
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
         web-mode-enable-auto-expanding t))
+
+(use-package js2-mode
+  :mode ("\\.js\\'")
+  :config
+  (setq js-indent-level 2
+        js2-mode-show-parse-errors nil
+        js2-mode-show-strict-warnings nil))
 
 (use-package lispy
   :defer t)
