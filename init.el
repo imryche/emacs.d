@@ -453,6 +453,10 @@
   :init
   (setq markdown-command "multimarkdown"))
 
+(use-package visual-fill-column
+  :config
+  (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+
 ;; Syntax checking
 (use-package flycheck
   :init
@@ -575,7 +579,7 @@
  "s-=" 'ryche/format-python)
 
 (use-package web-mode
-  :mode ("\\.html?\\'" "\\.scss\\'" "\\.hbs\\'")
+  :mode ("\\.html?\\'" "\\.scss\\'" "\\.hbs\\'" "\\.handlebars\\'")
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
