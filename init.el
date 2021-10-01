@@ -430,10 +430,10 @@
 (use-package org
   :defer t
   :init
-  (setq org-log-done 'time)
-  (setq org-directory "~/Dropbox/org")
-  (setq org-agenda-files (list "~/Dropbox/org/projects/"))
-  (setq org-link-frame-setup '((file . find-file)))
+  (setq org-log-done 'time
+        org-directory "~/Dropbox/org"
+        org-agenda-files (list "~/Dropbox/org/projects/")
+        org-link-frame-setup '((file . find-file)))
   :config
   (add-hook 'org-mode-hook 'visual-line-mode)
   (defun org-file-path (filename)
