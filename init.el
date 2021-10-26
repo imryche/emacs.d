@@ -405,7 +405,11 @@
 (general-define-key "s-g l" 'git-link)
 
 (use-package git-timemachine
-  :commands git-timemachine)
+  :commands git-timemachine
+  :config
+  (evil-define-minor-mode-key 'normal 'git-timemachine-mode
+    "gp" 'git-timemachine-show-previous-revision
+    "gn" 'git-timemachine-show-next-revision))
 
 (general-define-key "s-g t" 'git-timemachine)
 
