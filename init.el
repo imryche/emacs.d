@@ -522,7 +522,8 @@
   (setq lsp-pyright-typechecking-mode "off"))
 
 (use-package auto-virtualenv
-  :config
+  :defer t
+  :init
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
   (add-hook 'window-configuration-change-hook 'auto-virtualenv-set-virtualenv))
 
