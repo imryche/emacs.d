@@ -81,9 +81,6 @@
 ;; To use Ctrl+hjkl as arrow keys system-wide, I need to remap help keybindings
 (general-define-key "s-?" help-map)
 
-;; More convenient M-x
-(general-define-key "s-x" 'execute-extended-command)
-
 ;; Profile startup time
 (use-package esup
   :init
