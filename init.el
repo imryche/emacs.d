@@ -212,7 +212,6 @@
 
 (use-package format-all
   :commands format-all-buffer)
-
 (general-define-key "s-=" 'format-all-buffer)
 
 (use-package deadgrep
@@ -303,13 +302,13 @@
   :init
   (marginalia-mode))
 
-(use-package embark
-  :config
-  (general-define-key "s-x" 'embark-act
-                      "s-X" 'embark-dwim))
+;; (use-package embark
+;;   :config
+;;   (general-define-key "s-x" 'embark-act
+;;                       "s-X" 'embark-dwim))
 
-(use-package embark-consult
-  :after (embark consult))
+;; (use-package embark-consult
+;;   :after (embark consult))
 
 ;; File management
 (recentf-mode 1)
@@ -411,12 +410,12 @@
 
 (general-define-key "s-g t" 'git-timemachine)
 
-(use-package diff-hl
-  :init
-  (global-diff-hl-mode)
-  :config
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+;; (use-package diff-hl
+;;   :init
+;;   (global-diff-hl-mode)
+;;   :config
+;;   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+;;   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package projectile
   :config
@@ -424,7 +423,6 @@
   (general-define-key "s-p" 'projectile-find-file
                       "s-P" 'projectile-switch-project
                       "s-R" 'projectile-replace))
-
 ;; Writing
 (use-package darkroom
   :commands darkroom-mode)
