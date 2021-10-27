@@ -283,21 +283,21 @@
   (savehist-mode))
 
 (use-package consult
+  :commands (consult-buffer consult-buffer-other-window consult-line consult-ripgrep)
   :init
   (setq consult-project-root-function #'projectile-project-root)
   (setq register-preview-delay 0
         register-preview-function #'consult-register-format)
   (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
-  :config
-  (general-define-key
-   "s-b" 'consult-buffer
-   "s-B" 'consult-buffer-other-window)
-  (general-define-key "s-f" nil)
-  (general-define-key
-   :states '(normal visual emacs)
-   "s-f" 'consult-line
-   "s-F" 'consult-ripgrep))
+        xref-show-definitions-function #'consult-xref))
+(general-define-key
+ "s-b" 'consult-buffer
+ "s-B" 'consult-buffer-other-window)
+(general-define-key "s-f" nil)
+(general-define-key
+ :states '(normal visual emacs)
+ "s-f" 'consult-line
+ "s-F" 'consult-ripgrep)
 
 (use-package marginalia
   :init
