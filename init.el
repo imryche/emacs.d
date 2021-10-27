@@ -295,10 +295,11 @@
   (general-define-key
    "s-b" 'consult-buffer
    "s-B" 'consult-buffer-other-window)
+  (general-define-key "s-f" nil)
   (general-define-key
    :states '(normal visual emacs)
-   "/" 'consult-line
-   "?" 'consult-ripgrep))
+   "s-f" 'consult-line
+   "s-F" 'consult-ripgrep))
 
 (use-package marginalia
   :init
@@ -334,11 +335,10 @@
   (save-buffer)
   (load-file user-init-file))
 
-(general-define-key "s-f" nil)
 (general-define-key
- "s-f f" 'find-file
- "s-f ." 'ryche/edit-emacs-config
- "s-f s-." 'ryche/reload-emacs-config)
+ "s-/ /" 'find-file
+ "s-/ ." 'ryche/edit-emacs-config
+ "s-/ s-." 'ryche/reload-emacs-config)
 
 (use-package dired
   :ensure nil
