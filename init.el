@@ -336,7 +336,10 @@
   (load-file user-init-file))
 
 (general-define-key
- "s-/ /" 'find-file
+ :states '(normal visual emacs)
+ "/" 'find-file)
+
+(general-define-key
  "s-/ ." 'ryche/edit-emacs-config
  "s-/ s-." 'ryche/reload-emacs-config)
 
