@@ -216,10 +216,8 @@
 (general-define-key "s-=" 'format-all-buffer)
 
 (use-package deadgrep
-  :config
-  (general-define-key "s-F" 'deadgrep))
-
-(use-package wgrep)
+  :commands deadgrep)
+(general-define-key "M-f" 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
