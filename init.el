@@ -98,8 +98,8 @@
   :config
   (global-hl-line-mode))
 
-(use-package emojify
-  :hook (after-init . global-emojify-mode))
+;; (use-package emojify
+;;   :hook (after-init . global-emojify-mode))
 
 (use-package which-key
   :init
@@ -180,11 +180,13 @@
  :prefix "]"
  "SPC" 'ryche/insert-line-below)
 
-(use-package evil-nerd-commenter
-  :after evil
-  :config
-  (general-define-key
-   "s-'" 'evilnc-comment-or-uncomment-lines))
+(general-define-key "s-'" 'comment-line)
+
+;; (use-package evil-nerd-commenter
+;;   :after evil
+;;   :config
+;;   (general-define-key
+;;    "s-'" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
   :after evil
@@ -255,16 +257,16 @@
   :config
   (general-define-key "s-o" 'ace-window))
 
-(use-package ibuffer
-  :commands (ibuffer)
-  :config
-  (general-define-key
-   "C-x C-b" 'ibuffer))
+;; (use-package ibuffer
+;;   :commands (ibuffer)
+;;   :config
+;;   (general-define-key
+;;    "C-x C-b" 'ibuffer))
 
-(use-package ibuffer-vc
-  :after ibuffer
-  :config
-  (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
+;; (use-package ibuffer-vc
+;;   :after ibuffer
+;;   :config
+;;   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
 ;; Completion system
 (use-package vertico
@@ -424,8 +426,8 @@
                       "s-P" 'projectile-switch-project
                       "s-R" 'projectile-replace))
 ;; Writing
-(use-package darkroom
-  :commands darkroom-mode)
+;; (use-package darkroom
+;;   :commands darkroom-mode)
 
 (use-package org
   :defer t
@@ -489,37 +491,37 @@
 (use-package yasnippet-snippets
   :defer t)
 
-;; Languages
-(use-package lsp-mode
-  :hook ((python-mode . lsp)
-         (ruby-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :config
-  (setq lsp-headerline-breadcrumb-enable nil
-        lsp-enable-symbol-highlighting nil
-        lsp-lens-enable nil
-        lsp-semantic-tokens-enable nil
-        lsp-eldoc-enable-hover nil
-        lsp-modeline-diagnostics-enable nil
-        lsp-signature-render-documentation nil
-        lsp-diagnostic-package :none)
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
-  (general-define-key
-   :keymaps 'python-mode-map
-   "s-." 'lsp-find-definition
-   "s-," 'lsp-find-references))
+;; ;; Languages
+;; (use-package lsp-mode
+;;   :hook ((python-mode . lsp)
+;;          (ruby-mode . lsp)
+;;          (lsp-mode . lsp-enable-which-key-integration))
+;;   :commands lsp
+;;   :init
+;;   (setq lsp-keymap-prefix "C-c l")
+;;   :config
+;;   (setq lsp-headerline-breadcrumb-enable nil
+;;         lsp-enable-symbol-highlighting nil
+;;         lsp-lens-enable nil
+;;         lsp-semantic-tokens-enable nil
+;;         lsp-eldoc-enable-hover nil
+;;         lsp-modeline-diagnostics-enable nil
+;;         lsp-signature-render-documentation nil
+;;         lsp-diagnostic-package :none)
+;;   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
+;;   (general-define-key
+;;    :keymaps 'python-mode-map
+;;    "s-." 'lsp-find-definition
+;;    "s-," 'lsp-find-references))
 
-(use-package lsp-pyright
-  :defer t
-  :hook
-  (python-mode . (lambda ()
-                   (require 'lsp-pyright)
-                   (lsp-deferred)))
-  :config
-  (setq lsp-pyright-typechecking-mode "off"))
+;; (use-package lsp-pyright
+;;   :defer t
+;;   :hook
+;;   (python-mode . (lambda ()
+;;                    (require 'lsp-pyright)
+;;                    (lsp-deferred)))
+;;   :config
+;;   (setq lsp-pyright-typechecking-mode "off"))
 
 (use-package auto-virtualenv
   :defer t
@@ -584,7 +586,6 @@
 
 ;; Jump to definition everywhere
 (use-package dumb-jump
-  :commands (xref-find-definitions xref-find-references)
   :config
   (setq dumb-jump-selector 'selectrum)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
