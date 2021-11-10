@@ -394,13 +394,6 @@
 
 (general-define-key "s-g t" 'git-timemachine)
 
-;; (use-package diff-hl
-;;   :init
-;;   (global-diff-hl-mode)
-;;   :config
-;;   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-;;   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
-
 (use-package projectile
   :config
   (projectile-mode +1)
