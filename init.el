@@ -283,13 +283,6 @@
   :init
   (marginalia-mode))
 
-;; (use-package embark
-;;   :config
-;;   (general-define-key "s-x" 'embark-act
-;;                       "s-X" 'embark-dwim))
-
-;; (use-package embark-consult
-;;   :after (embark consult))
 ;; Isearch
 (general-define-key
  :states '(normal visual emacs)
