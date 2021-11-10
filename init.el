@@ -248,17 +248,6 @@
   :config
   (general-define-key "s-o" 'ace-window))
 
-;; (use-package ibuffer
-;;   :commands (ibuffer)
-;;   :config
-;;   (general-define-key
-;;    "C-x C-b" 'ibuffer))
-
-;; (use-package ibuffer-vc
-;;   :after ibuffer
-;;   :config
-;;   (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
-
 ;; Completion system
 (use-package vertico
   :init
