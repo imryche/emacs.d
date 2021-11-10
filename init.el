@@ -151,7 +151,7 @@
 
 (use-package visual-regexp
   :config
-  (general-define-key "s-r" 'vr/query-replace))
+  (general-define-key "s-t" 'vr/query-replace))
 
 (defun ryche/insert-line-above ()
   "Insert an empty line above the current line."
@@ -215,7 +215,7 @@
 
 (use-package deadgrep
   :commands deadgrep)
-(general-define-key "M-f" 'deadgrep)
+(general-define-key "M-F" 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -291,11 +291,10 @@
 (general-define-key
  "s-b" 'consult-buffer
  "s-B" 'consult-buffer-other-window)
-(general-define-key "s-f" nil)
 (general-define-key
  :states '(normal visual emacs)
- "s-f" 'consult-line
- "s-F" 'consult-ripgrep)
+ "M-f" 'consult-ripgrep
+ "s-L" 'consult-goto-line)
 
 (use-package marginalia
   :init
@@ -308,6 +307,16 @@
 
 ;; (use-package embark-consult
 ;;   :after (embark consult))
+;; Isearch
+(general-define-key
+ :states '(normal visual emacs)
+ "s-f" 'isearch-forward
+ "s-F" 'isearch-forward-symbol-at-point
+ "s-r" 'isearch-backward)
+(general-define-key
+ :keymaps 'isearch-mode-map
+ "s-f" 'isearch-repeat-forward
+ "s-r" 'isearch-repeat-backward)
 
 ;; File management
 (recentf-mode 1)
@@ -421,10 +430,10 @@
   (projectile-mode +1)
   (general-define-key "s-p" 'projectile-find-file
                       "s-P" 'projectile-switch-project
-                      "s-R" 'projectile-replace))
 ;; Writing
 ;; (use-package darkroom
 ;;   :commands darkroom-mode)
+                      "s-T" 'projectile-replace))
 
 (use-package org
   :defer t
