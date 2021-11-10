@@ -98,9 +98,6 @@
   :config
   (global-hl-line-mode))
 
-;; (use-package emojify
-;;   :hook (after-init . global-emojify-mode))
-
 (use-package which-key
   :init
   (which-key-mode)
