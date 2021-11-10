@@ -463,38 +463,6 @@
 (use-package yasnippet-snippets
   :defer t)
 
-;; ;; Languages
-;; (use-package lsp-mode
-;;   :hook ((python-mode . lsp)
-;;          (ruby-mode . lsp)
-;;          (lsp-mode . lsp-enable-which-key-integration))
-;;   :commands lsp
-;;   :init
-;;   (setq lsp-keymap-prefix "C-c l")
-;;   :config
-;;   (setq lsp-headerline-breadcrumb-enable nil
-;;         lsp-enable-symbol-highlighting nil
-;;         lsp-lens-enable nil
-;;         lsp-semantic-tokens-enable nil
-;;         lsp-eldoc-enable-hover nil
-;;         lsp-modeline-diagnostics-enable nil
-;;         lsp-signature-render-documentation nil
-;;         lsp-diagnostic-package :none)
-;;   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.mypy_cache\\'")
-;;   (general-define-key
-;;    :keymaps 'python-mode-map
-;;    "s-." 'lsp-find-definition
-;;    "s-," 'lsp-find-references))
-
-;; (use-package lsp-pyright
-;;   :defer t
-;;   :hook
-;;   (python-mode . (lambda ()
-;;                    (require 'lsp-pyright)
-;;                    (lsp-deferred)))
-;;   :config
-;;   (setq lsp-pyright-typechecking-mode "off"))
-
 (use-package auto-virtualenv
   :defer t
   :init
