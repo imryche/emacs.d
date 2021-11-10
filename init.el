@@ -399,9 +399,6 @@
   (projectile-mode +1)
   (general-define-key "s-p" 'projectile-find-file
                       "s-P" 'projectile-switch-project
-;; Writing
-;; (use-package darkroom
-;;   :commands darkroom-mode)
                       "s-T" 'projectile-replace))
 
 (use-package org
