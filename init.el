@@ -151,7 +151,7 @@
 
 (use-package visual-regexp
   :config
-  (general-define-key "s-t" 'vr/query-replace))
+  (general-define-key "s-a" 'vr/query-replace))
 
 (defun ryche/insert-line-above ()
   "Insert an empty line above the current line."
@@ -195,8 +195,8 @@
 (use-package expand-region
   :config
   (general-define-key
-   "s-a" 'er/expand-region
-   "s-A" 'er/contract-region))
+   "M-h" 'er/expand-region
+   "M-l" 'er/contract-region))
 
 (use-package avy
   :config
