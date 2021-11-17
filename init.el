@@ -138,6 +138,10 @@
     (define-key evil-normal-state-map (kbd "C-n") nil)
     (define-key evil-normal-state-map (kbd "C-p") nil)))
 
+(general-define-key
+ :states '(normal visual emacs)
+ "C-u" 'evil-scroll-up)
+
 (use-package evil-collection
   :after evil
   :config
