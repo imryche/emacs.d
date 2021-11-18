@@ -181,7 +181,11 @@
  :prefix "]"
  "SPC" 'ryche/insert-line-below)
 
-(general-define-key "s-'" 'comment-line)
+(use-package evil-nerd-commenter
+  :after evil
+  :config
+  (general-define-key
+   "s-'" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
   :after evil
