@@ -217,7 +217,7 @@
 
 (use-package deadgrep
   :commands deadgrep)
-(general-define-key "M-F" 'deadgrep)
+(general-define-key "M-f" 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -284,7 +284,7 @@
  "s-I" 'consult-buffer-other-window)
 (general-define-key
  :states '(normal visual emacs)
- "M-f" 'consult-ripgrep
+ "s-F" 'consult-ripgrep
  "s-L" 'consult-goto-line)
 
 (use-package marginalia
@@ -295,7 +295,6 @@
 (general-define-key
  :states '(normal visual emacs)
  "s-f" 'isearch-forward
- "s-F" 'isearch-forward-symbol-at-point
  "s-r" 'isearch-backward)
 (general-define-key
  :keymaps 'isearch-mode-map
