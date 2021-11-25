@@ -67,12 +67,6 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; Always compile packages and use the newest version available
-(use-package auto-compile
-  :config (auto-compile-on-load-mode))
-
-(setq load-prefer-newer t)
-
 ;; Simplify key bindings
 (use-package general
   :config
@@ -395,8 +389,10 @@
 (general-define-key "s-g t" 'git-timemachine)
 
 (use-package projectile
-  :config
+  :init
   (projectile-mode +1)
+  :config
+  (setq projectile-enable-caching t)
   (general-define-key "s-p" 'projectile-find-file
                       "s-P" 'projectile-switch-project
                       "s-T" 'projectile-replace))
