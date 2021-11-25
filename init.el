@@ -132,6 +132,10 @@
     (define-key evil-normal-state-map (kbd "C-n") nil)
     (define-key evil-normal-state-map (kbd "C-p") nil)))
 
+(general-define-key
+ :states '(normal visual emacs)
+ "C-u" 'evil-scroll-up)
+
 (use-package evil-collection
   :after evil
   :config
@@ -145,7 +149,7 @@
 
 (use-package visual-regexp
   :config
-  (general-define-key "s-t" 'vr/query-replace))
+  (general-define-key "s-a" 'vr/query-replace))
 
 (defun ryche/insert-line-above ()
   "Insert an empty line above the current line."
@@ -171,7 +175,11 @@
  :prefix "]"
  "SPC" 'ryche/insert-line-below)
 
-(general-define-key "s-'" 'comment-line)
+(use-package evil-nerd-commenter
+  :after evil
+  :config
+  (general-define-key
+   "s-'" 'evilnc-comment-or-uncomment-lines))
 
 (use-package evil-surround
   :after evil
@@ -189,8 +197,8 @@
 (use-package expand-region
   :config
   (general-define-key
-   "s-a" 'er/expand-region
-   "s-A" 'er/contract-region))
+   "M-h" 'er/expand-region
+   "M-l" 'er/contract-region))
 
 (use-package avy
   :config
@@ -203,7 +211,7 @@
 
 (use-package deadgrep
   :commands deadgrep)
-(general-define-key "M-F" 'deadgrep)
+(general-define-key "s-F" 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -266,8 +274,8 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
 (general-define-key
- "s-b" 'consult-buffer
- "s-B" 'consult-buffer-other-window)
+ "s-i" 'consult-buffer
+ "s-I" 'consult-buffer-other-window)
 (general-define-key
  :states '(normal visual emacs)
  "M-f" 'consult-ripgrep
@@ -281,7 +289,6 @@
 (general-define-key
  :states '(normal visual emacs)
  "s-f" 'isearch-forward
- "s-F" 'isearch-forward-symbol-at-point
  "s-r" 'isearch-backward)
 (general-define-key
  :keymaps 'isearch-mode-map
