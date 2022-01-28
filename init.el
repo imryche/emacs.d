@@ -399,7 +399,7 @@
   :init
   (projectile-mode +1)
   :config
-  (setq projectile-enable-caching t)
+  (setq projectile-enable-caching nil)
   (general-define-key "s-p" 'projectile-find-file
                       "s-P" 'projectile-switch-project
                       "s-T" 'projectile-replace))
