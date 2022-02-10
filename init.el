@@ -275,7 +275,8 @@
         xref-show-definitions-function #'consult-xref))
 (general-define-key
  "s-i" 'consult-buffer
- "s-I" 'consult-buffer-other-window)
+ "s-I" 'consult-buffer-other-window
+ "M-i" 'ibuffer)
 (general-define-key
  :states '(normal visual emacs)
  "M-f" 'consult-ripgrep
