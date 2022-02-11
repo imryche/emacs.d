@@ -467,6 +467,8 @@
 (use-package yasnippet-snippets
   :defer t)
 
+(use-package python-mode)
+
 (use-package auto-virtualenv
   :defer t
   :init
