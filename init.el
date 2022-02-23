@@ -286,6 +286,7 @@
   (marginalia-mode))
 
 ;; Isearch
+(setq search-whitespace-regexp ".*?")
 (general-define-key
  :states '(normal visual emacs)
  "s-f" 'isearch-forward
