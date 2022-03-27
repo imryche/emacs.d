@@ -67,14 +67,6 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; Simplify key bindings
-(use-package general
-  :config
-  (general-evil-setup t))
-
-;; To use Ctrl+hjkl as arrow keys system-wide, I need to remap help keybindings
-(general-define-key "s-?" help-map)
-
 ;; Profile startup time
 (use-package esup
   :init
@@ -82,7 +74,7 @@
   :commands (esup))
 
 ;; UI
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" ))
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono-13" ))
 
 (use-package color-theme-sanityinc-tomorrow
   :config
@@ -126,30 +118,27 @@
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-  (general-define-key :keymaps 'evil-normal-state-map "C-." nil)
+
+  (evil-set-leader 'normal "," t)
+  (defvar my-leader-map (make-sparse-keymap)
+    "Keymap for \"leader key\" shortcuts.")
+
+  ;; binding "," to the keymap
+  (define-key evil-normal-state-map "," my-leader-map)
 
   (with-eval-after-load 'evil-maps
     (define-key evil-normal-state-map (kbd "C-n") nil)
     (define-key evil-normal-state-map (kbd "C-p") nil)))
 
-(general-define-key
- :states '(normal visual emacs)
- "C-u" 'evil-scroll-up)
+(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
 
 (use-package evil-collection
   :after evil
   :config
   (evil-collection-init))
 
-(use-package move-text
-  :config
-  (general-define-key
-   "M-k" 'move-text-up
-   "M-j" 'move-text-down))
-
-(use-package visual-regexp
-  :config
-  (general-define-key "s-a" 'vr/query-replace))
+(use-package visual-regexp)
+(define-key my-leader-map "r" 'vr/query-replace)
 
 (defun ryche/insert-line-above ()
   "Insert an empty line above the current line."
@@ -165,21 +154,12 @@
     (end-of-line)
     (open-line 1)))
 
-(general-define-key
- :states '(normal visual emacs)
- :prefix "["
- "SPC" 'ryche/insert-line-above)
-
-(general-define-key
- :states '(normal visual emacs)
- :prefix "]"
- "SPC" 'ryche/insert-line-below)
+(define-key evil-normal-state-map (kbd "[SPC") 'ryche/insert-line-above)
+(define-key evil-normal-state-map (kbd "]SPC") 'ryche/insert-line-above)
 
 (use-package evil-nerd-commenter
-  :after evil
-  :config
-  (general-define-key
-   "s-'" 'evilnc-comment-or-uncomment-lines))
+  :after evil)
+(define-key evil-normal-state-map (kbd "M-'") 'evilnc-comment-or-uncomment-lines)
 
 (use-package evil-surround
   :after evil
@@ -194,24 +174,20 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-(use-package expand-region
-  :config
-  (general-define-key
-   "M-h" 'er/expand-region
-   "M-l" 'er/contract-region))
+(use-package expand-region)
+(define-key evil-normal-state-map (kbd "M-e") 'er/expand-region)
 
-(use-package avy
-  :config
-  (general-define-key "s-;" 'avy-goto-char-timer)
-  (general-define-key "s-l" 'avy-goto-line))
+(use-package avy)
+(define-key evil-normal-state-map (kbd "M-;") 'avy-goto-char-timer)
+(define-key evil-normal-state-map (kbd "M-l") 'avy-goto-line)
 
 (use-package format-all
   :commands format-all-buffer)
-(general-define-key "s-=" 'format-all-buffer)
+(define-key evil-normal-state-map (kbd "M-=") 'format-all-buffer)
 
 (use-package deadgrep
   :commands deadgrep)
-(general-define-key "s-F" 'deadgrep)
+(define-key my-leader-map "f" 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -231,24 +207,18 @@
   (balance-windows)
   (other-window 1))
 
-(general-define-key
- "s-1" 'delete-other-windows
- "s-2" 'ryche/split-window-below-and-switch
- "s-3" 'ryche/split-window-right-and-switch
- "s-0" 'delete-window
- "s-w" 'delete-window)
+(define-key my-leader-map "1" 'delete-other-windows)
+(define-key my-leader-map "2" 'ryche/split-window-below-and-switch)
+(define-key my-leader-map "3" 'ryche/split-window-right-and-switch)
+(define-key my-leader-map "q" 'delete-window)
 
-(general-define-key
- "s-}" 'next-buffer
- "s-{" 'previous-buffer)
+(define-key my-leader-map "k" 'kill-this-buffer)
 
-(general-define-key
- "s-]" 'evil-jump-forward
- "s-[" 'evil-jump-backward)
+(define-key evil-normal-state-map (kbd "M-]") 'next-buffer)
+(define-key evil-normal-state-map (kbd "M-[") 'previous-buffer)
 
-(use-package ace-window
-  :config
-  (general-define-key "s-o" 'ace-window))
+(use-package ace-window)
+(define-key my-leader-map "w" 'ace-window)
 
 ;; Completion system
 (use-package vertico
@@ -273,14 +243,10 @@
         register-preview-function #'consult-register-format)
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
-(general-define-key
- "s-i" 'consult-buffer
- "s-I" 'consult-buffer-other-window
- "M-i" 'ibuffer)
-(general-define-key
- :states '(normal visual emacs)
- "M-f" 'consult-ripgrep
- "s-L" 'consult-goto-line)
+
+(define-key evil-normal-state-map (kbd "M-b") 'ibuffer)
+(define-key my-leader-map "b" 'consult-buffer)
+(define-key my-leader-map "B" 'consult-buffer-other-window)
 
 (use-package marginalia
   :init
@@ -288,14 +254,6 @@
 
 ;; Isearch
 (setq search-whitespace-regexp ".*?")
-(general-define-key
- :states '(normal visual emacs)
- "s-f" 'isearch-forward
- "s-r" 'isearch-backward)
-(general-define-key
- :keymaps 'isearch-mode-map
- "s-f" 'isearch-repeat-forward
- "s-r" 'isearch-repeat-backward)
 
 ;; File management
 (recentf-mode 1)
@@ -304,28 +262,17 @@
 
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
-(general-define-key "s-s" 'save-buffer
-                    "s-S" 'save-some-buffers)
+(define-key my-leader-map "s" 'save-buffer)
+(define-key my-leader-map "S" 'save-some-buffers)
 
 (defun ryche/edit-emacs-config ()
   "Open Emacs configuration file."
   (interactive)
   (find-file user-init-file))
 
-(defun ryche/reload-emacs-config ()
-  "Reload Emacs configuration file."
-  (interactive)
-  (find-file user-init-file)
-  (save-buffer)
-  (load-file user-init-file))
+(define-key evil-normal-state-map "/" 'find-file)
 
-(general-define-key
- :states '(normal visual emacs)
- "/" 'find-file)
-
-(general-define-key
- "s-/ ." 'ryche/edit-emacs-config
- "s-/ s-." 'ryche/reload-emacs-config)
+(define-key my-leader-map "." 'ryche/edit-emacs-config)
 
 (use-package dired
   :ensure nil
@@ -341,7 +288,7 @@
         dired-dwim-target t)
   (put 'dired-find-alternate-file 'disabled nil))
 
-(general-define-key "s-d" 'dired-jump)
+(define-key my-leader-map "d" 'dired-jump)
 
 (use-package dired-single
   :after dired
@@ -375,8 +322,7 @@
   :config
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
-(general-define-key "s-g" nil)
-(general-define-key "s-g s" 'magit-status)
+(define-key my-leader-map "cs" 'magit-status)
 
 (use-package magit-todos
   :defer t)
@@ -386,7 +332,7 @@
   :config
   (setq git-link-open-in-browser t))
 
-(general-define-key "s-g l" 'git-link)
+(define-key my-leader-map "cl" 'git-link)
 
 (use-package git-timemachine
   :commands git-timemachine
@@ -395,16 +341,15 @@
     "gp" 'git-timemachine-show-previous-revision
     "gn" 'git-timemachine-show-next-revision))
 
-(general-define-key "s-g t" 'git-timemachine)
+(define-key my-leader-map "ct" 'git-timemachine)
 
 (use-package projectile
   :init
   (projectile-mode +1)
   :config
-  (setq projectile-enable-caching nil)
-  (general-define-key "s-p" 'projectile-find-file
-                      "s-P" 'projectile-switch-project
-                      "s-T" 'projectile-replace))
+  (setq projectile-enable-caching nil))
+(define-key my-leader-map "/" 'projectile-find-file)
+(define-key my-leader-map "?" 'projectile-switch-project)
 
 (use-package org
   :defer t
@@ -441,9 +386,9 @@
   :init
   (global-flycheck-mode)
   :config
-  (setq flycheck-highlighting-style nil)
-  (general-define-key "s-e" 'flycheck-next-error
-                      "s-E" 'flycheck-previous-error))
+  (setq flycheck-highlighting-style nil))
+(define-key my-leader-map "e" 'flycheck-next-error)
+(define-key my-leader-map "E" 'flycheck-previous-error)
 
 ;; Autocompletion
 (use-package company
@@ -459,11 +404,8 @@
   (setq yas-snippet-dirs
         '("~/.emacs.d/snippets"))
   (yas-global-mode 1))
-
-(general-define-key
- :keymaps 'yas-minor-mode-map
- "s-y" 'yas-expand
- "s-Y" 'yas-describe-tables)
+(define-key my-leader-map "y" 'yas-expand)
+(define-key my-leader-map "Y" 'yas-describe-tables)
 
 (use-package yasnippet-snippets
   :defer t)
@@ -494,9 +436,7 @@
   (py-isort-buffer)
   (python-black-buffer))
 
-(general-define-key
- :keymaps 'python-mode-map
- "s-=" 'ryche/format-python)
+(define-key python-mode-map (kbd "M-=") 'ryche/format-python)
 
 (use-package web-mode
   :mode ("\\.html?\\'" "\\.scss\\'" "\\.hbs\\'" "\\.handlebars\\'")
@@ -540,9 +480,7 @@
   (setq dumb-jump-selector 'selectrum)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
-(general-define-key
- "s-." 'xref-find-definitions
- "s-," 'xref-find-references)
+(define-key my-leader-map "g" 'xref-find-definitions)
 
 ;; Custom iterm package
 (use-package iterm
