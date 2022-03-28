@@ -180,7 +180,7 @@
 (define-key evil-normal-state-map (kbd "M-e") 'er/expand-region)
 
 (use-package avy)
-(define-key evil-normal-state-map (kbd "M-;") 'avy-goto-char-timer)
+(define-key evil-normal-state-map (kbd "M-j") 'avy-goto-char-timer)
 (define-key evil-normal-state-map (kbd "M-l") 'avy-goto-line)
 
 (use-package format-all
