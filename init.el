@@ -189,7 +189,7 @@
 
 (use-package deadgrep
   :commands deadgrep)
-(define-key my-leader-map "f" 'deadgrep)
+(define-key my-leader-map "d" 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -290,7 +290,7 @@
         dired-dwim-target t)
   (put 'dired-find-alternate-file 'disabled nil))
 
-(define-key my-leader-map "d" 'dired-jump)
+(define-key my-leader-map "f" 'dired-jump)
 
 (use-package dired-single
   :after dired
