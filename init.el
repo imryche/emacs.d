@@ -220,7 +220,11 @@
 (define-key evil-normal-state-map (kbd "M-[") 'previous-buffer)
 
 (use-package ace-window)
-(define-key my-leader-map "w" 'ace-window)
+(define-key evil-normal-state-map (kbd "M-w") 'ace-window)
+(define-key evil-normal-state-map (kbd "M-h") 'windmove-left)
+(define-key evil-normal-state-map (kbd "M-j") 'windmove-down)
+(define-key evil-normal-state-map (kbd "M-k") 'windmove-up)
+(define-key evil-normal-state-map (kbd "M-l") 'windmove-right)
 
 ;; Completion system
 (use-package vertico
