@@ -276,7 +276,7 @@
   (interactive)
   (find-file user-init-file))
 
-(define-key evil-normal-state-map "/" 'find-file)
+(define-key evil-normal-state-map (kbd "M-/") 'find-file)
 
 (define-key my-leader-map "." 'ryche/edit-emacs-config)
 
@@ -354,8 +354,8 @@
   (projectile-mode +1)
   :config
   (setq projectile-enable-caching nil))
-(define-key evil-normal-state-map (kbd "M-/") 'projectile-find-file)
-(define-key evil-normal-state-map (kbd "M-?") 'projectile-switch-project)
+(define-key evil-normal-state-map (kbd "/") 'projectile-find-file)
+(define-key evil-normal-state-map (kbd "?") 'projectile-switch-project)
 
 (use-package org
   :defer t
