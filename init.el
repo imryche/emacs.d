@@ -350,8 +350,8 @@
   (projectile-mode +1)
   :config
   (setq projectile-enable-caching nil))
-(define-key my-leader-map "/" 'projectile-find-file)
-(define-key my-leader-map "?" 'projectile-switch-project)
+(define-key evil-normal-state-map (kbd "M-/") 'projectile-find-file)
+(define-key evil-normal-state-map (kbd "M-?") 'projectile-switch-project)
 
 (use-package org
   :defer t
