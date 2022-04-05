@@ -122,11 +122,11 @@
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
   (evil-set-leader 'normal "," t)
-  (defvar my-leader-map (make-sparse-keymap)
+  (defvar leader-map (make-sparse-keymap)
     "Keymap for \"leader key\" shortcuts.")
 
   ;; binding "," to the keymap
-  (define-key evil-normal-state-map "," my-leader-map)
+  (define-key evil-normal-state-map "," leader-map)
 
   (with-eval-after-load 'evil-maps
     (define-key evil-normal-state-map (kbd "C-n") nil)
@@ -140,7 +140,7 @@
   (evil-collection-init))
 
 (use-package visual-regexp)
-(define-key my-leader-map "r" 'vr/query-replace)
+(define-key leader-map "r" 'vr/query-replace)
 
 (defun ryche/insert-line-above ()
   "Insert an empty line above the current line."
@@ -189,7 +189,7 @@
 
 (use-package deadgrep
   :commands deadgrep)
-(define-key my-leader-map "d" 'deadgrep)
+(define-key leader-map "f" 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -209,12 +209,12 @@
   (balance-windows)
   (other-window 1))
 
-(define-key my-leader-map "1" 'delete-other-windows)
-(define-key my-leader-map "2" 'ryche/split-window-below-and-switch)
-(define-key my-leader-map "3" 'ryche/split-window-right-and-switch)
-(define-key my-leader-map "q" 'delete-window)
+(define-key leader-map "1" 'delete-other-windows)
+(define-key leader-map "2" 'ryche/split-window-below-and-switch)
+(define-key leader-map "3" 'ryche/split-window-right-and-switch)
+(define-key leader-map "w" 'delete-window)
 
-(define-key my-leader-map "k" 'kill-this-buffer)
+(define-key leader-map "k" 'kill-this-buffer)
 
 (define-key evil-normal-state-map (kbd "M-]") 'next-buffer)
 (define-key evil-normal-state-map (kbd "M-[") 'previous-buffer)
@@ -251,8 +251,8 @@
         xref-show-definitions-function #'consult-xref))
 
 (define-key evil-normal-state-map (kbd "M-b") 'ibuffer)
-(define-key my-leader-map "b" 'consult-buffer)
-(define-key my-leader-map "B" 'consult-buffer-other-window)
+(define-key leader-map "b" 'consult-buffer)
+(define-key leader-map "B" 'consult-buffer-other-window)
 
 (use-package marginalia
   :init
@@ -268,8 +268,8 @@
 
 (setq vc-follow-symlinks t) ;; Follow symlinks without asking
 
-(define-key my-leader-map "s" 'save-buffer)
-(define-key my-leader-map "S" 'save-some-buffers)
+(define-key leader-map "s" 'save-buffer)
+(define-key leader-map "S" 'save-some-buffers)
 
 (defun ryche/edit-emacs-config ()
   "Open Emacs configuration file."
@@ -278,7 +278,7 @@
 
 (define-key evil-normal-state-map (kbd "M-/") 'find-file)
 
-(define-key my-leader-map "." 'ryche/edit-emacs-config)
+(define-key leader-map "." 'ryche/edit-emacs-config)
 
 (use-package dired
   :ensure nil
@@ -294,7 +294,7 @@
         dired-dwim-target t)
   (put 'dired-find-alternate-file 'disabled nil))
 
-(define-key my-leader-map "f" 'dired-jump)
+(define-key leader-map "d" 'dired-jump)
 
 (use-package dired-single
   :after dired
@@ -328,7 +328,7 @@
   :config
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
-(define-key my-leader-map "cs" 'magit-status)
+(define-key leader-map "cs" 'magit-status)
 
 (use-package magit-todos
   :defer t)
@@ -338,7 +338,7 @@
   :config
   (setq git-link-open-in-browser t))
 
-(define-key my-leader-map "cl" 'git-link)
+(define-key leader-map "cl" 'git-link)
 
 (use-package git-timemachine
   :commands git-timemachine
@@ -347,7 +347,7 @@
     "gp" 'git-timemachine-show-previous-revision
     "gn" 'git-timemachine-show-next-revision))
 
-(define-key my-leader-map "ct" 'git-timemachine)
+(define-key leader-map "ct" 'git-timemachine)
 
 (use-package projectile
   :init
@@ -393,8 +393,8 @@
   (global-flycheck-mode)
   :config
   (setq flycheck-highlighting-style nil))
-(define-key my-leader-map "e" 'flycheck-next-error)
-(define-key my-leader-map "E" 'flycheck-previous-error)
+(define-key leader-map "e" 'flycheck-next-error)
+(define-key leader-map "E" 'flycheck-previous-error)
 
 ;; Autocompletion
 (use-package company
@@ -410,8 +410,8 @@
   (setq yas-snippet-dirs
         '("~/.emacs.d/snippets"))
   (yas-global-mode 1))
-(define-key my-leader-map "y" 'yas-expand)
-(define-key my-leader-map "Y" 'yas-describe-tables)
+(define-key leader-map "y" 'yas-expand)
+(define-key leader-map "Y" 'yas-describe-tables)
 
 (use-package yasnippet-snippets
   :defer t)
@@ -486,7 +486,7 @@
   (setq dumb-jump-selector 'selectrum)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
-(define-key my-leader-map "g" 'xref-find-definitions)
+(define-key leader-map "g" 'xref-find-definitions)
 
 ;; Custom iterm package
 (use-package iterm
