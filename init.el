@@ -180,8 +180,8 @@
 (define-key evil-normal-state-map (kbd "M-e") 'er/expand-region)
 
 (use-package avy)
-(define-key evil-normal-state-map (kbd "M-j") 'avy-goto-char-timer)
-(define-key evil-normal-state-map (kbd "M-l") 'avy-goto-line)
+(define-key leader-map "a" 'avy-goto-char-timer)
+(define-key leader-map "z" 'avy-goto-line)
 
 (use-package format-all
   :commands format-all-buffer)
@@ -214,13 +214,10 @@
 (define-key leader-map "3" 'ryche/split-window-right-and-switch)
 (define-key leader-map "w" 'delete-window)
 
-(define-key leader-map "k" 'kill-this-buffer)
+(define-key leader-map "q" 'kill-this-buffer)
+(define-key leader-map "n" 'next-buffer)
+(define-key leader-map "v" 'previous-buffer)
 
-(define-key evil-normal-state-map (kbd "M-]") 'next-buffer)
-(define-key evil-normal-state-map (kbd "M-[") 'previous-buffer)
-
-(use-package ace-window)
-(define-key evil-normal-state-map (kbd "M-w") 'ace-window)
 (define-key evil-normal-state-map (kbd "M-h") 'windmove-left)
 (define-key evil-normal-state-map (kbd "M-j") 'windmove-down)
 (define-key evil-normal-state-map (kbd "M-k") 'windmove-up)
