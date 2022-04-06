@@ -185,7 +185,7 @@
 
 (use-package format-all
   :commands format-all-buffer)
-(define-key evil-normal-state-map (kbd "M-=") 'format-all-buffer)
+(define-key evil-normal-state-map (kbd "C-=") 'format-all-buffer)
 
 (use-package deadgrep
   :commands deadgrep)
@@ -422,7 +422,7 @@
   (py-isort-buffer)
   (python-black-buffer))
 
-(define-key python-mode-map (kbd "M-=") 'ryche/format-python)
+(evil-define-key 'normal python-mode-map (kbd "C-=") 'ryche/format-python)
 
 (use-package web-mode
   :mode ("\\.html?\\'" "\\.scss\\'" "\\.hbs\\'" "\\.handlebars\\'")
