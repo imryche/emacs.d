@@ -243,7 +243,7 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
 
-(define-key evil-normal-state-map (kbd "M-b") 'ibuffer)
+(define-key leader-map "i" 'ibuffer)
 (define-key leader-map "b" 'consult-buffer)
 (define-key leader-map "B" 'consult-buffer-other-window)
 
