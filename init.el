@@ -161,7 +161,7 @@
 
 (use-package evil-nerd-commenter
   :after evil)
-(define-key evil-normal-state-map (kbd "M-'") 'evilnc-comment-or-uncomment-lines)
+(define-key evil-normal-state-map (kbd "C-'") 'evilnc-comment-or-uncomment-lines)
 
 (use-package evil-surround
   :after evil
@@ -177,7 +177,7 @@
   (evil-org-agenda-set-keys))
 
 (use-package expand-region)
-(define-key evil-normal-state-map (kbd "M-e") 'er/expand-region)
+(define-key leader-map "e" 'er/expand-region)
 
 (use-package avy)
 (define-key leader-map "a" 'avy-goto-char-timer)
@@ -215,13 +215,11 @@
 (define-key leader-map "w" 'delete-window)
 
 (define-key leader-map "q" 'kill-this-buffer)
-(define-key leader-map "n" 'next-buffer)
-(define-key leader-map "v" 'previous-buffer)
 
-(define-key evil-normal-state-map (kbd "M-h") 'windmove-left)
-(define-key evil-normal-state-map (kbd "M-j") 'windmove-down)
-(define-key evil-normal-state-map (kbd "M-k") 'windmove-up)
-(define-key evil-normal-state-map (kbd "M-l") 'windmove-right)
+(define-key evil-normal-state-map (kbd "C-h") 'windmove-left)
+(define-key evil-normal-state-map (kbd "C-j") 'windmove-down)
+(define-key evil-normal-state-map (kbd "C-k") 'windmove-up)
+(define-key evil-normal-state-map (kbd "C-l") 'windmove-right)
 
 ;; Completion system
 (use-package vertico
@@ -390,8 +388,8 @@
   (global-flycheck-mode)
   :config
   (setq flycheck-highlighting-style nil))
-(define-key leader-map "e" 'flycheck-next-error)
-(define-key leader-map "E" 'flycheck-previous-error)
+(define-key evil-normal-state-map (kbd "C-.") 'flycheck-next-error)
+(define-key evil-normal-state-map (kbd "C-,") 'flycheck-previous-error)
 
 ;; Autocompletion
 (use-package company
@@ -471,6 +469,7 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 (define-key leader-map "g" 'xref-find-definitions)
+(define-key leader-map "G" 'xref-find-references)
 
 ;; Custom iterm package
 (use-package iterm
