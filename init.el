@@ -216,10 +216,8 @@
 
 (define-key leader-map "q" 'kill-this-buffer)
 
-(define-key evil-normal-state-map (kbd "C-h") 'windmove-left)
-(define-key evil-normal-state-map (kbd "C-j") 'windmove-down)
-(define-key evil-normal-state-map (kbd "C-k") 'windmove-up)
-(define-key evil-normal-state-map (kbd "C-l") 'windmove-right)
+(use-package ace-window)
+(define-key leader-map (kbd "TAB") 'ace-window)
 
 ;; Completion system
 (use-package vertico
