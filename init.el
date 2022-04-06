@@ -400,19 +400,6 @@
   (company-tng-mode)
   (setq company-idle-delay 0.3))
 
-;; Snippets
-(use-package yasnippet
-  :commands yas-expand
-  :config
-  (setq yas-snippet-dirs
-        '("~/.emacs.d/snippets"))
-  (yas-global-mode 1))
-(define-key leader-map "y" 'yas-expand)
-(define-key leader-map "Y" 'yas-describe-tables)
-
-(use-package yasnippet-snippets
-  :defer t)
-
 (use-package python-mode)
 
 (use-package auto-virtualenv
