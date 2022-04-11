@@ -127,6 +127,7 @@
 
   ;; binding "," to the keymap
   (define-key evil-normal-state-map "," leader-map)
+  (define-key evil-visual-state-map "," leader-map)
 
   (with-eval-after-load 'evil-maps
     (define-key evil-normal-state-map (kbd "C-n") nil)
