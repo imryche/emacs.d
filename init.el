@@ -82,6 +82,10 @@
   :config
   (color-theme-sanityinc-tomorrow-night))
 
+(global-font-lock-mode 0)
+(add-hook 'magit-mode-hook (lambda () (font-lock-mode t)))
+(add-hook 'dired-mode-hook (lambda () (font-lock-mode t)))
+
 (use-package hl-line
   :config
   (global-hl-line-mode))
