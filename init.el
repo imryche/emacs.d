@@ -398,7 +398,8 @@
   (setq company-idle-delay 0.3)
   (delete 'company-clang company-backends))
 
-(use-package python-mode)
+(use-package python-mode
+  :defer t)
 
 (use-package auto-virtualenv
   :defer t
