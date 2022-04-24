@@ -22,12 +22,6 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-;; Garbage collection
-(setq gc-cons-threshold 100000000)
-
-;; Increase the amount of data which Emacs reads from the process
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
 ;; Store customizations in the separate file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
