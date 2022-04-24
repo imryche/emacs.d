@@ -5,6 +5,12 @@
 
 ;;; Code:
 
+;; Garbage collection
+(defconst original-gc-cons-threshold gc-cons-threshold
+  "Initial value of garbage collection threshold.")
+(setq gc-cons-threshold (* 128 1024 1024))
+(add-hook 'after-init-hook (lambda ()(setq gc-cons-threshold original-gc-cons-threshold)))
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("org" . "http://orgmode.org/elpa/")
