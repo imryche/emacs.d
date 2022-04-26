@@ -78,13 +78,8 @@
 (when (string= system-type "darwin")
   (add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" )))
 
-(use-package color-theme-sanityinc-tomorrow
-  :config
-  (color-theme-sanityinc-tomorrow-night))
-
-(global-font-lock-mode 0)
-(add-hook 'magit-mode-hook (lambda () (font-lock-mode t)))
-(add-hook 'dired-mode-hook (lambda () (font-lock-mode t)))
+(use-package autothemer)
+(load-theme 'nohl t)
 
 (use-package hl-line
   :config
