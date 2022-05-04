@@ -47,6 +47,7 @@
       make-backup-files nil
       create-lockfiles nil
       auto-save-default nil
+      use-dialog-box nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (tool-bar-mode -1)
