@@ -73,7 +73,7 @@
   (highlight (:inverse-video nil :background nohl-highlight))
   (mode-line (:foreground nohl-fg :background nohl-contrast-bg :weight 'normal
                           :box (:line-width 1 :color nohl-contrast-bg)))
-  (mode-line-buffer-id (:foreground nohl-orange :background nil))
+  (mode-line-buffer-id (:foreground nohl-fg :background nil))
   (mode-line-inactive (:inherit 'mode-line
                                 :foreground nohl-comment
                                 :background nohl-highlight
