@@ -93,3 +93,7 @@ var/
 
 # lsp
 .lsp-session*
+
+eln-cache/
+history
+projects
