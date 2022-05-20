@@ -42,11 +42,13 @@
       coding-system-for-write 'utf-8
       sentence-end-double-space nil
       fill-column 80
+      scroll-margin 5
       initial-scratch-message ""
       frame-resize-pixelwise t
       make-backup-files nil
       create-lockfiles nil
       auto-save-default nil
+      use-dialog-box nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (tool-bar-mode -1)
