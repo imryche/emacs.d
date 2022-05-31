@@ -122,13 +122,13 @@
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
-  (evil-set-leader 'normal "," t)
+  (evil-set-leader 'normal (kbd "SPC") t)
   (defvar leader-map (make-sparse-keymap)
     "Keymap for \"leader key\" shortcuts.")
 
-  ;; binding "," to the keymap
-  (define-key evil-normal-state-map "," leader-map)
-  (define-key evil-visual-state-map "," leader-map)
+  ;; binding "SPC" to the keymap
+  (define-key evil-normal-state-map (kbd "SPC") leader-map)
+  (define-key evil-visual-state-map (kbd "SPC") leader-map)
 
   (with-eval-after-load 'evil-maps
     (define-key evil-normal-state-map (kbd "C-n") nil)
