@@ -41,6 +41,7 @@
       coding-system-for-read 'utf-8
       coding-system-for-write 'utf-8
       sentence-end-double-space nil
+      cursor-type 'box
       fill-column 80
       scroll-margin 5
       initial-scratch-message ""
@@ -115,6 +116,7 @@
   (setq evil-want-keybinding nil
         evil-respect-visual-line-mode t
         evil-undo-system 'undo-fu)
+  (setq evil-insert-state-cursor 'box)
   :config
   (evil-mode 1)
 
