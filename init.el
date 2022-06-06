@@ -471,7 +471,7 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 (define-key leader-map "g" 'xref-find-definitions)
-(define-key leader-map "G" 'xref-find-references)
+(define-key leader-map "G" 'xref-find-definitions-other-window)
 
 ;; Custom iterm package
 (use-package iterm
