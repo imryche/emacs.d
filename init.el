@@ -248,8 +248,8 @@
         xref-show-definitions-function #'consult-xref))
 
 (define-key leader-map "i" 'ibuffer)
-(define-key leader-map "b" 'consult-buffer)
-(define-key leader-map "B" 'consult-buffer-other-window)
+(define-key leader-map ";" 'consult-buffer)
+(define-key leader-map ":" 'consult-buffer-other-window)
 
 (use-package marginalia
   :init
