@@ -184,8 +184,8 @@
 (define-key leader-map "e" 'er/expand-region)
 
 (use-package avy)
-(define-key leader-map "a" 'avy-goto-char-timer)
-(define-key leader-map "z" 'avy-goto-line)
+(define-key leader-map "j" 'avy-goto-char-timer)
+(define-key leader-map "l" 'avy-goto-line)
 
 (use-package format-all
   :commands format-all-buffer)
