@@ -220,6 +220,8 @@
 
 (define-key leader-map "q" 'kill-this-buffer)
 
+(define-key leader-map (kbd "SPC") 'execute-extended-command)
+
 (use-package ace-window)
 (define-key leader-map (kbd "TAB") 'ace-window)
 
