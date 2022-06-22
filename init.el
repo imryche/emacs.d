@@ -277,7 +277,7 @@
 
 (define-key evil-normal-state-map (kbd "/") 'find-file)
 
-(define-key leader-map "." 'ryche/edit-emacs-config)
+(define-key leader-map "/" 'ryche/edit-emacs-config)
 
 (use-package dired
   :ensure nil
@@ -474,8 +474,8 @@
   (setq dumb-jump-selector 'selectrum)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
-(define-key leader-map "g" 'xref-find-definitions)
-(define-key leader-map "G" 'xref-find-definitions-other-window)
+(define-key leader-map "." 'xref-find-definitions)
+(define-key leader-map ">" 'xref-find-definitions-other-window)
 
 ;; Custom iterm package
 (use-package iterm
