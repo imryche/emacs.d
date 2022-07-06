@@ -77,9 +77,9 @@
   :commands (esup))
 
 ;; UI
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-13" ))
+(add-to-list 'default-frame-alist '(font . "IBM Plex Mono-12" ))
 (when (string= system-type "darwin")
-  (add-to-list 'default-frame-alist '(font . "JetBrains Mono-14" )))
+  (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-14" )))
 
 (use-package autothemer)
 (load-theme 'nohl t)
