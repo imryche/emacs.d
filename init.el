@@ -327,10 +327,10 @@
 (use-package magit
   :commands (magit-status)
   :config
+  ;; Free the leader key in magit
+  (define-key magit-status-mode-map (kbd "SPC") nil)
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
-;; Free the leader key in magit
-(define-key magit-status-mode-map (kbd "SPC") nil)
 
 (define-key leader-map "cs" 'magit-status)
 
