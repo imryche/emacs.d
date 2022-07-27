@@ -245,7 +245,6 @@
 (use-package consult
   :commands (consult-buffer consult-buffer-other-window consult-line consult-ripgrep)
   :init
-  (setq consult-project-root-function #'projectile-project-root)
   (setq register-preview-delay 0
         register-preview-function #'consult-register-format)
   (setq xref-show-xrefs-function #'consult-xref
@@ -356,13 +355,9 @@
 
 (define-key leader-map "mt" 'git-timemachine)
 
-(use-package projectile
-  :init
-  (projectile-mode +1)
-  :config
-  (setq projectile-enable-caching nil))
-(define-key leader-map "p" 'projectile-find-file)
-(define-key leader-map "P" 'projectile-switch-project)
+(use-package project)
+(define-key leader-map "p" 'project-find-file)
+(define-key leader-map "P" 'project-switch-project)
 
 (use-package org
   :defer t
