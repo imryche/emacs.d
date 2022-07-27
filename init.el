@@ -195,7 +195,7 @@
 
 (use-package deadgrep
   :commands deadgrep)
-(define-key leader-map "f" 'deadgrep)
+(define-key leader-map "F" 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -261,6 +261,9 @@
 
 ;; Isearch
 (setq search-whitespace-regexp ".*?")
+(define-key leader-map "f" 'isearch-forward)
+(define-key isearch-mode-map (kbd "C-n") 'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "C-p") 'isearch-repeat-backward)
 
 ;; File management
 (recentf-mode 1)
