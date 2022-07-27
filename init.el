@@ -52,11 +52,9 @@
       use-dialog-box nil
       ediff-window-setup-function 'ediff-setup-windows-plain)
 
-(setq sh-basic-offset 2)
-
-(tool-bar-mode -1)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(menu-bar-lines . 0) default-frame-alist)
 (scroll-bar-mode -1)
-(menu-bar-mode -1)
 (tooltip-mode -1)
 (show-paren-mode 1)
 (blink-cursor-mode 0)
