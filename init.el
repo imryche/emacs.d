@@ -280,6 +280,7 @@
   (interactive)
   (find-file user-init-file))
 
+(define-key leader-map "f/" 'find-file)
 (define-key leader-map "f." 'ryche/edit-emacs-config)
 
 (use-package dired
