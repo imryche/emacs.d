@@ -334,7 +334,7 @@
   (add-hook 'with-editor-mode-hook 'evil-insert-state))
 
 
-(define-key leader-map "cs" 'magit-status)
+(define-key leader-map "ms" 'magit-status)
 
 (use-package magit-todos
   :defer t)
@@ -344,7 +344,7 @@
   :config
   (setq git-link-open-in-browser t))
 
-(define-key leader-map "cl" 'git-link)
+(define-key leader-map "ml" 'git-link)
 
 (use-package git-timemachine
   :commands git-timemachine
@@ -353,7 +353,7 @@
     "gp" 'git-timemachine-show-previous-revision
     "gn" 'git-timemachine-show-next-revision))
 
-(define-key leader-map "ct" 'git-timemachine)
+(define-key leader-map "mt" 'git-timemachine)
 
 (use-package projectile
   :init
