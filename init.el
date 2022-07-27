@@ -195,7 +195,7 @@
 
 (use-package deadgrep
   :commands deadgrep)
-(define-key leader-map "F" 'deadgrep)
+(define-key evil-normal-state-map (kbd "?") 'deadgrep)
 
 ;; Windows and buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -261,7 +261,7 @@
 
 ;; Isearch
 (setq search-whitespace-regexp ".*?")
-(define-key leader-map "f" 'isearch-forward)
+(define-key evil-normal-state-map (kbd "/") 'isearch-forward)
 (define-key isearch-mode-map (kbd "C-n") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "C-p") 'isearch-repeat-backward)
 
@@ -280,9 +280,7 @@
   (interactive)
   (find-file user-init-file))
 
-(define-key evil-normal-state-map (kbd "/") 'find-file)
-
-(define-key leader-map "/" 'ryche/edit-emacs-config)
+(define-key leader-map "f." 'ryche/edit-emacs-config)
 
 (use-package dired
   :ensure nil
