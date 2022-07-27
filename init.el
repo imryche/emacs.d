@@ -292,6 +292,7 @@
           insert-directory-program "/usr/local/bin/gls"))
   (setq-default dired-listing-switches "-lhvA --group-directories-first")
   (setq dired-clean-up-buffers-too t
+        dired-kill-when-opening-new-dired-buffer t
         dired-recursive-copies 'always
         dired-recursive-deletes 'top
         dired-dwim-target t)
