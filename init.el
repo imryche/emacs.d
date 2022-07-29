@@ -392,7 +392,12 @@
   :init
   (global-flycheck-mode)
   :config
-  (setq flycheck-highlighting-style nil))
+  (setq flycheck-highlighting-style nil)
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (setq flycheck-clang-include-path
+                    (list (expand-file-name (concat (project-root (project-current)) "src")))))))
+
 (define-key evil-normal-state-map (kbd "C-.") 'flycheck-next-error)
 (define-key evil-normal-state-map (kbd "C-,") 'flycheck-previous-error)
 
