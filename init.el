@@ -284,6 +284,7 @@
   :ensure nil
   :commands (dired dired-jump)
   :config
+  (evil-collection-define-key 'normal 'dired-mode-map " " nil)
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired t
           insert-directory-program "/usr/local/bin/gls"))
