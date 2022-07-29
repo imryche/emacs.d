@@ -477,6 +477,7 @@
 
 (define-key leader-map "." 'xref-find-definitions)
 (define-key leader-map ">" 'xref-find-definitions-other-window)
+(define-key leader-map "," 'xref-pop-marker-stack)
 
 ;; Custom iterm package
 (use-package iterm
