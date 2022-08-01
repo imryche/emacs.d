@@ -410,6 +410,17 @@
   (setq company-idle-delay 0.3)
   (delete 'company-clang company-backends))
 
+;; Compilation
+(defun ryche/compile-project ()
+  "Handy project compilation."
+  (interactive)
+  (if (get-buffer "*compilation*")
+      (recompile)
+    (project-compile)))
+
+(define-key leader-map "c" 'ryche/compile-project)
+
+;; Languages
 (use-package python-mode
   :defer t)
 
