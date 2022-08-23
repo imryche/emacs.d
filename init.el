@@ -81,8 +81,18 @@
 (when (string= system-type "darwin")
   (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-14" )))
 
-(use-package autothemer)
-(load-theme 'nohl t)
+(use-package color-theme-sanityinc-tomorrow
+  :config
+  (color-theme-sanityinc-tomorrow-night))
+
+(defun ryche/customize-highlighting ()
+  "Customize highlighting."
+  (setq font-lock-defaults '(nil)
+        font-lock-constant-face nil
+        font-lock-keyword-face nil
+        font-lock-string-face nil))
+
+(add-hook 'prog-mode-hook 'ryche/customize-highlighting)
 
 (use-package hl-line
   :config
