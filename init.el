@@ -420,6 +420,9 @@
   (setq company-idle-delay 0.3)
   (delete 'company-clang company-backends))
 
+;; Debugging
+(setq gdb-many-windows t)
+
 ;; Languages
 (use-package python-mode
   :defer t)
