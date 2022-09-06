@@ -13,8 +13,7 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
-(setq package-archives '(("org" . "http://orgmode.org/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -181,14 +180,6 @@
   :after evil
   :config
   (global-evil-surround-mode 1))
-
-(use-package evil-org
-  :after org
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme)))
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
 
 (use-package expand-region)
 (define-key leader-map "e" 'er/expand-region)
@@ -367,24 +358,6 @@
 (use-package project)
 (define-key leader-map "p" 'project-find-file)
 (define-key leader-map "P" 'project-switch-project)
-
-(use-package org
-  :defer t
-  :init
-  (setq org-log-done 'time
-        org-directory "~/Dropbox/org"
-        org-agenda-files (list "~/Dropbox/org/projects/")
-        org-link-frame-setup '((file . find-file)))
-  :config
-  (add-hook 'org-mode-hook 'visual-line-mode)
-  (defun org-file-path (filename)
-    "Return the absolute address of an org file, given its relative name."
-    (concat (file-name-as-directory org-directory) filename)))
-
-(use-package org-bullets
-  :defer t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 (use-package markdown-mode
   :defer t
