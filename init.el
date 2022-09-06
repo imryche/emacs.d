@@ -368,24 +368,6 @@
 (define-key leader-map "p" 'project-find-file)
 (define-key leader-map "P" 'project-switch-project)
 
-(use-package org
-  :defer t
-  :init
-  (setq org-log-done 'time
-        org-directory "~/Dropbox/org"
-        org-agenda-files (list "~/Dropbox/org/projects/")
-        org-link-frame-setup '((file . find-file)))
-  :config
-  (add-hook 'org-mode-hook 'visual-line-mode)
-  (defun org-file-path (filename)
-    "Return the absolute address of an org file, given its relative name."
-    (concat (file-name-as-directory org-directory) filename)))
-
-(use-package org-bullets
-  :defer t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
 (use-package markdown-mode
   :defer t
   :mode (("README\\.md\\'" . gfm-mode)
