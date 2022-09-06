@@ -77,7 +77,7 @@
   :commands (esup))
 
 ;; UI
-(add-to-list 'default-frame-alist '(font . "IBM Plex Mono-12" ))
+(add-to-list 'default-frame-alist '(font . "IBM Plex Mono-11" ))
 (when (string= system-type "darwin")
   (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-14" )))
 
