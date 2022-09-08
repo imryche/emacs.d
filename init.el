@@ -219,7 +219,7 @@
 (define-key leader-map "3" 'ryche/split-window-right-and-switch)
 (define-key leader-map "w" 'delete-window)
 
-(define-key leader-map "q" 'kill-this-buffer)
+(define-key leader-map "k" 'kill-this-buffer)
 
 (define-key leader-map (kbd "SPC") 'execute-extended-command)
 
