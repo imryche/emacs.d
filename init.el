@@ -53,7 +53,7 @@
 
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
-(scroll-bar-mode -1)
+(push '(vertical-scroll-bars) default-frame-alist)
 (tooltip-mode -1)
 (show-paren-mode 1)
 (blink-cursor-mode 0)
